@@ -1,0 +1,166 @@
+.login-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #FFB6C1 0%, #FFD1DC 100%);
+  padding: 40rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-header {
+  text-align: center;
+  margin: 60rpx 0 80rpx;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.app-name {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333;
+  margin-top: 20rpx;
+}
+
+.welcome-text {
+  font-size: 28rpx;
+  color: #666;
+  margin-top: 10rpx;
+}
+
+.login-form {
+  background: white;
+  border-radius: 20rpx;
+  padding: 60rpx 40rpx;
+  box-shadow: 0 8rpx 40rpx rgba(255, 107, 149, 0.2);
+}
+
+.input-group {
+  margin-bottom: 60rpx;
+}
+
+.t-input {
+  margin-bottom: 40rpx;
+}
+
+.login-buttons {
+  margin-bottom: 40rpx;
+}
+
+.wechat-login {
+  margin-bottom: 40rpx;
+}
+
+.agreement {
+  text-align: center;
+  margin-top: 20rpx;
+}
+
+.agreement-label {
+  font-size: 24rpx;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.link {
+  color: #FF6B95;
+  margin: 0 8rpx;
+}
+
+.guide-section {
+  margin-top: 40rpx;
+}
+
+/* 引导模态框样式 */
+.guide-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 20rpx;
+  width: 80%;
+  max-width: 600rpx;
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 40rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-body {
+  padding: 40rpx;
+}
+
+.guide-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.guide-item:last-child {
+  margin-bottom: 0;
+}
+
+.guide-item text {
+  margin-left: 20rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+
+/* 自定义组件样式 */
+.t-input__wrapper {
+  border-radius: 12rpx;
+}
+
+.t-button {
+  border-radius: 12rpx;
+}
+
+.t-button--primary {
+  background: linear-gradient(135deg, #FF6B95 0%, #FF8E9E 100%);
+  border: none;
+}
+
+.t-button--primary:active {
+  background: linear-gradient(135deg, #E55A85 0%, #E57C8E 100%);
+}
+
+.t-button--default {
+  border: 2rpx solid #FF6B95;
+  color: #FF6B95;
+  background: white;
+}
+
+.t-button--default:active {
+  background: #FFF5F7;
+}
+
+.t-divider {
+  margin: 40rpx 0;
+}

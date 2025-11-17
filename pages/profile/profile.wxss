@@ -1,0 +1,143 @@
+.profile-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #FFB6C1 0%, #FFD1DC 100%);
+  padding: 20rpx;
+}
+
+.user-header {
+  background: white;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  margin-bottom: 30rpx;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4rpx 20rpx rgba(255, 182, 193, 0.3);
+}
+
+.user-info {
+  margin-left: 30rpx;
+  flex: 1;
+}
+
+.user-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.user-level {
+  font-size: 24rpx;
+  color: #666;
+  display: block;
+  margin-bottom: 20rpx;
+}
+
+.baby-info {
+  display: flex;
+  gap: 15rpx;
+  flex-wrap: wrap;
+}
+
+.function-cards {
+  margin-bottom: 30rpx;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-around;
+  padding: 20rpx 0;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #FF6B95;
+  display: block;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #999;
+  display: block;
+  margin-top: 5rpx;
+}
+
+.market-stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 20rpx 0;
+}
+
+.market-item {
+  text-align: center;
+}
+
+.market-number {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #4CAF50;
+  display: block;
+}
+
+.market-label {
+  font-size: 22rpx;
+  color: #999;
+  display: block;
+  margin-top: 5rpx;
+}
+
+.favorite-stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 20rpx 0;
+}
+
+.favorite-item {
+  text-align: center;
+}
+
+.favorite-number {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #FF9800;
+  display: block;
+}
+
+.favorite-label {
+  font-size: 22rpx;
+  color: #999;
+  display: block;
+  margin-top: 5rpx;
+}
+
+.setting-list {
+  background: white;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 20rpx rgba(255, 182, 193, 0.3);
+}
+
+.logout-section {
+  padding: 40rpx;
+  margin-top: 20rpx;
+}
+
+/* 自定义卡片样式 */
+.t-card {
+  margin-bottom: 20rpx;
+}
+
+.t-card__header {
+  border-bottom: 1rpx solid #f0f0f0;
+  padding: 30rpx;
+}
+
+.t-card__body {
+  padding: 0 30rpx 30rpx;
+}

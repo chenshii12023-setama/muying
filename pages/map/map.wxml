@@ -1,0 +1,126 @@
+<view class="map-page">
+  <!-- 顶部搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input">
+      <t-input
+        placeholder="搜索母婴室、游乐场、儿童医院..."
+        value="{{searchKeyword}}"
+        bind:change="onSearchChange"
+      >
+        <text slot="prefix-icon">🔍</text>
+      </t-input>
+    </view>
+    <view class="filter-btn" bind:tap="showFilter">
+      <text>筛选</text>
+    </view>
+  </view>
+
+  <!-- 快速筛选标签 -->
+  <view class="quick-filters">
+    <scroll-view class="filter-scroll" scroll-x="true">
+      <view class="filter-tags">
+        <t-tag 
+          wx:for="{{filterTags}}" 
+          wx:key="value"
+          class="filter-tag {{activeFilter === item.value ? 'active' : ''}}"
+          bind:tap="onFilterTagTap"
+          data-value="{{item.value}}"
+        >
+          {{item.label}}
+        </t-tag>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 地图内容区域 -->
+  <t-tabs value="{{activeTab}}" bind:change="onTabChange">
+    <t-tab-panel label="附近设施" value="nearby">
+      <view class="tab-content">
+        <!-- 简易地图占位 -->
+        <view class="map-container">
+          <view class="map-placeholder">
+            <text class="map-icon">🗺️</text>
+            <text class="map-text">地图功能开发中</text>
+            <text class="map-desc">当前显示列表形式，地图功能将在后续版本推出</text>
+          </view>
+        </view>
+
+        <!-- 设施列表 -->
+        <view class="facilities-list">
+          <view wx:for="{{nearbyFacilities}}" wx:key="id" class="facility-item">
+            <view class="facility-header">
+              <view class="facility-type-icon">{{item.typeIcon}}</view>
+              <view class="facility-info">
+                <text class="facility-name">{{item.name}}</text>
+                <text class="facility-type">{{item.typeName}}</text>
+              </view>
+              <view class="facility-distance">{{item.distance}}km</view>
+            </view>
+            
+            <view class="facility-details">
+              <text class="facility-address">{{item.address}}</text>
+              
+              <view class="facility-tags">
+                <t-tag 
+                  wx:for="{{item.tags}}" 
+                  wx:key="*this"
+                  class="detail-tag"
+                  size="small"
+                >
+                  {{item}}
+                </t-tag>
+              </view>
+              
+              <view class="facility-rating">
+                <t-rate value="{{item.rating}}" disabled size="24" />
+                <text class="rating-text">{{item.rating}}分</text>
+                <text class="review-count">({{item.reviewCount}}条评价)</text>
+              </view>
+            </view>
+            
+            <view class="facility-actions">
+              <t-button size="small" bind:tap="navigateToFacility" data-id="{{item.id}}">查看详情</t-button>
+              <t-button size="small" theme="primary" bind:tap="addNewFacility" data-id="{{item.id}}">我要上传</t-button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </t-tab-panel>
+    
+    <t-tab-panel label="我的上传" value="myUploads">
+      <view class="tab-content">
+        <view class="my-uploads">
+          <view wx:for="{{myUploads}}" wx:key="id" class="upload-item">
+            <view class="upload-header">
+              <text class="facility-name">{{item.name}}</text>
+              <text class="upload-status {{item.status}}">{{item.statusText}}</text>
+            </view>
+            
+            <view class="upload-details">
+              <text class="upload-time">上传时间：{{item.uploadTime}}</text>
+              <text class="upload-address">{{item.address}}</text>
+            </view>
+            
+            <view class="upload-actions">
+              <t-button size="small" bind:tap="editUpload" data-id="{{item.id}}">编辑</t-button>
+              <t-button size="small" theme="danger" bind:tap="deleteUpload" data-id="{{item.id}}">删除</t-button>
+            </view>
+          </view>
+        </view>
+        
+        <view class="empty-state" wx:if="{{myUploads.length === 0}}">
+          <text class="empty-text">您还没有上传过设施</text>
+          <t-button theme="primary" bind:tap="addNewFacility">上传第一个设施</t-button>
+        </view>
+      </view>
+    </t-tab-panel>
+  </t-tabs>
+
+  <!-- 添加新设施按钮 -->
+  <view class="add-facility-fab">
+    <t-button theme="primary" class="fab-btn" bind:tap="addNewFacility">
+      <text class="fab-icon">➕</text>
+      <text class="fab-text">上传新设施</text>
+    </t-button>
+  </view>
+</view>

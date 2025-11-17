@@ -1,0 +1,112 @@
+<view class="baby-page">
+  <!-- 顶部信息栏 -->
+  <view class="baby-header">
+    <view class="baby-info">
+      <view class="baby-avatar">{{babyInfo.avatarText || '👶'}}</view>
+      <view class="baby-details">
+        <text class="baby-name">{{babyInfo.name || '宝宝'}}</text>
+        <text class="baby-age">{{babyInfo.age}}个月</text>
+      </view>
+    </view>
+    <view class="baby-stats">
+      <view class="stat-item">
+        <text class="stat-value">{{growthRecords}}</text>
+        <text class="stat-label">成长记录</text>
+      </view>
+      <view class="stat-item">
+        <text class="stat-value">{{milestones}}</text>
+        <text class="stat-label">里程碑</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 选项卡导航 -->
+  <t-tabs value="{{activeTab}}" bind:change="onTabChange">
+    <t-tab-panel label="基本信息" value="info">
+      <view class="tab-content">
+        <t-cell-group title="宝宝信息">
+          <t-cell title="姓名" value="{{babyInfo.name}}" />
+          <t-cell title="性别" value="{{babyInfo.gender}}" />
+          <t-cell title="出生日期" value="{{babyInfo.birthDate}}" />
+          <t-cell title="年龄" value="{{babyInfo.age}}个月" />
+        </t-cell-group>
+        
+        <t-cell-group title="身体指标">
+          <t-cell title="体重" value="{{babyInfo.weight}}kg" arrow />
+          <t-cell title="身高" value="{{babyInfo.height}}cm" arrow />
+          <t-cell title="头围" value="{{babyInfo.headSize}}cm" arrow />
+        </t-cell-group>
+        
+        <view class="action-buttons">
+          <t-button theme="primary" bind:tap="addRecord">添加记录</t-button>
+          <t-button bind:tap="viewGrowthChart">查看成长曲线</t-button>
+        </view>
+      </view>
+    </t-tab-panel>
+    
+    <t-tab-panel label="成长记录" value="records">
+      <view class="tab-content">
+        <view class="records-list">
+          <view wx:for="{{growthRecordsList}}" wx:key="id" class="record-item">
+            <view class="record-date">{{item.date}}</view>
+            <view class="record-data">
+              <text>体重: {{item.weight}}kg</text>
+              <text>身高: {{item.height}}cm</text>
+              <text>头围: {{item.headSize}}cm</text>
+            </view>
+            <view class="record-actions">
+              <text class="action-btn" bind:tap="editRecord" data-id="{{item.id}}">编辑</text>
+              <text class="action-btn" bind:tap="deleteRecord" data-id="{{item.id}}">删除</text>
+            </view>
+          </view>
+        </view>
+        
+        <view class="empty-state" wx:if="{{growthRecordsList.length === 0}}">
+          <text class="empty-text">暂无成长记录</text>
+          <t-button theme="primary" bind:tap="addRecord">添加第一条记录</t-button>
+        </view>
+      </view>
+    </t-tab-panel>
+    
+    <t-tab-panel label="里程碑" value="milestones">
+      <view class="tab-content">
+        <view class="milestones-grid">
+          <view wx:for="{{milestonesList}}" wx:key="id" class="milestone-card" bind:tap="viewMilestone" data-id="{{item.id}}">
+            <view class="milestone-icon">{{item.icon}}</view>
+            <text class="milestone-title">{{item.title}}</text>
+            <text class="milestone-date">{{item.date}}</text>
+            <text class="milestone-status {{item.status}}">{{item.statusText}}</text>
+          </view>
+        </view>
+        
+        <view class="add-milestone-btn">
+          <t-button theme="primary" bind:tap="addMilestone">添加里程碑</t-button>
+        </view>
+      </view>
+    </t-tab-panel>
+    
+    <t-tab-panel label="健康记录" value="health">
+      <view class="tab-content">
+        <view class="health-records">
+          <view wx:for="{{healthRecords}}" wx:key="id" class="health-item">
+            <view class="health-header">
+              <text class="health-type">{{item.type}}</text>
+              <text class="health-date">{{item.date}}</text>
+            </view>
+            <view class="health-details">
+              <text>{{item.details}}</text>
+            </view>
+            <view class="health-actions">
+              <text class="action-btn" bind:tap="editHealthRecord" data-id="{{item.id}}">编辑</text>
+            </view>
+          </view>
+        </view>
+        
+        <view class="empty-state" wx:if="{{healthRecords.length === 0}}">
+          <text class="empty-text">暂无健康记录</text>
+          <t-button theme="primary" bind:tap="addHealthRecord">添加健康记录</t-button>
+        </view>
+      </view>
+    </t-tab-panel>
+  </t-tabs>
+</view>

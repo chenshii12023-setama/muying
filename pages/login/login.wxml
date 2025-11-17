@@ -1,0 +1,129 @@
+<view class="login-container">
+  <!-- 头部logo和欢迎语 -->
+  <view class="login-header">
+    <view class="logo">
+      <t-icon name="heart" size="60px" color="#FF6B95"></t-icon>
+      <text class="app-name">宝妈育儿轻指南</text>
+    </view>
+    <text class="welcome-text">欢迎来到温暖的育儿社区</text>
+  </view>
+
+  <!-- 登录表单 -->
+  <view class="login-form">
+    <view class="input-group">
+      <t-input
+        label="手机号"
+        placeholder="请输入手机号"
+        maxlength="11"
+        type="number"
+        value="{{phoneNumber}}"
+        bind:change="onPhoneChange"
+      ></t-input>
+      
+      <t-input
+        label="验证码"
+        placeholder="请输入验证码"
+        maxlength="6"
+        type="number"
+        value="{{verificationCode}}"
+        bind:change="onCodeChange"
+      >
+        <view slot="suffix">
+          <t-button 
+            size="small" 
+            theme="primary" 
+            :disabled="!canSendCode || countdown > 0"
+            bind:tap="sendVerificationCode"
+          >
+            {{countdown > 0 ? countdown + 's' : '获取验证码'}}
+          </t-button>
+        </view>
+      </t-input>
+    </view>
+
+    <!-- 登录按钮 -->
+    <view class="login-buttons">
+      <t-button 
+        theme="primary" 
+        size="large" 
+        block 
+        :disabled="!canLogin"
+        bind:tap="handleLogin"
+        loading="{{isLoggingIn}}"
+      >
+        登录/注册
+      </t-button>
+    </view>
+
+    <!-- 微信授权登录 -->
+    <view class="wechat-login">
+      <t-divider>
+        <text>或</text>
+      </t-divider>
+      
+      <t-button 
+        theme="default" 
+        size="large" 
+        block 
+        bind:tap="handleWechatLogin"
+      >
+        <t-icon name="wechat" size="32rpx" color="#09BB07"></t-icon>
+        <text style="margin-left: 10rpx">微信一键登录</text>
+      </t-button>
+    </view>
+
+    <!-- 用户协议 -->
+    <view class="agreement">
+      <label class="agreement-label">
+        <checkbox 
+          checked="{{agreedToTerms}}" 
+          bindchange="onAgreementChange"
+        />
+        <text>我已阅读并同意</text>
+        <text class="link" bind:tap="goToTerms">《用户协议》</text>
+        <text>和</text>
+        <text class="link" bind:tap="goToPrivacy">《隐私政策》</text>
+      </label>
+    </view>
+  </view>
+
+  <!-- 新手引导 -->
+  <view class="guide-section" wx:if="{{showGuide}}">
+    <t-cell-group>
+      <t-cell 
+        title="新手引导" 
+        arrow 
+        right-icon="help-circle"
+        bind:tap="showGuideModal"
+      ></t-cell>
+    </t-cell-group>
+  </view>
+
+  <!-- 引导模态框 -->
+  <view class="guide-modal" wx:if="{{showGuideModal}}">
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">新手引导</text>
+        <t-icon name="close" bind:tap="hideGuideModal"></t-icon>
+      </view>
+      <view class="modal-body">
+        <view class="guide-item">
+          <t-icon name="user" size="24rpx"></t-icon>
+          <text>完善宝宝信息，开始记录成长</text>
+        </view>
+        <view class="guide-item">
+          <t-icon name="map" size="24rpx"></t-icon>
+          <text>查看附近母婴资源，出门更轻松</text>
+        </view>
+        <view class="guide-item">
+          <t-icon name="shopping-cart" size="24rpx"></t-icon>
+          <text>参与闲置置换，省钱又环保</text>
+        </view>
+        <view class="guide-item">
+          <t-icon name="robot" size="24rpx"></t-icon>
+          <text>AI助手随时解答育儿问题</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

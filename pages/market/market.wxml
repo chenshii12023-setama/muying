@@ -1,0 +1,160 @@
+<view class="market-page">
+  <!-- 顶部搜索和筛选 -->
+  <view class="market-header">
+    <view class="search-bar">
+      <t-input
+        placeholder="搜索安全座椅、婴儿车、玩具..."
+        value="{{searchKeyword}}"
+        bind:change="onSearchChange"
+      >
+        <text slot="prefix-icon">🔍</text>
+      </t-input>
+    </view>
+    
+    <view class="filter-options">
+      <scroll-view class="filter-scroll" scroll-x="true">
+        <view class="filter-tags">
+          <t-tag 
+            wx:for="{{categoryTags}}" 
+            wx:key="value"
+            class="category-tag {{activeCategory === item.value ? 'active' : ''}}"
+            bind:tap="onCategoryTap"
+            data-value="{{item.value}}"
+          >
+            {{item.label}}
+          </t-tag>
+        </view>
+      </scroll-view>
+      
+      <view class="sort-btn" bind:tap="showSortMenu">
+        <text>排序</text>
+        <text class="sort-icon">▼</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 主内容区域 -->
+  <t-tabs value="{{activeTab}}" bind:change="onTabChange">
+    <t-tab-panel label="浏览商品" value="browse">
+      <view class="tab-content">
+        <!-- 商品网格 -->
+        <view class="products-grid">
+          <view wx:for="{{productList}}" wx:key="id" class="product-card" bind:tap="viewProductDetail" data-id="{{item.id}}">
+            <view class="product-image">
+              <image class="product-img" src="{{item.images[0]}}" mode="aspectFill" />
+              <view class="product-tags">
+                <t-tag wx:if="{{item.hasCertification}}" class="cert-tag" size="small">消毒证明</t-tag>
+                <t-tag wx:if="{{item.isLocal}}" class="local-tag" size="small">同城</t-tag>
+              </view>
+            </view>
+            
+            <view class="product-info">
+              <text class="product-title">{{item.title}}</text>
+              <text class="product-price">¥{{item.price}}</text>
+              <text class="product-original-price">原价: ¥{{item.originalPrice}}</text>
+              
+              <view class="product-meta">
+                <view class="seller-info">
+                  <t-avatar size="small" image="{{item.seller.avatar}}" />
+                  <text class="seller-name">{{item.seller.name}}</text>
+                </view>
+                <text class="distance">{{item.distance}}km</text>
+              </view>
+              
+              <view class="product-stats">
+                <t-rate value="{{item.seller.rating}}" disabled size="20" />
+                <text class="rating-count">({{item.seller.reviewCount}})</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        
+        <view class="empty-state" wx:if="{{productList.length === 0}}">
+          <text class="empty-icon">🛒</text>
+          <text class="empty-text">暂无相关商品</text>
+          <t-button theme="primary" bind:tap="resetFilters">重置筛选条件</t-button>
+        </view>
+      </view>
+    </t-tab-panel>
+    
+    <t-tab-panel label="我的发布" value="myProducts">
+      <view class="tab-content">
+        <view class="my-products">
+          <view wx:for="{{myProducts}}" wx:key="id" class="my-product-item">
+            <view class="product-header">
+              <image class="product-thumb" src="{{item.images[0]}}" mode="aspectFill" />
+              <view class="product-details">
+                <text class="product-title">{{item.title}}</text>
+                <text class="product-price">¥{{item.price}}</text>
+                <text class="product-status {{item.status}}">{{item.statusText}}</text>
+              </view>
+            </view>
+            
+            <view class="product-stats">
+              <view class="stat-item">
+                <text class="stat-label">浏览</text>
+                <text class="stat-value">{{item.viewCount}}</text>
+              </view>
+              <view class="stat-item">
+                <text class="stat-label">咨询</text>
+                <text class="stat-value">{{item.inquiryCount}}</text>
+              </view>
+              <view class="stat-item">
+                <text class="stat-label">收藏</text>
+                <text class="stat-value">{{item.favoriteCount}}</text>
+              </view>
+            </view>
+            
+            <view class="product-actions">
+              <t-button size="small" bind:tap="editProduct" data-id="{{item.id}}">编辑</t-button>
+              <t-button size="small" theme="primary" bind:tap="refreshProduct" data-id="{{item.id}}">刷新</t-button>
+              <t-button size="small" theme="danger" bind:tap="deleteProduct" data-id="{{item.id}}">删除</t-button>
+            </view>
+          </view>
+        </view>
+        
+        <view class="empty-state" wx:if="{{myProducts.length === 0}}">
+          <text class="empty-icon">📦</text>
+          <text class="empty-text">您还没有发布过商品</text>
+          <t-button theme="primary" bind:tap="addNewProduct">发布第一个商品</t-button>
+        </view>
+      </view>
+    </t-tab-panel>
+    
+    <t-tab-panel label="我想要的" value="wishlist">
+      <view class="tab-content">
+        <view class="wishlist">
+          <view wx:for="{{wishlist}}" wx:key="id" class="wishlist-item">
+            <view class="wishlist-header">
+              <image class="wishlist-thumb" src="{{item.product.images[0]}}" mode="aspectFill" />
+              <view class="wishlist-details">
+                <text class="product-title">{{item.product.title}}</text>
+                <text class="product-price">¥{{item.product.price}}</text>
+                <text class="added-time">添加时间: {{item.addedTime}}</text>
+              </view>
+            </view>
+            
+            <view class="wishlist-actions">
+              <t-button size="small" bind:tap="contactSeller" data-id="{{item.product.id}}">联系卖家</t-button>
+              <t-button size="small" theme="danger" bind:tap="removeFromWishlist" data-id="{{item.id}}">移除</t-button>
+            </view>
+          </view>
+        </view>
+        
+        <view class="empty-state" wx:if="{{wishlist.length === 0}}">
+          <text class="empty-icon">❤️</text>
+          <text class="empty-text">愿望清单为空</text>
+          <text class="empty-desc">浏览商品时点击❤️添加到愿望清单</text>
+        </view>
+      </view>
+    </t-tab-panel>
+  </t-tabs>
+
+  <!-- 发布商品按钮 -->
+  <view class="publish-fab">
+    <t-button theme="primary" class="fab-btn" bind:tap="addNewProduct">
+      <text class="fab-icon">➕</text>
+      <text class="fab-text">发布商品</text>
+    </t-button>
+  </view>
+</view>

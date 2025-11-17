@@ -1,0 +1,134 @@
+<view class="ai-page">
+  <!-- AI智能助手页面 -->
+  <t-tabs value="{{activeTab}}" bind:change="onTabChange">
+    <t-tab-panel label="AI问答" value="chat">
+      <view class="tab-content">
+        <!-- 聊天区域 -->
+        <view class="chat-container">
+          <view class="messages-container">
+            <view wx:for="{{messages}}" wx:key="id" class="message {{item.role === 'user' ? 'user-message' : 'ai-message'}}">
+              <view class="message-avatar">
+                {{item.role === 'user' ? '👤' : '🤖'}}
+              </view>
+              <view class="message-content">
+                <text class="message-text">{{item.content}}</text>
+                <text class="message-time">{{item.time}}</text>
+              </view>
+            </view>
+          </view>
+          
+          <!-- 输入区域 -->
+          <view class="input-container">
+            <view class="input-box">
+              <t-input
+                placeholder="问AI助手任何育儿问题..."
+                value="{{inputMessage}}"
+                bind:change="onInputChange"
+                bind:confirm="sendMessage"
+              />
+              <t-button class="send-btn" theme="primary" bind:tap="sendMessage">发送</t-button>
+            </view>
+            
+            <!-- 快捷问题 -->
+            <view class="quick-questions">
+              <text class="quick-title">常见问题：</text>
+              <view class="quick-buttons">
+                <t-button 
+                  wx:for="{{quickQuestions}}" 
+                  wx:key="*this"
+                  size="small" 
+                  bind:tap="askQuickQuestion"
+                  data-question="{{item}}"
+                >
+                  {{item}}
+                </t-button>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </t-tab-panel>
+    
+    <t-tab-panel label="营养计算" value="nutrition">
+      <view class="tab-content">
+        <view class="nutrition-calculator">
+          <view class="calculator-header">
+            <text class="calculator-title">婴幼儿辅食营养计算器</text>
+            <text class="calculator-desc">根据宝宝年龄和食材计算营养摄入</text>
+          </view>
+          
+          <t-cell-group title="宝宝信息">
+            <t-cell title="宝宝年龄" value="{{babyAge}}个月" />
+            <t-cell title="宝宝体重" value="{{babyWeight}}kg" />
+          </t-cell-group>
+          
+          <view class="ingredients-section">
+            <text class="section-title">选择食材</text>
+            <view class="ingredients-grid">
+              <view 
+                wx:for="{{ingredients}}" 
+                wx:key="id" 
+                class="ingredient-item {{item.selected ? 'selected' : ''}}"
+                bind:tap="toggleIngredient"
+                data-id="{{item.id}}"
+              >
+                <view class="ingredient-icon">{{item.icon}}</view>
+                <text class="ingredient-name">{{item.name}}</text>
+              </view>
+            </view>
+          </view>
+          
+          <view class="amount-section" wx:if="{{selectedIngredients.length > 0}}">
+            <text class="section-title">食材用量</text>
+            <view wx:for="{{selectedIngredients}}" wx:key="id" class="amount-item">
+              <text class="ingredient-name">{{item.name}}</text>
+              <view class="amount-control">
+                <t-slider 
+                  value="{{item.amount}}" 
+                  min="10" 
+                  max="200" 
+                  step="10"
+                  bind:change="onAmountChange"
+                  data-id="{{item.id}}"
+                />
+                <text class="amount-value">{{item.amount}}g</text>
+              </view>
+            </view>
+          </view>
+          
+          <view class="result-section" wx:if="{{nutritionResult}}">
+            <text class="section-title">营养分析结果</text>
+            <view class="nutrition-results">
+              <view class="nutrition-item">
+                <text class="nutrient-name">热量</text>
+                <text class="nutrient-value">{{nutritionResult.calories}} kcal</text>
+              </view>
+              <view class="nutrition-item">
+                <text class="nutrient-name">蛋白质</text>
+                <text class="nutrient-value">{{nutritionResult.protein}}g</text>
+              </view>
+              <view class="nutrition-item">
+                <text class="nutrient-name">碳水化合物</text>
+                <text class="nutrient-value">{{nutritionResult.carbs}}g</text>
+              </view>
+              <view class="nutrition-item">
+                <text class="nutrient-name">脂肪</text>
+                <text class="nutrient-value">{{nutritionResult.fat}}g</text>
+              </view>
+            </view>
+            
+            <view class="recommendation">
+              <text class="rec-title">营养建议</text>
+              <text class="rec-content">{{nutritionResult.recommendation}}</text>
+            </view>
+          </view>
+          
+          <view class="calculator-actions">
+            <t-button theme="primary" bind:tap="calculateNutrition">计算营养</t-button>
+            <t-button bind:tap="resetCalculator">重置</t-button>
+          </view>
+        </view>
+      </view>
+    </t-tab-panel>
+  </t-tabs>
+</view>

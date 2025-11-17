@@ -1,0 +1,279 @@
+.map-page {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding-bottom: 120rpx;
+}
+
+.search-bar {
+  background: white;
+  padding: 20rpx 30rpx;
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.search-input {
+  flex: 1;
+}
+
+.filter-btn {
+  padding: 16rpx 24rpx;
+  background: #f0f0f0;
+  border-radius: 8rpx;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.quick-filters {
+  background: white;
+  padding: 20rpx 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.filter-scroll {
+  white-space: nowrap;
+}
+
+.filter-tags {
+  display: flex;
+  gap: 16rpx;
+}
+
+.filter-tag {
+  background: #f5f5f5;
+  color: #666;
+  border: none;
+}
+
+.filter-tag.active {
+  background: #1890ff;
+  color: white;
+}
+
+.tab-content {
+  padding: 20rpx;
+}
+
+.map-container {
+  background: white;
+  border-radius: 16rpx;
+  height: 300rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-placeholder {
+  text-align: center;
+}
+
+.map-icon {
+  font-size: 80rpx;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.map-text {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.map-desc {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+}
+
+.facilities-list {
+  background: white;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.facility-item {
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.facility-item:last-child {
+  border-bottom: none;
+}
+
+.facility-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.facility-type-icon {
+  font-size: 48rpx;
+  margin-right: 20rpx;
+}
+
+.facility-info {
+  flex: 1;
+}
+
+.facility-name {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.facility-type {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.facility-distance {
+  font-size: 26rpx;
+  color: #1890ff;
+  font-weight: bold;
+}
+
+.facility-details {
+  margin-bottom: 20rpx;
+}
+
+.facility-address {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 16rpx;
+}
+
+.facility-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.detail-tag {
+  font-size: 22rpx;
+}
+
+.facility-rating {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.rating-text {
+  font-size: 24rpx;
+  color: #f56c6c;
+  font-weight: bold;
+}
+
+.review-count {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.facility-actions {
+  display: flex;
+  gap: 20rpx;
+  justify-content: flex-end;
+}
+
+.my-uploads {
+  background: white;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.upload-item {
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.upload-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.upload-status {
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+}
+
+.upload-status.pending {
+  background: #fff7e6;
+  color: #fa8c16;
+}
+
+.upload-status.approved {
+  background: #f6ffed;
+  color: #52c41a;
+}
+
+.upload-status.rejected {
+  background: #fff2f0;
+  color: #ff4d4f;
+}
+
+.upload-details {
+  margin-bottom: 20rpx;
+}
+
+.upload-time {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+
+.upload-address {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.upload-actions {
+  display: flex;
+  gap: 20rpx;
+  justify-content: flex-end;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 100rpx 0;
+  background: white;
+  border-radius: 16rpx;
+}
+
+.empty-text {
+  display: block;
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 30rpx;
+}
+
+.add-facility-fab {
+  position: fixed;
+  bottom: 40rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.fab-btn {
+  padding: 24rpx 32rpx;
+  border-radius: 50rpx;
+  box-shadow: 0 8rpx 24rpx rgba(24, 144, 255, 0.3);
+}
+
+.fab-icon {
+  margin-right: 12rpx;
+  font-size: 32rpx;
+}
+
+.fab-text {
+  font-size: 28rpx;
+}

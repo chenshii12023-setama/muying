@@ -1,0 +1,54 @@
+<!--pages/test/test.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="title">后端API测试</view>
+    <view class="status {{backendConnected ? 'connected' : 'disconnected'}}">
+      {{backendConnected ? '后端已连接' : '后端未连接'}}
+    </view>
+  </view>
+
+  <view class="action-buttons">
+    <button type="primary" bindtap="runTests" loading="{{isLoading}}" size="mini">
+      运行测试
+    </button>
+    <button bindtap="copyTestResults" size="mini">复制结果</button>
+    <button bindtap="goBack" size="mini">返回首页</button>
+  </view>
+
+  <view class="test-results">
+    <view class="section-title">测试结果</view>
+    
+    <view wx:if="{{testResults.length === 0}}" class="empty-state">
+      <text>暂无测试结果，点击上方按钮运行测试</text>
+    </view>
+    
+    <view wx:else class="results-list">
+      <view wx:for="{{testResults}}" wx:key="index" class="test-item {{item.status}}" 
+            bindtap="viewTestDetails" data-index="{{index}}">
+        <view class="test-info">
+          <view class="test-name">{{item.name}}</view>
+          <view class="test-message">{{item.message}}</view>
+          <view class="test-time">{{item.time}}</view>
+        </view>
+        <view class="test-status {{item.status}}">
+          {{item.status === 'success' ? '✓' : item.status === 'error' ? '✗' : '...'}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="summary">
+    <view class="summary-item">
+      <text class="label">总测试数:</text>
+      <text class="value">{{testResults.length}}</text>
+    </view>
+    <view class="summary-item">
+      <text class="label">成功:</text>
+      <text class="value success">{{testResults.filter(r => r.status === 'success').length}}</text>
+    </view>
+    <view class="summary-item">
+      <text class="label">失败:</text>
+      <text class="value error">{{testResults.filter(r => r.status === 'error').length}}</text>
+    </view>
+  </view>
+</view>

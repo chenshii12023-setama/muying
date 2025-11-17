@@ -1,0 +1,26 @@
+{
+  "name": "mom-baby-guide-miniprogram",
+  "version": "1.0.0",
+  "description": "宝妈育儿轻指南小程序",
+  "main": "app.js",
+  "scripts": {
+    "build": "npm run build:weapp",
+    "build:weapp": "node scripts/build.js",
+    "dev": "npm run dev:weapp",
+    "dev:weapp": "node scripts/dev.js"
+  },
+  "keywords": [
+    "miniprogram",
+    "育儿",
+    "宝宝",
+    "妈妈"
+  ],
+  "author": "宝妈育儿轻指南团队",
+  "license": "MIT",
+  "dependencies": {
+    "tdesign-miniprogram": "^1.9.5"
+  },
+  "devDependencies": {
+    "miniprogram-api-typings": "^4.1.0"
+  }
+}

@@ -1,0 +1,84 @@
+<view class="profile-container">
+  <!-- 用户信息头部 -->
+  <view class="user-header">
+    <t-avatar size="80px" image="{{userInfo.avatar || '/images/default-avatar.png'}}"></t-avatar>
+    <view class="user-info">
+      <text class="user-name">{{userInfo.nickName || '宝妈用户'}}</text>
+      <text class="user-level">成长天数：{{growthDays}}天</text>
+      <view class="baby-info">
+        <t-tag theme="primary" size="small">{{babyInfo.name || '宝宝'}}</t-tag>
+        <t-tag theme="success" size="small">{{babyInfo.age || 0}}个月</t-tag>
+        <t-tag theme="warning" size="small">{{babyInfo.gender || '未知'}}</t-tag>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能卡片 -->
+  <view class="function-cards">
+    <t-card title="我的成长记录" subtitle="查看宝宝成长轨迹" cover="/images/growth-icon.png">
+      <view class="stats-row">
+        <view class="stat-item">
+          <text class="stat-number">{{growthRecords.length}}</text>
+          <text class="stat-label">记录总数</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-number">{{latestHeight || '--'}}</text>
+          <text class="stat-label">身高(cm)</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-number">{{latestWeight || '--'}}</text>
+          <text class="stat-label">体重(kg)</text>
+        </view>
+      </view>
+    </t-card>
+
+    <t-card title="我的闲置物品" subtitle="查看已发布和购买记录" cover="/images/market-icon.png">
+      <view class="market-stats">
+        <view class="market-item">
+          <text class="market-number">{{myItems.length}}</text>
+          <text class="market-label">发布中</text>
+        </view>
+        <view class="market-item">
+          <text class="market-number">{{soldItems}}</text>
+          <text class="market-label">已售出</text>
+        </view>
+        <view class="market-item">
+          <text class="market-number">{{boughtItems}}</text>
+          <text class="market-label">已购买</text>
+        </view>
+      </view>
+    </t-card>
+
+    <t-card title="我的收藏" subtitle="收藏的育儿知识和资源" cover="/images/favorite-icon.png">
+      <view class="favorite-stats">
+        <view class="favorite-item">
+          <text class="favorite-number">{{favoriteTips}}</text>
+          <text class="favorite-label">育儿技巧</text>
+        </view>
+        <view class="favorite-item">
+          <text class="favorite-number">{{favoritePlaces}}</text>
+          <text class="favorite-label">收藏地点</text>
+        </view>
+      </view>
+    </t-card>
+  </view>
+
+  <!-- 设置列表 -->
+  <view class="setting-list">
+    <t-cell-group>
+      <t-cell title="宝宝信息管理" arrow right-icon="user-circle" bind:tap="goToBabyManage"></t-cell>
+      <t-cell title="成长记录管理" arrow right-icon="chart-line" bind:tap="goToGrowthManage"></t-cell>
+      <t-cell title="消息通知" arrow right-icon="bell" badge="{{unreadMessages}}"></t-cell>
+      <t-cell title="隐私设置" arrow right-icon="lock" bind:tap="goToPrivacy"></t-cell>
+      <t-cell title="帮助与反馈" arrow right-icon="help-circle" bind:tap="goToHelp"></t-cell>
+      <t-cell title="关于我们" arrow right-icon="info-circle" bind:tap="goToAbout"></t-cell>
+    </t-cell-group>
+
+    <!-- 退出登录按钮 -->
+    <view class="logout-section">
+      <t-button theme="danger" size="large" block bind:tap="showLogoutConfirm">
+        退出登录
+      </t-button>
+    </view>
+  </view>
+</view>

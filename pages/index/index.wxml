@@ -1,0 +1,94 @@
+<!--pages/index/index.wxml-->
+<view class="index-page">
+  <!-- 顶部欢迎区域 -->
+  <view class="welcome-section">
+    <view class="welcome-card">
+      <view class="baby-avatar">
+        {{babyInfo.avatarText || '👶'}}
+      </view>
+      <view class="welcome-text">
+        <text class="greeting">你好，{{userInfo.nickName || '宝妈'}}！</text>
+        <text class="baby-info">{{babyInfo.name || '宝宝'}} {{babyInfo.age || '0'}}个月啦</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能统计 -->
+  <view class="stats-section">
+    <view class="stats-grid">
+      <view class="stats-item">
+        <text class="stats-number">{{growthRecords}}</text>
+        <text class="stats-label">成长记录</text>
+      </view>
+      <view class="stats-item">
+        <text class="stats-number">{{milestones}}</text>
+        <text class="stats-label">里程碑</text>
+      </view>
+      <view class="stats-item">
+        <text class="stats-number">{{nearbyFacilities}}</text>
+        <text class="stats-label">附近设施</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 主要功能网格 -->
+  <view class="function-grid">
+    <t-grid column="4" gutter="16">
+      <t-grid-item wx:for="{{functions}}" wx:key="id" bindtap="navigateTo" data-url="{{item.url}}">
+        <view class="function-item">
+          <view class="function-icon {{item.iconClass}}">{{item.icon}}</view>
+          <text class="function-name">{{item.name}}</text>
+        </view>
+      </t-grid-item>
+    </t-grid>
+  </view>
+
+  <!-- 今日提醒 -->
+  <view class="reminder-section" wx:if="{{todayReminders.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">今日提醒</text>
+      <text class="more-link" bindtap="viewAllReminders">查看全部</text>
+    </view>
+    <t-cell-group>
+      <t-cell wx:for="{{todayReminders}}" wx:key="id" 
+              title="{{item.title}}" 
+              note="{{item.time}}"
+              bindtap="handleReminder"
+              data-id="{{item.id}}">
+        <view slot="right-icon">
+          <view class="tag {{item.type}}">{{item.tag}}</view>
+        </view>
+      </t-cell>
+    </t-cell-group>
+  </view>
+
+  <!-- 育儿知识卡片 -->
+  <view class="knowledge-section">
+    <view class="section-header">
+      <text class="section-title">育儿知识</text>
+      <text class="more-link" bindtap="goToKnowledge">更多</text>
+    </view>
+    <view class="knowledge-cards">
+      <view class="knowledge-card" wx:for="{{knowledgeItems}}" wx:key="id" bindtap="viewKnowledge" data-id="{{item.id}}">
+        <view class="card-image">
+          <image src="{{item.image}}" mode="aspectFill"></image>
+        </view>
+        <view class="card-content">
+          <text class="card-title">{{item.title}}</text>
+          <text class="card-desc">{{item.desc}}</text>
+          <view class="card-tags">
+            <text class="tag" wx:for="{{item.tags}}" wx:key="*this">{{item}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- AI助手入口 -->
+  <view class="ai-assistant-section">
+    <t-button class="ai-btn" theme="primary" bindtap="goToAIAssistant">
+      <text class="ai-icon">🤖</text>
+      <text>AI育儿助手</text>
+    </t-button>
+  </view>
+</view>

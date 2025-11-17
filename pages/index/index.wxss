@@ -1,0 +1,256 @@
+/* pages/index/index.wxss */
+.index-page {
+  background-color: #FFF9FA;
+  min-height: 100vh;
+}
+
+/* 欢迎区域 */
+.welcome-section {
+  padding: 30rpx;
+  background: linear-gradient(135deg, #FF6B9D 0%, #FFB6C1 100%);
+  border-radius: 0 0 40rpx 40rpx;
+}
+
+.welcome-card {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20rpx;
+  padding: 30rpx;
+  box-shadow: 0 8rpx 30rpx rgba(255, 107, 157, 0.2);
+}
+
+.baby-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FF6B9D, #7BCFDE);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  margin-right: 30rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4rpx 15rpx rgba(255, 107, 157, 0.3);
+}
+
+.welcome-text {
+  flex: 1;
+}
+
+.greeting {
+  display: block;
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.baby-info {
+  display: block;
+  font-size: 28rpx;
+  color: #666;
+}
+
+/* 统计区域 */
+.stats-section {
+  padding: 30rpx;
+}
+
+.stats-grid {
+  display: flex;
+  justify-content: space-around;
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx 0;
+  box-shadow: 0 4rpx 20rpx rgba(255, 107, 157, 0.1);
+}
+
+.stats-item {
+  text-align: center;
+}
+
+.stats-number {
+  display: block;
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #FF6B9D;
+  margin-bottom: 10rpx;
+}
+
+.stats-label {
+  display: block;
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 功能网格 */
+.function-grid {
+  padding: 0 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.function-item {
+  text-align: center;
+  padding: 20rpx 0;
+}
+
+.function-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 20rpx;
+  margin: 0 auto 15rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+}
+
+.function-icon.primary {
+  background: linear-gradient(135deg, #FF6B9D, #FFB6C1);
+}
+
+.function-icon.secondary {
+  background: linear-gradient(135deg, #7BCFDE, #A3E0EB);
+}
+
+.function-icon.success {
+  background: linear-gradient(135deg, #5BB974, #8ED49F);
+}
+
+.function-icon.warning {
+  background: linear-gradient(135deg, #F5A623, #FBC463);
+}
+
+.function-name {
+  font-size: 24rpx;
+  color: #333;
+}
+
+/* 区块标题 */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30rpx 20rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.more-link {
+  font-size: 24rpx;
+  color: #FF6B9D;
+}
+
+/* 今日提醒 */
+.reminder-section {
+  padding: 0 30rpx 30rpx;
+}
+
+.tag {
+  padding: 8rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 20rpx;
+}
+
+.tag.primary {
+  background: rgba(255, 107, 157, 0.1);
+  color: #FF6B9D;
+}
+
+.tag.success {
+  background: rgba(91, 185, 116, 0.1);
+  color: #5BB974;
+}
+
+.tag.warning {
+  background: rgba(245, 166, 35, 0.1);
+  color: #F5A623;
+}
+
+/* 育儿知识卡片 */
+.knowledge-section {
+  padding: 0 30rpx 30rpx;
+}
+
+.knowledge-cards {
+  display: flex;
+  overflow-x: auto;
+  gap: 20rpx;
+}
+
+.knowledge-card {
+  min-width: 280rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.card-image {
+  width: 100%;
+  height: 160rpx;
+  background: linear-gradient(135deg, #FFB6C1, #7BCFDE);
+}
+
+.card-image image {
+  width: 100%;
+  height: 100%;
+}
+
+.card-content {
+  padding: 20rpx;
+}
+
+.card-title {
+  display: block;
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+  line-height: 1.4;
+}
+
+.card-desc {
+  display: block;
+  font-size: 22rpx;
+  color: #666;
+  line-height: 1.4;
+  margin-bottom: 15rpx;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+}
+
+.card-tags .tag {
+  background: #F5F5F5;
+  color: #666;
+  font-size: 20rpx;
+}
+
+/* AI助手入口 */
+.ai-assistant-section {
+  padding: 0 30rpx 50rpx;
+}
+
+.ai-btn {
+  background: linear-gradient(135deg, #FF6B9D, #7BCFDE) !important;
+  border-radius: 50rpx !important;
+  height: 80rpx !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28rpx !important;
+}
+
+.ai-icon {
+  margin-right: 10rpx;
+  font-size: 32rpx;
+}
