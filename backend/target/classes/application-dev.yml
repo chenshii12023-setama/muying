@@ -1,0 +1,18 @@
+spring:
+  # 开发环境数据库配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/mombaby_guide_dev?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    
+  # 开发环境JPA配置
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.mombaby: DEBUG
