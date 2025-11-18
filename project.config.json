@@ -52,8 +52,8 @@
     "disableSWC": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.19.4",
-  "appid": "wxba96d0cddcce78a5",
+  "libVersion": "3.11.2",
+  "appid": "wx8d34f91b7276a91a",
   "projectname": "宝妈育儿轻指南",
   "isGameTourist": false,
   "simulatorType": "wechat",
