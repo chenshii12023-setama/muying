@@ -1,0 +1,10 @@
+# Supabase 配置信息
+# 请将你的 Supabase 项目配置信息填写到下面
+
+# Supabase 项目 URL
+SUPABASE_URL=https://zbhlrnecjmdpuaxvhneu.supabase.co
+# Supabase 匿名密钥
+SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpiaGxybmVjam1kcHVheHZobmV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1ODYxMTAsImV4cCI6MjA3OTE2MjExMH0.xBAXaZkNJyFEOrZRHqejFbttujsmgn3o5rgMwkTO_3o
+
+# Supabase 服务端密钥
+SUPABASE_SERVICE_ROLE_KEY=sb_secret_M1atOTfaeYClx9FOoGT7Jw_Pnt6Ay6A

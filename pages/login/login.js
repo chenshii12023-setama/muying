@@ -10,16 +10,27 @@ Page({
     isLoggingIn: false,
     agreedToTerms: false,
     showGuide: true,
-    showGuideModal: false
+    showGuideModal: false,
+    loginType: 'phone' // 'phone' 或 'wechat'
   },
 
   onLoad: function(options) {
     // 检查是否已登录
-    const token = wx.getStorageSync('token')
-    if (token) {
+    if (app.isLoggedIn()) {
       // 已登录，直接跳转到首页
       wx.switchTab({
         url: '/pages/index/index'
+      })
+      return
+    }
+    
+    // 检查是否有宝宝信息需要完善
+    const needBabyInfo = options.needBabyInfo === 'true'
+    if (needBabyInfo) {
+      wx.showModal({
+        title: '提示',
+        content: '请先登录并完善宝宝信息',
+        showCancel: false
       })
     }
   },
@@ -116,43 +127,89 @@ Page({
     }, 1000)
   },
 
-  handleLogin: function() {
+  /**
+   * 手机号登录
+   */
+  async handleLogin() {
     if (!this.data.canLogin || this.data.isLoggingIn) return
 
     this.setData({
       isLoggingIn: true
     })
 
-    // 模拟登录过程
-    setTimeout(() => {
-      // 保存用户信息
+    try {
+      // 模拟手机号登录验证
+      await this.simulatePhoneLogin()
+      
+      // 生成用户信息
       const userInfo = {
+        id: 'user_' + Date.now(),
+        userId: 'user_' + Date.now(),
         phoneNumber: this.data.phoneNumber,
         nickName: `宝妈${this.data.phoneNumber.slice(-4)}`,
         avatar: '/images/default-avatar.png',
-        loginTime: new Date().toISOString()
+        loginTime: new Date().toISOString(),
+        loginType: 'phone'
       }
 
-      wx.setStorageSync('userInfo', userInfo)
-      wx.setStorageSync('token', 'mock_token_' + Date.now())
+      // 调用app的登录成功处理
+      const loginSuccess = await app.onLoginSuccess(userInfo, 'mock_token_' + Date.now())
+      
+      if (!loginSuccess) {
+        throw new Error('登录处理失败')
+      }
 
       this.setData({
         isLoggingIn: false
       })
 
-      // 跳转到首页
-      wx.switchTab({
-        url: '/pages/index/index'
-      })
+      // 检查是否需要完善宝宝信息
+      await this.checkBabyInfo()
 
       wx.showToast({
         title: '登录成功',
         icon: 'success'
       })
-    }, 1500)
+
+      // 跳转到首页
+      setTimeout(() => {
+        wx.switchTab({
+          url: '/pages/index/index'
+        })
+      }, 1500)
+
+    } catch (error) {
+      console.error('登录失败:', error)
+      this.setData({
+        isLoggingIn: false
+      })
+      wx.showToast({
+        title: error.message || '登录失败',
+        icon: 'none'
+      })
+    }
   },
 
-  handleWechatLogin: function() {
+  /**
+   * 模拟手机号登录
+   */
+  async simulatePhoneLogin() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // 模拟验证码验证
+        if (this.data.verificationCode === '123456') {
+          resolve()
+        } else {
+          throw new Error('验证码错误')
+        }
+      }, 1000)
+    })
+  },
+
+  /**
+   * 微信登录
+   */
+  async handleWechatLogin() {
     if (!this.data.agreedToTerms) {
       wx.showToast({
         title: '请先同意用户协议',
@@ -161,35 +218,96 @@ Page({
       return
     }
 
-    // 模拟微信登录
     wx.showLoading({
       title: '授权中...'
     })
 
-    setTimeout(() => {
-      // 模拟获取微信用户信息
+    try {
+      // 模拟微信授权
+      await this.simulateWechatAuth()
+      
+      // 生成微信用户信息
       const userInfo = {
+        id: 'wechat_' + Date.now(),
+        userId: 'wechat_' + Date.now(),
         nickName: '微信用户',
         avatar: '/images/wechat-avatar.png',
         loginTime: new Date().toISOString(),
+        loginType: 'wechat',
         isWechatUser: true
       }
 
-      wx.setStorageSync('userInfo', userInfo)
-      wx.setStorageSync('token', 'wechat_token_' + Date.now())
+      // 调用app的登录成功处理
+      const loginSuccess = await app.onLoginSuccess(userInfo, 'wechat_token_' + Date.now())
+      
+      if (!loginSuccess) {
+        throw new Error('登录处理失败')
+      }
 
       wx.hideLoading()
 
-      // 跳转到首页
-      wx.switchTab({
-        url: '/pages/index/index'
-      })
+      // 检查是否需要完善宝宝信息
+      await this.checkBabyInfo()
 
       wx.showToast({
         title: '登录成功',
         icon: 'success'
       })
-    }, 2000)
+
+      // 跳转到首页
+      setTimeout(() => {
+        wx.switchTab({
+          url: '/pages/index/index'
+        })
+      }, 1500)
+
+    } catch (error) {
+      console.error('微信登录失败:', error)
+      wx.hideLoading()
+      wx.showToast({
+        title: error.message || '授权失败',
+        icon: 'none'
+      })
+    }
+  },
+
+  /**
+   * 模拟微信授权
+   */
+  async simulateWechatAuth() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve()
+      }, 1500)
+    })
+  },
+
+  /**
+   * 检查是否需要完善宝宝信息
+   */
+  async checkBabyInfo() {
+    const babyInfo = app.getCurrentBaby()
+    const babies = app.getBabies()
+    
+    if (!babyInfo || babies.length === 0) {
+      // 没有宝宝信息，跳转到添加宝宝页面
+      setTimeout(() => {
+        wx.showModal({
+          title: '完善宝宝信息',
+          content: '为了更好地为您服务，请添加宝宝信息',
+          confirmText: '去添加',
+          cancelText: '稍后再说',
+          confirmColor: '#FF6B95',
+          success: (res) => {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '/pages/baby/add-baby'
+              })
+            }
+          }
+        })
+      }, 2000)
+    }
   },
 
   goToTerms: function() {

@@ -1,0 +1,71 @@
+.container {
+  min-height: 100vh;
+  background-color: #f8f8f8;
+  padding: 20rpx;
+}
+
+.form-card {
+  background: #fff;
+  border-radius: 20rpx;
+  overflow: hidden;
+}
+
+.avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx;
+  background: #fff;
+}
+
+.avatar-wrapper {
+  position: relative;
+  margin-bottom: 20rpx;
+}
+
+.avatar {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  border: 4rpx solid #ffb6c1;
+}
+
+.avatar-edit {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 50rpx;
+  height: 50rpx;
+  background: #ff6b95;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3rpx solid #fff;
+}
+
+.edit-icon {
+  font-size: 24rpx;
+  color: #fff;
+}
+
+.avatar-tip {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.date-display {
+  color: #333;
+  font-size: 28rpx;
+}
+
+.action-section {
+  margin-top: 40rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.action-section .t-button {
+  margin-bottom: 20rpx;
+}

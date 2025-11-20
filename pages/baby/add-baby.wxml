@@ -1,0 +1,134 @@
+<view class="container">
+  <view class="form-card">
+    <!-- 头像 -->
+    <view class="avatar-section">
+      <view class="avatar-wrapper" bindtap="chooseAvatar">
+        <image 
+          class="avatar" 
+          src="{{babyData.avatar || '/images/default-baby-avatar.png'}}"
+          mode="aspectFill"
+        />
+        <view class="avatar-edit">
+          <text class="edit-icon">📷</text>
+        </view>
+      </view>
+      <text class="avatar-tip">点击选择宝宝头像</text>
+    </view>
+
+    <!-- 基本信息 -->
+    <t-cell-group title="基本信息">
+      <t-cell title="宝宝姓名" required>
+        <t-input
+          slot="right-icon"
+          placeholder="请输入宝宝姓名"
+          value="{{babyData.name}}"
+          data-field="name"
+          bind:change="onInputChange"
+        />
+      </t-cell>
+
+      <t-cell title="性别" required>
+        <t-radio-group
+          slot="right-icon"
+          value="{{babyData.gender}}"
+          bind:change="onGenderChange"
+        >
+          <t-radio
+            wx:for="{{genderOptions}}"
+            wx:key="value"
+            value="{{item.value}}"
+          >
+            {{item.label}} {{item.icon}}
+          </t-radio>
+        </t-radio-group>
+      </t-cell>
+
+      <t-cell title="出生日期" required>
+        <picker
+          mode="date"
+          value="{{babyData.birthDate}}"
+          start="2020-01-01"
+          end="{{today}}"
+          bindchange="onDateChange"
+        >
+          <view class="date-display">
+            {{babyData.birthDate || '请选择出生日期'}}
+          </view>
+        </picker>
+      </t-cell>
+
+      <t-cell title="血型">
+        <t-radio-group
+          slot="right-icon"
+          value="{{babyData.bloodType}}"
+          bind:change="onBloodTypeChange"
+        >
+          <t-radio
+            wx:for="{{bloodTypeOptions}}"
+            wx:key="value"
+            value="{{item.value}}"
+          >
+            {{item.label}}
+          </t-radio>
+        </t-radio-group>
+      </t-cell>
+    </t-cell-group>
+
+    <!-- 生长数据 -->
+    <t-cell-group title="当前生长数据（可选）">
+      <t-cell title="体重 (kg)">
+        <t-input
+          slot="right-icon"
+          placeholder="请输入体重"
+          value="{{babyData.weight}}"
+          data-field="weight"
+          bind:change="onInputChange"
+        />
+      </t-cell>
+
+      <t-cell title="身高 (cm)">
+        <t-input
+          slot="right-icon"
+          placeholder="请输入身高"
+          value="{{babyData.height}}"
+          data-field="height"
+          bind:change="onInputChange"
+        />
+      </t-cell>
+
+      <t-cell title="头围 (cm)">
+        <t-input
+          slot="right-icon"
+          placeholder="请输入头围"
+          value="{{babyData.headSize}}"
+          data-field="headSize"
+          bind:change="onInputChange"
+        />
+      </t-cell>
+    </t-cell-group>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-section">
+    <t-button
+      theme="primary"
+      size="large"
+      loading="{{isSaving}}"
+      bindtap="saveBaby"
+      block
+    >
+      {{isSaving ? '保存中...' : '保存'}}
+    </t-button>
+    
+    <t-button
+      theme="light"
+      size="large"
+      bindtap="cancel"
+      block
+    >
+      取消
+    </t-button>
+  </view>
+
+
+</view>
