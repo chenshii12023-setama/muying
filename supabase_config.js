@@ -1,22 +1,21 @@
 /**
  * Supabase 配置文件
  * 宝妈育儿轻指南小程序后端集成
- * 适配小程序环境，使用 wx.request 代替 Supabase JS 客户端
- * 包含本地存储降级机制
  */
 
 const APIUtils = require('./utils/api.js')
 const LocalStorageAPI = require('./utils/local-storage.js')
 
-// Supabase 配置 - 直接使用配置文件中的值
+// Supabase 配置
 let supabaseUrl = 'https://zbhlrnecjmdpuaxvhneu.supabase.co'
 let supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpiaGxybmVjam1kcHVheHZobmV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1ODYxMTAsImV4cCI6MjA3OTE2MjExMH0.xBAXaZkNJyFEOrZRHqejFbttujsmgn3o5rgMwkTO_3o'
 
-// 在小程序环境中直接使用硬编码的配置
-// 配置已从 supabase_key 文件中读取并硬编码到变量中
+// [安全修复]：移除了 supabaseServiceRoleKey
+// 千万不要在小程序前端代码中包含 Service Role Key！这会赋予所有用户管理员权限。
+// 数据的读写权限应通过 Supabase Dashboard 中的 RLS Policies (Row Level Security) 进行控制。
+
 console.log('✅ Supabase 配置已加载')
 
-// Supabase API 工具类
 class SupabaseAPI {
   
   // 是否使用本地存储模式
@@ -27,21 +26,53 @@ class SupabaseAPI {
   static async testConnection() {
     if (this.connectionTested) return this.useLocalStorage
     
+    console.log('🔍 开始测试 Supabase 连接...')
+    
     try {
-      const result = await APIUtils.get(supabaseUrl + '/rest/v1/baby_food_recipes?limit=1', {}, {
-        showLoading: false,
-        showError: false
+      // 使用 Anon Key 进行连接测试
+      const result = await new Promise((resolve, reject) => {
+        // 请求 recipes 表，请确保 RLS 允许 public 角色读取
+        const requestUrl = supabaseUrl + '/rest/v1/baby_food_recipes?limit=1'
+        
+        wx.request({
+          url: requestUrl,
+          method: 'GET',
+          timeout: 10000,
+          header: {
+            'apikey': supabaseAnonKey,
+            'Authorization': `Bearer ${supabaseAnonKey}`, // 使用 Anon Key
+            'Content-Type': 'application/json'
+          },
+          success: (res) => {
+            if (res.statusCode >= 200 && res.statusCode < 300) {
+              console.log('✅ HTTP 请求成功')
+              resolve(res.data)
+            } else {
+              console.log('❌ HTTP 请求失败，状态码:', res.statusCode)
+              reject(new Error(`HTTP ${res.statusCode}`))
+            }
+          },
+          fail: (error) => {
+            reject(new Error(`网络请求失败`))
+          }
+        })
       })
+      
       this.useLocalStorage = false
       this.connectionTested = true
-      console.log('Supabase连接正常')
+      console.log('✅ Supabase连接正常 (使用 Anon Key)')
       return false
     } catch (error) {
-      console.log('Supabase连接失败，切换到本地存储模式:', error.message)
+      console.log('⚠️ Supabase连接失败，切换到本地存储模式:', error.message)
       this.useLocalStorage = true
       this.connectionTested = true
-      // 初始化本地存储示例数据
-      await LocalStorageAPI.initDemoData()
+      try {
+        if (LocalStorageAPI && LocalStorageAPI.initDemoData) {
+           await LocalStorageAPI.initDemoData()
+        }
+      } catch (initError) {
+        console.log('⚠️ 本地存储初始化失败:', initError.message)
+      }
       return true
     }
   }
@@ -53,31 +84,40 @@ class SupabaseAPI {
       throw new Error('LOCAL_STORAGE_MODE')
     }
     
+    // console.log('🌐 发起 Supabase 请求:', method, endpoint)
+    
     try {
+      // [核心]：这里明确传入了 Header，APIUtils 现在会优先使用这些 Header
+      // 而不会被本地的 login_token 覆盖
       const result = await APIUtils.request({
         url: supabaseUrl + endpoint,
         method: method,
         data: data,
         header: {
           'apikey': supabaseAnonKey,
-          'Authorization': `Bearer ${supabaseAnonKey}`
+          'Authorization': `Bearer ${supabaseAnonKey}`, 
+          'Content-Type': 'application/json',
+          'Prefer': 'return=representation' // 让 POST/PATCH 返回修改后的数据
         },
         showLoading: false,
         showError: false
       })
       return result
     } catch (error) {
+      console.log('❌ Supabase 请求失败:', error.message)
+      
       // 如果网络请求失败，标记为本地存储模式
-      if (error.message.includes('网络') || error.message.includes('超时')) {
+      if (error.message.includes('网络') || error.message.includes('超时') || error.message.includes('request:fail')) {
         this.useLocalStorage = true
-        console.log('网络请求失败，切换到本地存储模式')
+        console.log('🔄 网络请求失败，切换到本地存储模式')
         throw new Error('LOCAL_STORAGE_MODE')
       }
       throw error
     }
   }
 
-  // 用户资料管理
+  // --- 下面的业务方法保持不变，它们现在会正确调用上面的 request ---
+
   static async getUserProfile(userId) {
     try {
       const result = await this.request(`/rest/v1/profiles?user_id=eq.${userId}&select=*`)
@@ -102,7 +142,6 @@ class SupabaseAPI {
     }
   }
 
-  // 宝宝管理
   static async getUserBabies(profileId) {
     try {
       const result = await this.request(`/rest/v1/babies?profile_id=eq.${profileId}&select=*&order=created_at.desc`)
@@ -119,7 +158,8 @@ class SupabaseAPI {
     try {
       const data = { ...babyData, profile_id: profileId }
       const result = await this.request('/rest/v1/babies', 'POST', data)
-      return result
+      // POST with Prefer: return=representation returns array
+      return result && result.length ? result[0] : result;
     } catch (error) {
       if (error.message === 'LOCAL_STORAGE_MODE') {
         return await LocalStorageAPI.createBaby(profileId, babyData)
@@ -131,7 +171,7 @@ class SupabaseAPI {
   static async updateBaby(babyId, updates) {
     try {
       const result = await this.request(`/rest/v1/babies?id=eq.${babyId}`, 'PATCH', updates)
-      return result
+      return result && result.length ? result[0] : result;
     } catch (error) {
       if (error.message === 'LOCAL_STORAGE_MODE') {
         return await LocalStorageAPI.updateBaby(babyId, updates)
@@ -152,7 +192,6 @@ class SupabaseAPI {
     }
   }
 
-  // 生长记录
   static async getBabyGrowthRecords(babyId) {
     try {
       const result = await this.request(`/rest/v1/baby_growth_records?baby_id=eq.${babyId}&select=*&order=record_date.desc`)
@@ -169,7 +208,7 @@ class SupabaseAPI {
     try {
       const data = { ...recordData, baby_id: babyId }
       const result = await this.request('/rest/v1/baby_growth_records', 'POST', data)
-      return result
+      return result && result.length ? result[0] : result;
     } catch (error) {
       if (error.message === 'LOCAL_STORAGE_MODE') {
         return await LocalStorageAPI.addGrowthRecord(babyId, recordData)
@@ -178,7 +217,6 @@ class SupabaseAPI {
     }
   }
 
-  // 里程碑记录
   static async getBabyMilestones(babyId) {
     try {
       const result = await this.request(`/rest/v1/milestones?baby_id=eq.${babyId}&select=*&order=milestone_date.desc`)
@@ -195,7 +233,7 @@ class SupabaseAPI {
     try {
       const data = { ...milestoneData, baby_id: babyId }
       const result = await this.request('/rest/v1/milestones', 'POST', data)
-      return result
+      return result && result.length ? result[0] : result;
     } catch (error) {
       if (error.message === 'LOCAL_STORAGE_MODE') {
         return await LocalStorageAPI.addMilestone(babyId, milestoneData)
@@ -204,15 +242,12 @@ class SupabaseAPI {
     }
   }
 
-  // 母婴设施查询
   static async getNearbyFacilities(lat, lng, radius = 5, facilityType = null) {
     try {
       let url = `/rest/v1/maternal_facilities?select=*`
-      
       if (facilityType) {
         url += `&facility_type=eq.${facilityType}`
       }
-      
       const facilities = await this.request(url)
       return facilities.map(facility => ({
         ...facility,
@@ -226,18 +261,15 @@ class SupabaseAPI {
     }
   }
 
-  // 闲置物品
   static async getSecondhandItems(filters = {}) {
     try {
       let url = `/rest/v1/secondhand_items?status=eq.available&select=*,profiles(nickname,avatar_url)&order=created_at.desc`
-      
       if (filters.category) {
         url += `&category=eq.${filters.category}`
       }
       if (filters.search) {
         url += `&title=ilike.*${filters.search}*`
       }
-      
       return await this.request(url)
     } catch (error) {
       if (error.message === 'LOCAL_STORAGE_MODE') {
@@ -260,18 +292,15 @@ class SupabaseAPI {
     }
   }
 
-  // 辅食食谱
   static async getBabyFoodRecipes(filters = {}) {
     try {
       let url = `/rest/v1/baby_food_recipes?select=*&order=view_count.desc`
-      
       if (filters.suitableAge) {
         url += `&suitable_age=eq.${filters.suitableAge}`
       }
       if (filters.difficulty) {
         url += `&difficulty=eq.${filters.difficulty}`
       }
-      
       return await this.request(url)
     } catch (error) {
       if (error.message === 'LOCAL_STORAGE_MODE') {
@@ -281,7 +310,6 @@ class SupabaseAPI {
     }
   }
 
-  // 设施评价
   static async getFacilityReviews(facilityId) {
     try {
       const result = await this.request(`/rest/v1/facility_reviews?facility_id=eq.${facilityId}&select=*,profiles(nickname,avatar_url)&order=created_at.desc`)
@@ -307,9 +335,8 @@ class SupabaseAPI {
     }
   }
 
-  // 计算两个坐标点之间的距离（公里）
   static calculateDistance(lat1, lon1, lat2, lon2) {
-    const R = 6371 // 地球半径（公里）
+    const R = 6371 
     const dLat = (lat2 - lat1) * Math.PI / 180
     const dLon = (lon2 - lon1) * Math.PI / 180
     const a = 
@@ -321,27 +348,29 @@ class SupabaseAPI {
     return Math.round(distance * 100) / 100
   }
 
-  // 文件上传（小程序使用 wx.uploadFile）
+  // 文件上传
   static async uploadFile(filePath, bucketName = 'images') {
     try {
       if (this.useLocalStorage) {
-        // 本地存储模式，返回模拟的文件路径
         const fileName = `${Date.now()}-${filePath.split('/').pop()}`
         return `/local-images/${fileName}`
       }
       
-      const uploadUrl = supabaseUrl + `/storage/v1/object/${bucketName}/${Date.now()}-${filePath.split('/').pop()}`
+      const fileName = `${Date.now()}-${filePath.split('/').pop()}`
+      const uploadUrl = supabaseUrl + `/storage/v1/object/${bucketName}/${fileName}`
+      
+      // 确保 APIUtils.uploadFile 也能接收 header
       const result = await APIUtils.uploadFile(filePath, uploadUrl, {}, {
-        showError: true
+        showError: true,
+        header: {
+          'apikey': supabaseAnonKey,
+          'Authorization': `Bearer ${supabaseAnonKey}`
+        }
       })
       
-      if (typeof result === 'string') {
-        return result
-      } else {
-        return result.Key || result.path
-      }
+      // 修正返回的路径
+      return `/storage/v1/object/public/${bucketName}/${fileName}`
     } catch (error) {
-      // 上传失败时返回本地模拟路径
       console.warn('文件上传失败，使用本地路径:', error.message)
       const fileName = `${Date.now()}-${filePath.split('/').pop()}`
       return `/local-images/${fileName}`
@@ -349,5 +378,4 @@ class SupabaseAPI {
   }
 }
 
-// 导出 API 类
 module.exports = SupabaseAPI

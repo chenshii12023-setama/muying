@@ -1,0 +1,90 @@
+<view class="privacy-container">
+  <view class="header">
+    <text class="title">隐私政策</text>
+    <text class="subtitle">保护您的隐私是我们的责任</text>
+  </view>
+  
+  <view class="content">
+    <view class="section">
+      <text class="section-title">1. 信息收集</text>
+      <text class="section-text">
+        我们收集的信息包括：
+        • 账户信息：手机号、昵称、头像等
+        • 宝宝信息：姓名、出生日期、健康记录等
+        • 使用记录：应用使用行为、偏好设置等
+        • 设备信息：设备型号、操作系统等
+      </text>
+    </view>
+    
+    <view class="section">
+      <text class="section-title">2. 信息使用</text>
+      <text class="section-text">
+        我们使用收集的信息用于：
+        • 提供个性化育儿建议
+        • 改善应用功能和用户体验
+        • 客户服务和技术支持
+        • 安全保障和风险防控
+      </text>
+    </view>
+    
+    <view class="section">
+      <text class="section-title">3. 信息共享</text>
+      <text class="section-text">
+        除以下情况外，我们不会与第三方共享您的个人信息：
+        • 获得您的明确授权
+        • 法律法规要求
+        • 保护用户和公众安全
+        • 与可信赖的服务提供商合作
+      </text>
+    </view>
+    
+    <view class="section">
+      <text class="section-title">4. 信息存储</text>
+      <text class="section-text">
+        • 采用加密技术保护数据安全
+        • 严格限制数据访问权限
+        • 定期进行安全审计
+        • 数据保留期限符合法律法规要求
+      </text>
+    </view>
+    
+    <view class="section">
+      <text class="section-title">5. 您的权利</text>
+      <text class="section-text">
+        您有权：
+        • 查看和修改个人信息
+        • 删除个人账户和相关数据
+        • 撤销已授权的信息使用
+        • 关闭个性化推荐服务
+      </text>
+    </view>
+    
+    <view class="section">
+      <text class="section-title">6. Cookie使用</text>
+      <text class="section-text">
+        我们使用Cookie和类似技术来改善用户体验，您可以在设置中管理Cookie偏好。
+      </text>
+    </view>
+    
+    <view class="section">
+      <text class="section-title">7. 儿童隐私</text>
+      <text class="section-text">
+        我们特别重视儿童的隐私保护，严格遵守相关法律法规，对儿童信息采取更严格的保护措施。
+      </text>
+    </view>
+    
+    <view class="section">
+      <text class="section-title">8. 政策更新</text>
+      <text class="section-text">
+        我们可能会不时更新本隐私政策，重要变更会通过应用内通知等方式告知您。
+      </text>
+    </view>
+    
+    <view class="section">
+      <text class="section-title">9. 联系我们</text>
+      <text class="section-text">
+        如有隐私相关问题，请联系我们：privacy@example.com
+      </text>
+    </view>
+  </view>
+</view>

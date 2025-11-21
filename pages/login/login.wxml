@@ -28,12 +28,13 @@
         value="{{verificationCode}}"
         bind:change="onCodeChange"
       >
-        <view slot="suffix">
+        <view slot="suffix" class="verify-btn-wrapper">
           <t-button 
-            size="small" 
+            size="extra-small" 
             theme="primary" 
-            :disabled="!canSendCode || countdown > 0"
+            disabled="{{!canSendCode || countdown > 0}}"
             bind:tap="sendVerificationCode"
+            class="verify-btn"
           >
             {{countdown > 0 ? countdown + 's' : '获取验证码'}}
           </t-button>
@@ -47,7 +48,7 @@
         theme="primary" 
         size="large" 
         block 
-        :disabled="!canLogin"
+        disabled="{{!canLogin}}"
         bind:tap="handleLogin"
         loading="{{isLoggingIn}}"
       >
@@ -74,16 +75,15 @@
 
     <!-- 用户协议 -->
     <view class="agreement">
-      <label class="agreement-label">
-        <checkbox 
-          checked="{{agreedToTerms}}" 
-          bindchange="onAgreementChange"
-        />
-        <text>我已阅读并同意</text>
-        <text class="link" bind:tap="goToTerms">《用户协议》</text>
-        <text>和</text>
-        <text class="link" bind:tap="goToPrivacy">《隐私政策》</text>
-      </label>
+      <checkbox-group bind:change="onAgreementChange">
+        <view class="agreement-content">
+          <checkbox value="agree" checked="{{agreedToTerms}}" />
+          <text>我已阅读并同意</text>
+          <text class="link" catchtap="goToTerms">《用户协议》</text>
+          <text>和</text>
+          <text class="link" catchtap="goToPrivacy">《隐私政策》</text>
+        </view>
+      </checkbox-group>
     </view>
   </view>
 

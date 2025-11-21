@@ -156,6 +156,18 @@ Page({
     })
 
     try {
+      // 检查用户是否已登录
+      if (!app.globalData.userProfile) {
+        wx.showToast({
+          title: '请先登录',
+          icon: 'none'
+        })
+        this.setData({
+          isSaving: false
+        })
+        return
+      }
+
       const babyData = { ...this.data.babyData }
       
       // 上传头像
@@ -171,22 +183,63 @@ Page({
         }
       })
       
-      // 添加宝宝
-      await app.addBaby(babyData)
+      // 直接保存到数据库
+      console.log('👶 开始添加宝宝...')
+      const profileId = app.globalData.userProfile.id || app.globalData.userProfile.user_id
       
-      this.setData({
-        isSaving: false
+      if (!profileId) {
+        wx.showToast({
+          title: '用户信息错误',
+          icon: 'none'
+        })
+        this.setData({
+          isSaving: false
+        })
+        return
+      }
+      
+      const babyResult = await wx.request({
+        url: 'https://zbhlrnecjmdpuaxvhneu.supabase.co/rest/v1/babies',
+        method: 'POST',
+        data: {
+          ...babyData,
+          profile_id: profileId,
+          created_at: new Date().toISOString()
+        },
+        header: {
+          'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpiaGxybmVjam1kcHVheHZobmV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1ODYxMTAsImV4cCI6MjA3OTE2MjExMH0.xBAXaZkNJyFEOrZRHqejFbttujsmgn3o5rgMwkTO_3o',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpiaGxybmVjam1kcHVheHZobmV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1ODYxMTAsImV4cCI6MjA3OTE2MjExMH0.xBAXaZkNJyFEOrZRHqejFbttujsmgn3o5rgMwkTO_3o',
+          'Content-Type': 'application/json'
+        }
       })
+      
+      if (babyResult.statusCode === 201) {
+        console.log('✅ 宝宝添加成功:', babyResult.data[0])
+        
+        // 更新app的宝宝列表
+        app.globalData.babies.unshift(babyResult.data[0])
+        if (app.globalData.babies.length === 1) {
+          app.globalData.currentBaby = babyResult.data[0]
+          app.globalData.babyInfo = babyResult.data[0]
+          wx.setStorageSync('currentBaby', babyResult.data[0])
+        }
+        
+        this.setData({
+          isSaving: false
+        })
 
-      wx.showToast({
-        title: '添加成功',
-        icon: 'success'
-      })
+        wx.showToast({
+          title: '添加成功',
+          icon: 'success'
+        })
 
-      // 返回上一页
-      setTimeout(() => {
-        wx.navigateBack()
-      }, 1500)
+        // 返回上一页
+        setTimeout(() => {
+          wx.navigateBack()
+        }, 1500)
+      } else {
+        throw new Error('添加失败: ' + JSON.stringify(babyResult.data))
+      }
 
     } catch (error) {
       console.error('添加宝宝失败:', error)

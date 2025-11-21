@@ -19,8 +19,8 @@ App({
   onLaunch: function () {
     console.log('宝妈育儿轻指南小程序启动')
     
-    // [已修复] 函数名修正：调用底部定义的 testBackendConnection
-    this.testBackendConnection()
+    // 添加网络测试
+    this.testNetworkConnection()
     
     // 获取系统信息
     this.getSystemInfo()
@@ -44,7 +44,6 @@ App({
       this.initData()
       
       // 简单的后端连接测试
-      // 注意：这里使用了 globalData.supabase
       this.globalData.supabase.testConnection().then(async (useLocal) => {
         this.globalData.backendConnected = !useLocal
         this.globalData.useLocalStorage = useLocal
@@ -69,18 +68,18 @@ App({
   },
 
   onShow: function (options) {
+    // 小程序从后台进入前台时触发
     console.log('小程序进入前台')
   },
 
   onHide: function () {
+    // 小程序从前台进入后台时触发
     console.log('小程序进入后台')
   },
 
   onError: function (msg) {
+    // 小程序发生脚本错误或API调用失败时触发
     console.error('小程序发生错误：', msg)
-    // 避免在启动时的某些错误无限弹窗，稍微过滤一下
-    if (msg.includes('testNetworkConnection')) return; 
-    
     wx.showToast({
       title: '程序出现异常，请稍后重试',
       icon: 'none'
@@ -116,12 +115,9 @@ App({
           let userProfile = await this.globalData.supabase.getUserProfile(userInfo.id || userInfo.userId)
           
           // 如果用户资料不存在，创建一个
-          if (!userProfile || userProfile.length === 0) {
+          if (!userProfile) {
             console.log('用户资料不存在，创建新资料...')
             userProfile = await this.createOrUpdateProfile(userInfo)
-          } else if (Array.isArray(userProfile)) {
-             // 修复：getUserProfile返回的是数组，取第一个
-             userProfile = userProfile[0];
           }
           
           this.globalData.userProfile = userProfile || userInfo
@@ -156,13 +152,17 @@ App({
   },
 
   initData: function() {
+    // 初始化默认数据
     this.initDefaultData()
+    
+    // 初始化示例数据（开发环境）
     if (this.isDevMode()) {
       this.initDemoData()
     }
   },
 
   initDefaultData: function() {
+    // 检查并初始化必要的数据结构
     const defaultData = {
       growthRecords: [],
       favoriteTips: [],
@@ -180,6 +180,7 @@ App({
   },
 
   initDemoData: function() {
+    // 开发环境下的示例数据
     if (!wx.getStorageSync('demoDataInitialized')) {
       const demoGrowthRecords = [
         {
@@ -218,6 +219,7 @@ App({
   },
 
   isDevMode: function() {
+    // 判断是否为开发环境
     try {
       const accountInfo = wx.getAccountInfoSync()
       return accountInfo.miniProgram.envVersion === 'develop'
@@ -226,50 +228,83 @@ App({
     }
   },
 
+  /**
+   * 获取用户信息
+   */
   getUserInfo: function() {
     return this.globalData.userInfo || wx.getStorageSync('userInfo')
   },
 
+  /**
+   * 获取完整用户资料
+   */
   getUserProfile: function() {
     return this.globalData.userProfile || this.globalData.userInfo
   },
 
+  /**
+   * 设置用户信息
+   */
   setUserInfo: function(userInfo) {
     this.globalData.userInfo = userInfo
     wx.setStorageSync('userInfo', userInfo)
   },
 
+  /**
+   * 获取当前宝宝信息
+   */
   getBabyInfo: function() {
     return this.globalData.babyInfo || this.globalData.currentBaby || wx.getStorageSync('currentBaby') || wx.getStorageSync('babyInfo')
   },
 
+  /**
+   * 获取当前宝宝
+   */
   getCurrentBaby: function() {
     return this.globalData.currentBaby || this.globalData.babyInfo
   },
 
+  /**
+   * 获取所有宝宝列表
+   */
   getBabies: function() {
     return this.globalData.babies || []
   },
 
+  /**
+   * 设置宝宝信息（已废弃，使用 setCurrentBaby）
+   */
   setBabyInfo: function(babyInfo) {
     console.warn('setBabyInfo已废弃，请使用setCurrentBaby')
     this.globalData.babyInfo = babyInfo
     wx.setStorageSync('babyInfo', babyInfo)
   },
 
+  /**
+   * 获取token
+   */
   getToken: function() {
     return this.globalData.token || wx.getStorageSync('token')
   },
 
+  /**
+   * 设置token
+   */
   setToken: function(token) {
     this.globalData.token = token
     wx.setStorageSync('token', token)
   },
 
+  /**
+   * 检查是否登录
+   */
   isLoggedIn: function() {
     return this.globalData.isLoggedIn && !!this.getToken()
   },
 
+  /**
+   * 登录检查
+   */
   requireLogin: function(callback) {
     if (this.isLoggedIn()) {
       callback && callback()
@@ -291,15 +326,21 @@ App({
     }
   },
 
+  /**
+   * 登录成功后的处理
+   */
   async onLoginSuccess(userInfo, token) {
     try {
+      // 保存到全局状态
       this.globalData.userInfo = userInfo
       this.globalData.token = token
       this.globalData.isLoggedIn = true
       
+      // 保存到本地存储
       wx.setStorageSync('userInfo', userInfo)
       wx.setStorageSync('token', token)
       
+      // 加载完整的用户资料和宝宝信息
       await this.checkLoginStatus()
       
       console.log('登录成功，用户资料已更新')
@@ -310,8 +351,12 @@ App({
     }
   },
 
+  /**
+   * 退出登录
+   */
   logout() {
     try {
+      // 清除全局状态
       this.globalData.userInfo = null
       this.globalData.babyInfo = null
       this.globalData.currentBaby = null
@@ -320,6 +365,7 @@ App({
       this.globalData.token = null
       this.globalData.isLoggedIn = false
       
+      // 清除本地存储
       wx.removeStorageSync('userInfo')
       wx.removeStorageSync('babyInfo')
       wx.removeStorageSync('currentBaby')
@@ -332,12 +378,19 @@ App({
     }
   },
 
+  /**
+   * 清除登录状态
+   */
   clearLoginStatus() {
     this.logout()
   },
 
+  /**
+   * 创建或更新用户资料
+   */
   async createOrUpdateProfile(userInfo) {
     try {
+      // 先测试连接
       const useLocalStorage = await this.globalData.supabase.testConnection()
       if (useLocalStorage) {
         console.log('📱 使用本地存储模式，创建本地用户资料')
@@ -345,48 +398,59 @@ App({
       }
       
       const profileData = {
+        // 不设置user_id，让RLS策略处理
         nickname: userInfo.nickName || userInfo.nickname || '宝妈',
         avatar_url: userInfo.avatar || userInfo.avatarUrl || '',
         phone_number: userInfo.phoneNumber || '',
         email: userInfo.email || '',
         created_at: new Date().toISOString()
-        // 注意：user_id 通常由 Supabase Auth 自动处理，或者需要在 RLS 策略中允许 Anon 角色插入
       }
       
       console.log('📤 尝试创建用户资料到Supabase:', profileData)
       
+      // 直接POST创建，让Supabase处理user_id
       const profile = await this.globalData.supabase.request('/rest/v1/profiles', 'POST', profileData)
       
       if (profile && profile.length > 0) {
         console.log('✅ Supabase用户资料创建成功:', profile[0])
         return profile[0]
-      } else if (profile) {
-         // 有时候 POST 返回的是对象而不是数组
-         return profile;
       } else {
         throw new Error('Supabase返回空结果')
       }
     } catch (error) {
       console.error('创建/更新用户资料失败:', error)
       
-      const localProfile = {
-        id: 'fallback_' + Date.now(),
-        user_id: userInfo.id || userInfo.userId,
-        nickname: userInfo.nickName || userInfo.nickname || '宝妈',
-        avatar_url: userInfo.avatar || userInfo.avatarUrl || '',
-        phone_number: userInfo.phoneNumber || '',
-        created_at: new Date().toISOString()
-      }
-      
       if (error.message === 'LOCAL_STORAGE_MODE') {
+        // 本地存储模式，创建本地资料
+        const localProfile = {
+          id: 'local_' + Date.now(),
+          user_id: userInfo.id || userInfo.userId,
+          nickname: userInfo.nickName || userInfo.nickname || '宝妈',
+          avatar_url: userInfo.avatar || userInfo.avatarUrl || '',
+          phone_number: userInfo.phoneNumber || '',
+          created_at: new Date().toISOString()
+        }
         console.log('📱 创建本地用户资料:', localProfile)
+        return localProfile
       } else {
+        // 其他错误，还是尝试创建本地资料作为降级
+        const localProfile = {
+          id: 'fallback_' + Date.now(),
+          user_id: userInfo.id || userInfo.userId,
+          nickname: userInfo.nickName || userInfo.nickname || '宝妈',
+          avatar_url: userInfo.avatar || userInfo.avatarUrl || '',
+          phone_number: userInfo.phoneNumber || '',
+          created_at: new Date().toISOString()
+        }
         console.warn('⚠️ 降级到本地用户资料:', localProfile)
+        return localProfile
       }
-      return localProfile
     }
   },
 
+  /**
+   * 设置当前宝宝
+   */
   setCurrentBaby(baby) {
     this.globalData.currentBaby = baby
     this.globalData.babyInfo = baby
@@ -394,16 +458,22 @@ App({
     console.log('当前宝宝已更新:', baby.name)
   },
 
+  /**
+   * 更新宝宝信息
+   */
   async updateBabyInfo(babyId, updates) {
     try {
+      // 更新到后端
       const updatedBaby = await this.globalData.supabase.updateBaby(babyId, updates)
       
+      // 更新全局状态
       if (this.globalData.currentBaby && this.globalData.currentBaby.id === babyId) {
         this.globalData.currentBaby = { ...this.globalData.currentBaby, ...updates }
         this.globalData.babyInfo = this.globalData.currentBaby
         wx.setStorageSync('currentBaby', this.globalData.currentBaby)
       }
       
+      // 更新宝宝列表
       const babyIndex = this.globalData.babies.findIndex(baby => baby.id === babyId)
       if (babyIndex >= 0) {
         this.globalData.babies[babyIndex] = { ...this.globalData.babies[babyIndex], ...updates }
@@ -417,8 +487,12 @@ App({
     }
   },
 
+  /**
+   * 添加新宝宝
+   */
   async addBaby(babyData) {
     try {
+      // 如果没有用户资料，创建一个临时资料
       if (!this.globalData.userProfile) {
         console.log('用户资料不存在，创建临时资料...')
         const tempUser = {
@@ -428,12 +502,16 @@ App({
         this.globalData.userProfile = await this.createOrUpdateProfile(tempUser)
       }
       
+      // 确保有 profile_id
       const profileId = this.globalData.userProfile.id || this.globalData.userProfile.user_id
       
+      // 添加到后端
       const newBaby = await this.globalData.supabase.createBaby(profileId, babyData)
       
+      // 更新全局状态
       this.globalData.babies.unshift(newBaby)
       
+      // 如果是第一个宝宝，设为当前宝宝
       if (this.globalData.babies.length === 1) {
         this.setCurrentBaby(newBaby)
       }
@@ -446,7 +524,7 @@ App({
     }
   },
 
-  // [警告] 此 request 封装在 api.js 面前可能多余，建议优先使用 api.js
+  // 网络请求封装
   request: function(options) {
     const token = this.getToken()
     const header = {
@@ -477,22 +555,32 @@ App({
     })
   },
 
+  /**
+   * 统一错误处理
+   */
   handleError: function(error) {
     console.error('API调用错误：', error)
+    
     let message = '操作失败，请重试'
+    
     if (typeof error === 'string') {
       message = error
     } else if (error && error.message) {
       message = error.message
     }
+    
     wx.showToast({
       title: message,
       icon: 'none',
       duration: 2000
     })
+    
     return message
   },
 
+  /**
+   * 获取应用状态信息
+   */
   getAppStatus: function() {
     return {
       isLoggedIn: this.isLoggedIn(),
@@ -503,11 +591,16 @@ App({
     }
   },
 
+  /**
+   * 刷新用户数据
+   */
   async refreshUserData() {
     try {
       if (!this.isLoggedIn()) {
         return false
       }
+      
+      // 重新检查登录状态，刷新数据
       await this.checkLoginStatus()
       console.log('用户数据刷新完成')
       return true
@@ -517,6 +610,7 @@ App({
     }
   },
 
+  // 获取当前位置
   getCurrentLocation: function() {
     return new Promise((resolve, reject) => {
       wx.getLocation({
@@ -534,6 +628,7 @@ App({
     })
   },
 
+  // 检查位置权限
   checkLocationPermission: function() {
     return new Promise((resolve) => {
       wx.getSetting({
@@ -551,6 +646,7 @@ App({
     })
   },
 
+  // 请求位置权限
   requestLocationPermission: function() {
     return new Promise((resolve) => {
       wx.authorize({
@@ -566,38 +662,60 @@ App({
   },
 
   /**
-   * 这里就是 onLaunch 应该调用的函数
+   * 退出登录
+   */
+  logout: function() {
+    console.log('用户退出登录')
+    
+    // 清除全局数据
+    this.globalData.userInfo = null
+    this.globalData.userProfile = null
+    this.globalData.currentBaby = null
+    this.globalData.babyInfo = null
+    this.globalData.babies = []
+    this.globalData.token = null
+    this.globalData.isLoggedIn = false
+    
+    // 清除本地存储
+    wx.removeStorageSync('token')
+    wx.removeStorageSync('userInfo')
+    wx.removeStorageSync('userProfile')
+    wx.removeStorageSync('currentBaby')
+    wx.removeStorageSync('babyInfo')
+    
+    console.log('用户数据已清除')
+  },
+
+  /**
+   * 测试后端连接
    */
   async testBackendConnection() {
     console.log('测试后端连接...')
     
     try {
-      // 使用 Supabase 配置中的 testConnection
       const useLocalStorage = await this.globalData.supabase.testConnection()
       this.globalData.useLocalStorage = useLocalStorage
       this.globalData.backendConnected = !useLocalStorage
       
       if (useLocalStorage) {
         console.log('使用本地存储模式')
-        // 开发环境不频繁弹窗
-        if (!this.isDevMode()) {
-          wx.showToast({
-            title: '使用离线模式',
-            icon: 'none',
-            duration: 2000
-          })
-        }
+        wx.showToast({
+          title: '使用离线模式',
+          icon: 'none',
+          duration: 2000
+        })
       } else {
         console.log('后端连接成功')
-        // 测试获取辅食食谱，确认数据读取权限
+        // 测试获取辅食食谱
         const recipes = await this.globalData.supabase.getBabyFoodRecipes({})
-        console.log('获取到食谱数量:', recipes ? recipes.length : 0)
+        console.log('获取到食谱数量:', recipes.length)
       }
     } catch (error) {
       console.error('测试后端连接失败:', error)
       this.globalData.backendConnected = false
       this.globalData.useLocalStorage = true
       
+      // 在开发模式下不显示错误提示，避免干扰开发
       if (!this.isDevMode()) {
         wx.showModal({
           title: '网络连接提示',
@@ -607,4 +725,61 @@ App({
       }
     }
   },
+
+  // 测试网络连接
+  testNetworkConnection: function() {
+    console.log('🔍 开始网络连接测试...')
+    
+    const supabaseUrl = 'https://zbhlrnecjmdpuaxvhneu.supabase.co'
+    const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpiaGxybmVjam1kcHVheHZobmV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1ODYxMTAsImV4cCI6MjA3OTE2MjExMH0.xBAXaZkNJyFEOrZRHqejFbttujsmgn3o5rgMwkTO_3o'
+    const supabaseServiceRoleKey = 'sb_secret_M1atOTfaeYClx9FOoGT7Jw_Pnt6Ay6A'
+    
+    // 测试1: 基础网络连接
+    console.log('
+📡 测试1: 基础网络连接 (httpbin)')
+    wx.request({
+      url: 'https://httpbin.org/get',
+      method: 'GET',
+      success: (res) => {
+        console.log('✅ 基础网络连接正常:', res.statusCode)
+      },
+      fail: (error) => {
+        console.log('❌ 基础网络连接失败:', error)
+      }
+    })
+    
+    // 测试2: Supabase 连接
+    console.log('
+📡 测试2: Supabase 连接测试')
+    wx.request({
+      url: supabaseUrl + '/rest/v1/baby_food_recipes?limit=1',
+      method: 'GET',
+      timeout: 10000,
+      header: {
+        'apikey': supabaseAnonKey,
+        'Authorization': `Bearer ${supabaseAnonKey}`,
+        'Content-Type': 'application/json'
+      },
+      success: (res) => {
+        console.log('✅ Supabase 连接成功:', res.statusCode)
+        console.log('📊 响应数据:', res.data)
+      },
+      fail: (error) => {
+        console.log('❌ Supabase 连接失败:', error)
+        console.log('🔍 详细错误:', JSON.stringify(error))
+      }
+    })
+    
+    // 测试3: 检查网络状态
+    console.log('
+📡 测试3: 检查网络状态')
+    wx.getNetworkType({
+      success: (res) => {
+        console.log('🌐 网络类型:', res.networkType)
+      },
+      fail: (error) => {
+        console.log('❌ 获取网络状态失败:', error)
+      }
+    })
+  }
 })

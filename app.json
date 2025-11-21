@@ -7,7 +7,9 @@
     "pages/map/map",
     "pages/market/market",
     "pages/ai/ai",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/settings/terms",
+    "pages/settings/privacy"
   ],
   "tabBar": {
     "color": "#999999",
@@ -58,11 +60,12 @@
     "t-input": "tdesign-miniprogram/input/input",
     "t-tabs": "tdesign-miniprogram/tabs/tabs",
     "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
-
     "t-upload": "tdesign-miniprogram/upload/upload",
     "t-dialog": "tdesign-miniprogram/dialog/dialog",
     "t-message": "tdesign-miniprogram/message/message",
-    "t-loading": "tdesign-miniprogram/loading/loading"
+    "t-loading": "tdesign-miniprogram/loading/loading",
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-divider": "tdesign-miniprogram/divider/divider"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"

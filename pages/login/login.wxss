@@ -59,13 +59,29 @@
   margin-top: 20rpx;
 }
 
-.agreement-label {
+.agreement-content {
   font-size: 24rpx;
   color: #999;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.verify-btn-wrapper {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: 8rpx;
+}
+
+.verify-btn {
+  min-width: 90rpx !important;
+  max-width: 120rpx !important;
+  height: 48rpx !important;
+  font-size: 18rpx !important;
+  padding: 4rpx 8rpx !important;
+  line-height: 1 !important;
 }
 
 .link {

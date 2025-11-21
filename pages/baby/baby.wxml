@@ -4,8 +4,26 @@
     <view class="baby-info">
       <view class="baby-avatar">{{babyInfo.avatarText || '👶'}}</view>
       <view class="baby-details">
-        <text class="baby-name">{{babyInfo.name || '宝宝'}}</text>
-        <text class="baby-age">{{babyInfo.age}}个月</text>
+        <view class="baby-name-row">
+          <text class="baby-name">{{babyInfo.name || '宝宝'}}</text>
+          <view class="baby-selector" wx:if="{{babies.length > 1}}" bind:tap="showBabySelector">
+            <text class="selector-text">切换</text>
+            <text class="selector-arrow">▼</text>
+          </view>
+        </view>
+        <text class="baby-age">{{babyInfo.age || '0'}}个月</text>
+        <text class="baby-count" wx:if="{{babies.length > 0}}">共{{babies.length}}个宝宝</text>
+      </view>
+    </view>
+    <view class="baby-actions">
+      <view class="action-btn" bind:tap="goToAddBaby">
+        <text>➕</text>
+      </view>
+      <view class="action-btn" wx:if="{{babies.length > 0}}" bind:tap="editCurrentBaby">
+        <text>✏️</text>
+      </view>
+      <view class="action-btn" wx:if="{{babies.length > 0}}" bind:tap="deleteCurrentBaby">
+        <text>🗑️</text>
       </view>
     </view>
     <view class="baby-stats">
@@ -16,6 +34,32 @@
       <view class="stat-item">
         <text class="stat-value">{{milestones}}</text>
         <text class="stat-label">里程碑</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 宝宝选择器弹窗 -->
+  <view class="baby-selector-modal" wx:if="{{showBabySelector}}" bind:tap="hideBabySelector">
+    <view class="selector-content" catch:tap="">
+      <view class="selector-title">选择宝宝</view>
+      <view class="selector-list">
+        <view 
+          wx:for="{{babies}}" 
+          wx:key="id" 
+          class="selector-item {{index === currentBabyIndex ? 'active' : ''}}"
+          bind:tap="selectBaby"
+          data-index="{{index}}"
+        >
+          <view class="selector-avatar">{{item.avatarText || '👶'}}</view>
+          <view class="selector-info">
+            <text class="selector-name">{{item.name}}</text>
+            <text class="selector-age">{{item.age || 0}}个月</text>
+          </view>
+          <view class="selector-check" wx:if="{{index === currentBabyIndex}}">✓</view>
+        </view>
+      </view>
+      <view class="selector-actions">
+        <t-button bind:tap="goToAddBaby" block>添加新宝宝</t-button>
       </view>
     </view>
   </view>

@@ -58,21 +58,38 @@ Page({
   },
 
   onAgreementChange: function(e) {
-    const agreedToTerms = e.detail.value.length > 0
+    console.log('📝 协议变更事件:', e.detail)
+    const agreedToTerms = e.detail.value && e.detail.value.length > 0
+    const isValidPhone = /^1[3-9]\d{9}$/.test(this.data.phoneNumber)
+    
+    console.log('📝 协议状态:', agreedToTerms)
+    console.log('📝 手机号有效:', isValidPhone)
     
     this.setData({
       agreedToTerms: agreedToTerms,
-      canSendCode: this.data.canSendCode && agreedToTerms
+      canSendCode: isValidPhone && agreedToTerms
     })
     
     this.checkLoginStatus()
   },
 
   checkLoginStatus: function() {
-    const canLogin = this.data.phoneNumber && 
-                   this.data.verificationCode && 
-                   this.data.verificationCode.length === 6 &&
-                   this.data.agreedToTerms
+    const phoneNumber = this.data.phoneNumber
+    const verificationCode = this.data.verificationCode
+    const agreedToTerms = this.data.agreedToTerms
+    
+    console.log('🔍 检查登录状态:')
+    console.log('手机号:', phoneNumber)
+    console.log('验证码:', verificationCode)
+    console.log('验证码长度:', verificationCode ? verificationCode.length : 0)
+    console.log('已勾选协议:', agreedToTerms)
+    
+    const canLogin = phoneNumber && 
+                   verificationCode && 
+                   verificationCode.length === 6 &&
+                   agreedToTerms
+    
+    console.log('是否可以登录:', canLogin)
     
     this.setData({
       canLogin: canLogin
@@ -81,6 +98,16 @@ Page({
 
   sendVerificationCode: function() {
     if (this.data.countdown > 0) return
+
+    // 检查手机号格式
+    const isValidPhone = /^1[3-9]\d{9}$/.test(this.data.phoneNumber)
+    if (!isValidPhone) {
+      wx.showToast({
+        title: '请输入正确的手机号',
+        icon: 'none'
+      })
+      return
+    }
 
     if (!this.data.agreedToTerms) {
       wx.showToast({
@@ -138,7 +165,7 @@ Page({
     })
 
     try {
-      // 模拟手机号登录验证
+      // 验证验证码（模拟验证）
       await this.simulatePhoneLogin()
       
       // 生成用户信息
@@ -147,18 +174,56 @@ Page({
         userId: 'user_' + Date.now(),
         phoneNumber: this.data.phoneNumber,
         nickName: `宝妈${this.data.phoneNumber.slice(-4)}`,
+        nickname: `宝妈${this.data.phoneNumber.slice(-4)}`,
         avatar: '/images/default-avatar.png',
         loginTime: new Date().toISOString(),
         loginType: 'phone'
       }
 
-      // 调用app的登录成功处理
-      const loginSuccess = await app.onLoginSuccess(userInfo, 'mock_token_' + Date.now())
-      
-      if (!loginSuccess) {
-        throw new Error('登录处理失败')
+      // 直接创建用户到数据库
+      console.log('🔐 开始登录并创建用户...')
+      const userProfile = {
+        user_id: userInfo.id, // 这里应该是 UUID，但我们需要创建 auth 用户
+        nickname: userInfo.nickname,
+        phone_number: userInfo.phoneNumber,
+        created_at: new Date().toISOString()
       }
-
+      
+      // 使用app的SupabaseAPI创建用户
+      console.log('🔐 开始登录并创建用户...')
+      
+      // 先设置全局状态
+      app.globalData.userInfo = userInfo
+      app.globalData.token = 'login_token_' + Date.now()
+      app.globalData.isLoggedIn = true
+      
+      // 保存到本地存储
+      wx.setStorageSync('userInfo', userInfo)
+      wx.setStorageSync('token', app.globalData.token)
+      
+      // 创建用户资料
+      try {
+        const userProfile = await app.createOrUpdateProfile(userInfo)
+        console.log('✅ 用户资料创建成功:', userProfile)
+        app.globalData.userProfile = userProfile
+        wx.setStorageSync('userProfile', userProfile)
+      } catch (profileError) {
+        console.warn('⚠️ 用户资料创建失败，但继续登录:', profileError)
+        // 创建本地资料作为降级
+        const localProfile = {
+          id: 'local_' + Date.now(),
+          user_id: userInfo.id,
+          nickname: userInfo.nickname,
+          phone_number: userInfo.phoneNumber,
+          created_at: new Date().toISOString()
+        }
+        app.globalData.userProfile = localProfile
+        wx.setStorageSync('userProfile', localProfile)
+      }
+      
+      // 初始化宝宝列表
+      app.globalData.babies = []
+      
       this.setData({
         isLoggingIn: false
       })
@@ -196,11 +261,12 @@ Page({
   async simulatePhoneLogin() {
     return new Promise((resolve) => {
       setTimeout(() => {
-        // 模拟验证码验证
-        if (this.data.verificationCode === '123456') {
+        // 模拟验证码验证 - 任意6位数字都可以
+        if (this.data.verificationCode && this.data.verificationCode.length === 6) {
+          console.log('✅ 验证码验证通过:', this.data.verificationCode)
           resolve()
         } else {
-          throw new Error('验证码错误')
+          throw new Error('验证码格式错误')
         }
       }, 1000)
     })

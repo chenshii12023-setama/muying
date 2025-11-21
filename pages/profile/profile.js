@@ -58,7 +58,6 @@ Page({
           babyInfo: currentBaby
         })
         
-        // 计算成长天数
         const today = new Date()
         const birthDate = new Date(currentBaby.birthDate || today)
         const growthDays = Math.floor((today - birthDate) / (1000 * 60 * 60 * 24))
@@ -114,27 +113,18 @@ Page({
     this.loadMarketData()
   },
 
-  /**
-   * 前往宝宝管理
-   */
   goToBabyManage: function() {
     wx.navigateTo({
       url: '/pages/baby/baby?action=manage'
     })
   },
 
-  /**
-   * 前往成长记录
-   */
   goToGrowthManage: function() {
     wx.navigateTo({
       url: '/pages/baby/baby?action=growth'
     })
   },
 
-  /**
-   * 切换当前宝宝
-   */
   showBabySelector: function() {
     if (this.data.babies.length <= 1) return
     
@@ -143,9 +133,6 @@ Page({
     })
   },
 
-  /**
-   * 选择宝宝
-   */
   selectBaby: function(e) {
     const babyId = e.currentTarget.dataset.babyId
     const selectedBaby = this.data.babies.find(baby => baby.id === babyId)
@@ -158,7 +145,6 @@ Page({
         showBabySelector: false
       })
       
-      // 重新计算成长天数
       const today = new Date()
       const birthDate = new Date(selectedBaby.birthDate || today)
       const growthDays = Math.floor((today - birthDate) / (1000 * 60 * 60 * 24))
@@ -167,23 +153,16 @@ Page({
         growthDays: growthDays > 0 ? growthDays : 0
       })
       
-      // 重新加载成长记录
       this.loadGrowthData()
     }
   },
 
-  /**
-   * 添加新宝宝
-   */
   addBaby: function() {
     wx.navigateTo({
       url: '/pages/baby/add-baby'
     })
   },
 
-  /**
-   * 编辑当前宝宝信息
-   */
   editCurrentBaby: function() {
     if (!this.data.currentBaby) {
       wx.showToast({
@@ -229,38 +208,40 @@ Page({
     })
   },
 
-  logout: function() {
-    app.showConfirm(
-      '确认退出',
-      '确定要退出登录吗？退出后需要重新登录。',
-      async () => {
-        try {
-          // 调用app的退出登录方法
-          app.logout()
-          
-          wx.showToast({
-            title: '已退出登录',
-            icon: 'success'
-          })
-          
-          // 返回登录页
-          setTimeout(() => {
-            wx.reLaunch({
-              url: '/pages/login/login'
+  logout: async function() {
+    wx.showModal({
+      title: '确认退出',
+      content: '确定要退出登录吗？退出后需要重新登录。',
+      confirmColor: '#FF6B95',
+      success: async (res) => {
+        if (res.confirm) {
+          try {
+            app.logout()
+            
+            wx.showToast({
+              title: '已退出登录',
+              icon: 'success'
             })
-          }, 1500)
-          
-        } catch (error) {
-          console.error('退出登录失败:', error)
-          wx.showToast({
-            title: '退出失败',
-            icon: 'none'
-          })
+            
+            setTimeout(() => {
+              wx.reLaunch({
+                url: '/pages/login/login'
+              })
+            }, 1500)
+
+          } catch (error) {
+            console.error('退出登录失败:', error)
+            wx.showToast({
+              title: '退出失败',
+              icon: 'none'
+            })
+          }
         }
       }
-    )
+    })
   },
 
+  /*** 下拉刷新 ***/
   onPullDownRefresh: function() {
     this.refreshData()
     wx.stopPullDownRefresh()
