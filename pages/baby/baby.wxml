@@ -1,5 +1,7 @@
 <view class="baby-page">
+  <!-- ============================================================ -->
   <!-- 1. 添加宝宝表单 (当 showAddForm 为 true 时显示) -->
+  <!-- ============================================================ -->
   <view wx:if="{{showAddForm}}" class="add-baby-container">
     <view class="add-baby-header">
       <view class="add-baby-avatar">👶</view>
@@ -9,6 +11,7 @@
     
     <view class="add-baby-form">
       <t-cell-group title="基本信息">
+        <!-- 1. 姓名 -->
         <t-cell title="姓名" required>
           <input 
             slot="note"
@@ -20,27 +23,94 @@
           />
         </t-cell>
         
-        <t-cell title="性别" required>
-          <t-radio-group slot="note" value="{{gender}}" bind:change="onGenderChange" style="display: flex;">
-            <t-radio value="male" label="男宝" style="margin-right: 10px;" />
-            <t-radio value="female" label="女宝" />
-          </t-radio-group>
-        </t-cell>
+        <!-- 2. 性别 (🔥🔥🔥 终极修复：使用原生按钮，绝对能点 🔥🔥🔥) -->
+        <view class="custom-cell" style="background: #fff; padding: 24rpx 32rpx; display: flex; align-items: center; justify-content: space-between; border-bottom: 1rpx solid #f0f0f0;">
+          <view style="font-size: 32rpx; color: rgba(0, 0, 0, 0.9);">
+            性别 <text style="color: #e34d59">*</text>
+          </view>
+          
+          <view style="display: flex;">
+            <!-- 男宝按钮 -->
+            <view 
+              bindtap="onGenderSelect" 
+              data-value="male"
+              style="padding: 12rpx 36rpx; border-radius: 8rpx; margin-right: 24rpx; font-size: 28rpx; transition: all 0.2s; border: 1px solid {{gender === 'male' ? '#0052d9' : '#dcdcdc'}}; color: {{gender === 'male' ? '#0052d9' : '#666'}}; background: {{gender === 'male' ? '#ecf2fe' : '#f5f5f5'}};"
+            >
+              男宝 👦
+            </view>
+            
+            <!-- 女宝按钮 -->
+            <view 
+              bindtap="onGenderSelect" 
+              data-value="female"
+              style="padding: 12rpx 36rpx; border-radius: 8rpx; font-size: 28rpx; transition: all 0.2s; border: 1px solid {{gender === 'female' ? '#ff0080' : '#dcdcdc'}}; color: {{gender === 'female' ? '#ff0080' : '#666'}}; background: {{gender === 'female' ? '#fff0f6' : '#f5f5f5'}};"
+            >
+              女宝 👧
+            </view>
+          </view>
+        </view>
         
-        <t-cell title="出生日期" required arrow>
-          <picker 
-            slot="note"
-            mode="date" 
-            value="{{birthDate}}" 
-            bindchange="onDateChange"
-            start="2010-01-01"
-            end="2030-12-31"
-          >
-            <view class="picker-view">{{birthDate || '请选择'}}</view>
-          </picker>
-        </t-cell>
+        <!-- 3. 出生日期 (Picker 包裹 Cell) -->
+        <picker 
+          mode="date" 
+          value="{{birthDate}}" 
+          bindchange="onDateChange"
+          start="2010-01-01"
+          end="2030-12-31"
+        >
+          <t-cell 
+            title="出生日期" 
+            required 
+            arrow 
+            note="{{birthDate || '请选择'}}" 
+          />
+        </picker>
+        
+        <!-- 4. 血型 (Picker 包裹 Cell) -->
+        <picker 
+          mode="selector" 
+          range="{{bloodTypeOptions}}"
+          value="{{bloodTypeIndex}}" 
+          bindchange="onBloodTypeChange"
+        >
+          <t-cell 
+            title="血型" 
+            arrow 
+            note="{{bloodType || '请选择'}}" 
+          />
+        </picker>
       </t-cell-group>
       
+      <!-- 身体指标部分 -->
+      <t-cell-group title="出生时身体指标" style="margin-top: 20rpx;">
+        <t-cell title="出生体重(kg)">
+          <input 
+            slot="note"
+            class="baby-input" 
+            placeholder="如：3.2" 
+            value="{{birthWeight}}" 
+            bindinput="onBirthWeightInput"
+            type="digit"
+            style="text-align: right;"
+          />
+        </t-cell>
+        
+        <t-cell title="出生身高(cm)">
+          <input 
+            slot="note"
+            class="baby-input" 
+            placeholder="如：50" 
+            value="{{birthHeight}}" 
+            bindinput="onBirthHeightInput"
+            type="digit"
+            style="text-align: right;"
+          />
+        </t-cell>
+        
+
+      </t-cell-group>
+      
+      <!-- 按钮操作区 -->
       <view class="form-actions">
         <t-button theme="primary" block size="large" bind:tap="saveBaby" loading="{{isSaving}}">
           保存宝宝信息
@@ -52,22 +122,21 @@
     </view>
   </view>
   
-  <!-- 2. 宝宝信息展示界面 (当有宝宝数据且 showAddForm 为 false 时显示) -->
+  <!-- ============================================================ -->
+  <!-- 2. 宝宝信息展示界面 (保持不变) -->
+  <!-- ============================================================ -->
   <view wx:else class="info-container">
-    <!-- 顶部卡片 -->
     <view class="baby-header">
       <view class="baby-info">
         <view class="baby-avatar">👶</view>
         <view class="baby-details">
           <view class="baby-name-row">
             <text class="baby-name">{{currentBaby.name || '宝宝'}}</text>
-            <!-- 切换按钮 -->
             <view class="baby-selector" wx:if="{{babies.length > 1}}" bind:tap="showBabySelector">
               <text class="selector-text">切换</text>
               <text class="selector-arrow">▼</text>
             </view>
           </view>
-          <!-- 这里使用 JS 算好的 ageStr -->
           <text class="baby-age">{{currentBaby.ageStr || '0岁'}}</text>
           <text class="baby-count" wx:if="{{babies.length > 1}}">共{{babies.length}}个宝宝</text>
         </view>
@@ -83,7 +152,6 @@
       </view>
     </view>
     
-    <!-- 弹窗：宝宝选择器 -->
     <view class="baby-selector-modal" wx:if="{{showBabySelector}}" bind:tap="hideBabySelector">
       <view class="selector-content" catch:tap="">
         <view class="selector-title">选择宝宝</view>
@@ -109,12 +177,10 @@
       </view>
     </view>
 
-    <!-- 选项卡内容 -->
     <t-tabs value="{{activeTab}}" bind:change="onTabChange" sticky>
       <t-tab-panel label="基本信息" value="info">
         <view class="tab-content">
           <t-cell-group title="宝宝信息" theme="card">
-            <!-- 🔥🔥🔥 关键修改：把 value 改为 note 🔥🔥🔥 -->
             <t-cell title="姓名" note="{{currentBaby.name || '-'}}" />
             <t-cell title="性别" note="{{currentBaby.genderStr || '-'}}" />
             <t-cell title="出生日期" note="{{currentBaby.birthDate || '-'}}" />
@@ -125,13 +191,11 @@
           <t-cell-group title="出生时身体指标" theme="card" style="margin-top: 24rpx;">
             <t-cell title="出生体重" note="{{currentBaby.displayWeight}}" />
             <t-cell title="出生身高" note="{{currentBaby.displayHeight}}" />
-            <t-cell title="出生头围" note="{{currentBaby.displayHead}}" />
           </t-cell-group>
           
           <t-cell-group title="最新记录" theme="card" style="margin-top: 24rpx;">
             <t-cell title="体重" note="{{currentWeight}}" arrow bind:tap="addRecord" />
             <t-cell title="身高" note="{{currentHeight}}" arrow bind:tap="addRecord" />
-            <t-cell title="头围" note="{{currentHead}}" arrow bind:tap="addRecord" />
           </t-cell-group>
         </view>
       </t-tab-panel>
