@@ -367,7 +367,7 @@ Page({
           success: (res) => {
             if (res.confirm) {
               wx.navigateTo({
-                url: '/pages/baby/add-baby'
+                url: '/pages/baby/baby'
               })
             }
           }

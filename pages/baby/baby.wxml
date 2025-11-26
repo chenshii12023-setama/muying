@@ -1,156 +1,153 @@
 <view class="baby-page">
-  <!-- 顶部信息栏 -->
-  <view class="baby-header">
-    <view class="baby-info">
-      <view class="baby-avatar">{{babyInfo.avatarText || '👶'}}</view>
-      <view class="baby-details">
-        <view class="baby-name-row">
-          <text class="baby-name">{{babyInfo.name || '宝宝'}}</text>
-          <view class="baby-selector" wx:if="{{babies.length > 1}}" bind:tap="showBabySelector">
-            <text class="selector-text">切换</text>
-            <text class="selector-arrow">▼</text>
-          </view>
-        </view>
-        <text class="baby-age">{{babyInfo.age || '0'}}个月</text>
-        <text class="baby-count" wx:if="{{babies.length > 0}}">共{{babies.length}}个宝宝</text>
-      </view>
+  <!-- 1. 添加宝宝表单 (当 showAddForm 为 true 时显示) -->
+  <view wx:if="{{showAddForm}}" class="add-baby-container">
+    <view class="add-baby-header">
+      <view class="add-baby-avatar">👶</view>
+      <view class="add-baby-title">添加宝宝信息</view>
+      <view class="add-baby-subtitle">请填写宝宝的基本信息</view>
     </view>
-    <view class="baby-actions">
-      <view class="action-btn" bind:tap="goToAddBaby">
-        <text>➕</text>
-      </view>
-      <view class="action-btn" wx:if="{{babies.length > 0}}" bind:tap="editCurrentBaby">
-        <text>✏️</text>
-      </view>
-      <view class="action-btn" wx:if="{{babies.length > 0}}" bind:tap="deleteCurrentBaby">
-        <text>🗑️</text>
-      </view>
-    </view>
-    <view class="baby-stats">
-      <view class="stat-item">
-        <text class="stat-value">{{growthRecords}}</text>
-        <text class="stat-label">成长记录</text>
-      </view>
-      <view class="stat-item">
-        <text class="stat-value">{{milestones}}</text>
-        <text class="stat-label">里程碑</text>
+    
+    <view class="add-baby-form">
+      <t-cell-group title="基本信息">
+        <t-cell title="姓名" required>
+          <input 
+            slot="note"
+            class="baby-input" 
+            placeholder="请输入宝宝姓名" 
+            value="{{name}}" 
+            bindinput="onNameInput"
+            style="text-align: right;"
+          />
+        </t-cell>
+        
+        <t-cell title="性别" required>
+          <t-radio-group slot="note" value="{{gender}}" bind:change="onGenderChange" style="display: flex;">
+            <t-radio value="male" label="男宝" style="margin-right: 10px;" />
+            <t-radio value="female" label="女宝" />
+          </t-radio-group>
+        </t-cell>
+        
+        <t-cell title="出生日期" required arrow>
+          <picker 
+            slot="note"
+            mode="date" 
+            value="{{birthDate}}" 
+            bindchange="onDateChange"
+            start="2010-01-01"
+            end="2030-12-31"
+          >
+            <view class="picker-view">{{birthDate || '请选择'}}</view>
+          </picker>
+        </t-cell>
+      </t-cell-group>
+      
+      <view class="form-actions">
+        <t-button theme="primary" block size="large" bind:tap="saveBaby" loading="{{isSaving}}">
+          保存宝宝信息
+        </t-button>
+        <t-button wx:if="{{babies.length > 0}}" theme="light" block size="large" bind:tap="loadBabyData" style="margin-top: 20rpx;">
+          取消
+        </t-button>
       </view>
     </view>
   </view>
-
-  <!-- 宝宝选择器弹窗 -->
-  <view class="baby-selector-modal" wx:if="{{showBabySelector}}" bind:tap="hideBabySelector">
-    <view class="selector-content" catch:tap="">
-      <view class="selector-title">选择宝宝</view>
-      <view class="selector-list">
-        <view 
-          wx:for="{{babies}}" 
-          wx:key="id" 
-          class="selector-item {{index === currentBabyIndex ? 'active' : ''}}"
-          bind:tap="selectBaby"
-          data-index="{{index}}"
-        >
-          <view class="selector-avatar">{{item.avatarText || '👶'}}</view>
-          <view class="selector-info">
-            <text class="selector-name">{{item.name}}</text>
-            <text class="selector-age">{{item.age || 0}}个月</text>
+  
+  <!-- 2. 宝宝信息展示界面 (当有宝宝数据且 showAddForm 为 false 时显示) -->
+  <view wx:else class="info-container">
+    <!-- 顶部卡片 -->
+    <view class="baby-header">
+      <view class="baby-info">
+        <view class="baby-avatar">👶</view>
+        <view class="baby-details">
+          <view class="baby-name-row">
+            <text class="baby-name">{{currentBaby.name || '宝宝'}}</text>
+            <!-- 切换按钮 -->
+            <view class="baby-selector" wx:if="{{babies.length > 1}}" bind:tap="showBabySelector">
+              <text class="selector-text">切换</text>
+              <text class="selector-arrow">▼</text>
+            </view>
           </view>
-          <view class="selector-check" wx:if="{{index === currentBabyIndex}}">✓</view>
+          <!-- 这里使用 JS 算好的 ageStr -->
+          <text class="baby-age">{{currentBaby.ageStr || '0岁'}}</text>
+          <text class="baby-count" wx:if="{{babies.length > 1}}">共{{babies.length}}个宝宝</text>
         </view>
       </view>
-      <view class="selector-actions">
-        <t-button bind:tap="goToAddBaby" block>添加新宝宝</t-button>
+      
+      <view class="baby-actions">
+        <view class="action-btn" bind:tap="showAddForm">
+          <text>➕</text>
+        </view>
+        <view class="action-btn" bind:tap="editCurrentBaby">
+          <text>✏️</text>
+        </view>
       </view>
     </view>
-  </view>
+    
+    <!-- 弹窗：宝宝选择器 -->
+    <view class="baby-selector-modal" wx:if="{{showBabySelector}}" bind:tap="hideBabySelector">
+      <view class="selector-content" catch:tap="">
+        <view class="selector-title">选择宝宝</view>
+        <view class="selector-list">
+          <view 
+            wx:for="{{babies}}" 
+            wx:key="id" 
+            class="selector-item {{index === currentBabyIndex ? 'active' : ''}}"
+            bind:tap="selectBaby"
+            data-index="{{index}}"
+          >
+            <view class="selector-avatar">👶</view>
+            <view class="selector-info">
+              <text class="selector-name">{{item.name}}</text>
+              <text class="selector-age">{{item.ageStr}}</text>
+            </view>
+            <view class="selector-check" wx:if="{{index === currentBabyIndex}}">✓</view>
+          </view>
+        </view>
+        <view class="selector-actions">
+          <t-button bind:tap="goToAddBaby" block>添加新宝宝</t-button>
+        </view>
+      </view>
+    </view>
 
-  <!-- 选项卡导航 -->
-  <t-tabs value="{{activeTab}}" bind:change="onTabChange">
-    <t-tab-panel label="基本信息" value="info">
-      <view class="tab-content">
-        <t-cell-group title="宝宝信息">
-          <t-cell title="姓名" value="{{babyInfo.name}}" />
-          <t-cell title="性别" value="{{babyInfo.gender}}" />
-          <t-cell title="出生日期" value="{{babyInfo.birthDate}}" />
-          <t-cell title="年龄" value="{{babyInfo.age}}个月" />
-        </t-cell-group>
-        
-        <t-cell-group title="身体指标">
-          <t-cell title="体重" value="{{babyInfo.weight}}kg" arrow />
-          <t-cell title="身高" value="{{babyInfo.height}}cm" arrow />
-          <t-cell title="头围" value="{{babyInfo.headSize}}cm" arrow />
-        </t-cell-group>
-        
-        <view class="action-buttons">
-          <t-button theme="primary" bind:tap="addRecord">添加记录</t-button>
-          <t-button bind:tap="viewGrowthChart">查看成长曲线</t-button>
+    <!-- 选项卡内容 -->
+    <t-tabs value="{{activeTab}}" bind:change="onTabChange" sticky>
+      <t-tab-panel label="基本信息" value="info">
+        <view class="tab-content">
+          <t-cell-group title="宝宝信息" theme="card">
+            <!-- 🔥🔥🔥 关键修改：把 value 改为 note 🔥🔥🔥 -->
+            <t-cell title="姓名" note="{{currentBaby.name || '-'}}" />
+            <t-cell title="性别" note="{{currentBaby.genderStr || '-'}}" />
+            <t-cell title="出生日期" note="{{currentBaby.birthDate || '-'}}" />
+            <t-cell title="年龄" note="{{currentBaby.ageStr || '-'}}" />
+            <t-cell title="血型" note="{{currentBaby.bloodType || '-'}}型" />
+          </t-cell-group>
+          
+          <t-cell-group title="出生时身体指标" theme="card" style="margin-top: 24rpx;">
+            <t-cell title="出生体重" note="{{currentBaby.displayWeight}}" />
+            <t-cell title="出生身高" note="{{currentBaby.displayHeight}}" />
+            <t-cell title="出生头围" note="{{currentBaby.displayHead}}" />
+          </t-cell-group>
+          
+          <t-cell-group title="最新记录" theme="card" style="margin-top: 24rpx;">
+            <t-cell title="体重" note="{{currentWeight}}" arrow bind:tap="addRecord" />
+            <t-cell title="身高" note="{{currentHeight}}" arrow bind:tap="addRecord" />
+            <t-cell title="头围" note="{{currentHead}}" arrow bind:tap="addRecord" />
+          </t-cell-group>
         </view>
-      </view>
-    </t-tab-panel>
-    
-    <t-tab-panel label="成长记录" value="records">
-      <view class="tab-content">
-        <view class="records-list">
-          <view wx:for="{{growthRecordsList}}" wx:key="id" class="record-item">
-            <view class="record-date">{{item.date}}</view>
-            <view class="record-data">
-              <text>体重: {{item.weight}}kg</text>
-              <text>身高: {{item.height}}cm</text>
-              <text>头围: {{item.headSize}}cm</text>
-            </view>
-            <view class="record-actions">
-              <text class="action-btn" bind:tap="editRecord" data-id="{{item.id}}">编辑</text>
-              <text class="action-btn" bind:tap="deleteRecord" data-id="{{item.id}}">删除</text>
-            </view>
-          </view>
+      </t-tab-panel>
+      
+      <t-tab-panel label="成长记录" value="records">
+        <view class="tab-content" style="padding: 40rpx; text-align: center;">
+            <text style="color: #999; display: block; margin-bottom: 20rpx;">暂无成长记录</text>
+            <t-button theme="primary" size="small" bind:tap="addRecord">去记录</t-button>
         </view>
-        
-        <view class="empty-state" wx:if="{{growthRecordsList.length === 0}}">
-          <text class="empty-text">暂无成长记录</text>
-          <t-button theme="primary" bind:tap="addRecord">添加第一条记录</t-button>
+      </t-tab-panel>
+      
+      <t-tab-panel label="里程碑" value="milestones">
+        <view class="tab-content" style="padding: 40rpx; text-align: center;">
+            <text style="color: #999;">暂无里程碑记录</text>
         </view>
-      </view>
-    </t-tab-panel>
-    
-    <t-tab-panel label="里程碑" value="milestones">
-      <view class="tab-content">
-        <view class="milestones-grid">
-          <view wx:for="{{milestonesList}}" wx:key="id" class="milestone-card" bind:tap="viewMilestone" data-id="{{item.id}}">
-            <view class="milestone-icon">{{item.icon}}</view>
-            <text class="milestone-title">{{item.title}}</text>
-            <text class="milestone-date">{{item.date}}</text>
-            <text class="milestone-status {{item.status}}">{{item.statusText}}</text>
-          </view>
-        </view>
-        
-        <view class="add-milestone-btn">
-          <t-button theme="primary" bind:tap="addMilestone">添加里程碑</t-button>
-        </view>
-      </view>
-    </t-tab-panel>
-    
-    <t-tab-panel label="健康记录" value="health">
-      <view class="tab-content">
-        <view class="health-records">
-          <view wx:for="{{healthRecords}}" wx:key="id" class="health-item">
-            <view class="health-header">
-              <text class="health-type">{{item.type}}</text>
-              <text class="health-date">{{item.date}}</text>
-            </view>
-            <view class="health-details">
-              <text>{{item.details}}</text>
-            </view>
-            <view class="health-actions">
-              <text class="action-btn" bind:tap="editHealthRecord" data-id="{{item.id}}">编辑</text>
-            </view>
-          </view>
-        </view>
-        
-        <view class="empty-state" wx:if="{{healthRecords.length === 0}}">
-          <text class="empty-text">暂无健康记录</text>
-          <t-button theme="primary" bind:tap="addHealthRecord">添加健康记录</t-button>
-        </view>
-      </view>
-    </t-tab-panel>
-  </t-tabs>
+      </t-tab-panel>
+    </t-tabs>
+  </view>
 </view>

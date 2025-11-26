@@ -159,7 +159,7 @@ Page({
 
   addBaby: function() {
     wx.navigateTo({
-      url: '/pages/baby/add-baby'
+      url: '/pages/baby/baby'
     })
   },
 

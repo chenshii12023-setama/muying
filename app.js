@@ -89,11 +89,24 @@ App({
 
   getSystemInfo: function() {
     try {
-      const systemInfo = wx.getSystemInfoSync()
+      // 使用新的 API 替换废弃的 wx.getSystemInfoSync
+      const systemInfo = {
+        ...wx.getSystemSetting(),
+        ...wx.getDeviceInfo(),
+        ...wx.getWindowInfo(),
+        ...wx.getAppBaseInfo()
+      }
       this.globalData.systemInfo = systemInfo
       console.log('系统信息：', systemInfo)
     } catch (e) {
-      console.error('获取系统信息失败：', e)
+      // 兼容处理：如果新 API 不可用，回退到旧 API
+      try {
+        const systemInfo = wx.getSystemInfoSync()
+        this.globalData.systemInfo = systemInfo
+        console.log('系统信息：', systemInfo)
+      } catch (fallbackError) {
+        console.error('获取系统信息失败：', fallbackError)
+      }
     }
   },
 
@@ -111,24 +124,32 @@ App({
         this.globalData.userInfo = userInfo
         this.globalData.isLoggedIn = true
         
-        // 从后端或本地存储加载完整的用户资料
+        // 先尝试从本地存储获取用户资料，如果不存在则创建新的
         try {
-          let userProfile = await this.globalData.supabase.getUserProfile(userInfo.id || userInfo.userId)
+          let userProfile = wx.getStorageSync('userProfile')
           
-          // 如果用户资料不存在，创建一个
-          if (!userProfile || userProfile.length === 0) {
+          if (!userProfile) {
             console.log('用户资料不存在，创建新资料...')
             userProfile = await this.createOrUpdateProfile(userInfo)
-          } else if (Array.isArray(userProfile)) {
-             // 修复：getUserProfile返回的是数组，取第一个
-             userProfile = userProfile[0];
+            // 保存到本地存储
+            wx.setStorageSync('userProfile', userProfile)
           }
           
-          this.globalData.userProfile = userProfile || userInfo
+          this.globalData.userProfile = userProfile
           
-          // 加载用户的宝宝列表
-          const babies = await this.globalData.supabase.getUserBabies(userInfo.id || userInfo.userId)
-          this.globalData.babies = babies || []
+          // 加载用户的宝宝列表（使用 userProfile 的 id）
+          const profileId = this.globalData.userProfile.id
+          if (profileId && !this.globalData.useLocalStorage) {
+            try {
+              const babies = await this.globalData.supabase.getUserBabies(profileId)
+              this.globalData.babies = babies || []
+            } catch (error) {
+              console.log('加载宝宝数据失败:', error)
+              this.globalData.babies = []
+            }
+          } else {
+            this.globalData.babies = []
+          }
           
           // 设置当前宝宝
           if (currentBaby) {
