@@ -20,79 +20,133 @@
 
     <!-- 基本信息表单 -->
     <t-cell-group title="基本信息">
-      <t-input
-        label="宝宝姓名"
-        placeholder="请输入宝宝姓名"
-        value="{{babyData.name}}"
-        data-field="name"
-        bind:change="onInputChange"
-        maxlength="20"
-      />
-      
-      <t-cell title="性别" hover>
-        <t-radio-group 
-          value="{{babyData.gender}}" 
-          bind:change="onGenderChange"
-          placement="row"
-        >
-          <t-radio wx:for="{{genderOptions}}" wx:key="value" value="{{item.value}}">
-            {{item.icon}} {{item.label}}
-          </t-radio>
-        </t-radio-group>
+      <!-- 姓名 -->
+      <t-cell title="姓名" required>
+        <input 
+          slot="note"
+          class="baby-input" 
+          placeholder="请输入宝宝姓名" 
+          value="{{babyData.name}}" 
+          bindinput="onInputChange"
+          data-field="name"
+          style="text-align: right;"
+        />
       </t-cell>
       
-      <t-cell title="出生日期" hover arrow bind:click="showDatePicker">
-        <view class="date-display">{{babyData.birthDate || '请选择出生日期'}}</view>
-        <picker 
-          mode="date" 
-          value="{{babyData.birthDate}}" 
-          bind:change="onDateChange"
-        >
-          <view style="display: none;"></view>
-        </picker>
+      <!-- 性别 (使用原生按钮，与添加宝宝页面一致) -->
+      <view class="custom-cell" style="background: #fff; padding: 24rpx 32rpx; display: flex; align-items: center; justify-content: space-between; border-bottom: 1rpx solid #f0f0f0;">
+        <view style="font-size: 32rpx; color: rgba(0, 0, 0, 0.9);">
+          性别 <text style="color: #e34d59">*</text>
+        </view>
+        
+        <view style="display: flex;">
+          <!-- 男宝按钮 -->
+          <view 
+            bindtap="onGenderSelect" 
+            data-value="male"
+            class="gender-button {{babyData.gender === 'male' ? 'gender-button-active' : ''}}"
+          >
+            男宝 👦
+          </view>
+          
+          <!-- 女宝按钮 -->
+          <view 
+            bindtap="onGenderSelect" 
+            data-value="female"
+            class="gender-button {{babyData.gender === 'female' ? 'gender-button-active' : ''}}"
+          >
+            女宝 👧
+          </view>
+        </view>
+      </view>
+      
+      <!-- 出生日期 (Picker 包裹 Cell) -->
+      <picker 
+        mode="date" 
+        value="{{babyData.birthDate}}" 
+        bindchange="onDateChange"
+        start="2010-01-01"
+        end="2030-12-31"
+      >
+        <t-cell 
+          title="出生日期" 
+          required 
+          arrow 
+          note="{{babyData.birthDate || '请选择'}}" 
+        />
+      </picker>
+      
+      <!-- 血型 (Picker 包裹 Cell) -->
+      <picker 
+        mode="selector" 
+        range="{{bloodTypeOptions}}"
+        value="{{bloodTypeIndex}}" 
+        bindchange="onBloodTypeChange"
+      >
+        <t-cell 
+          title="血型" 
+          arrow 
+          note="{{babyData.bloodType || '请选择'}}" 
+        />
+      </picker>
+    </t-cell-group>
+
+    <!-- 出生时身体指标 -->
+    <t-cell-group title="出生时身体指标">
+      <t-cell title="出生体重 (kg)">
+        <input 
+          slot="note"
+          class="baby-input" 
+          placeholder="如：3.2" 
+          value="{{babyData.birthWeight}}" 
+          bindinput="onInputChange"
+          data-field="birthWeight"
+          type="digit"
+          style="text-align: right;"
+        />
       </t-cell>
       
-      <t-cell title="血型" hover>
-        <t-radio-group 
-          value="{{babyData.bloodType}}" 
-          bind:change="onBloodTypeChange"
-          placement="row"
-        >
-          <t-radio wx:for="{{bloodTypeOptions}}" wx:key="value" value="{{item.value}}">
-            {{item.label}}
-          </t-radio>
-        </t-radio-group>
+      <t-cell title="出生身高 (cm)">
+        <input 
+          slot="note"
+          class="baby-input" 
+          placeholder="如：50" 
+          value="{{babyData.birthHeight}}" 
+          bindinput="onInputChange"
+          data-field="birthHeight"
+          type="digit"
+          style="text-align: right;"
+        />
       </t-cell>
     </t-cell-group>
 
-    <!-- 身体指标 -->
-    <t-cell-group title="身体指标">
-      <t-input
-        label="体重 (kg)"
-        type="digit"
-        placeholder="请输入体重"
-        value="{{babyData.weight}}"
-        data-field="weight"
-        bind:change="onInputChange"
-      />
+    <!-- 当前身体指标 -->
+    <t-cell-group title="当前身体指标">
+      <t-cell title="当前体重 (kg)">
+        <input 
+          slot="note"
+          class="baby-input" 
+          placeholder="如：8.5" 
+          value="{{babyData.currentWeight}}" 
+          bindinput="onInputChange"
+          data-field="currentWeight"
+          type="digit"
+          style="text-align: right;"
+        />
+      </t-cell>
       
-      <t-input
-        label="身高 (cm)"
-        type="digit"
-        placeholder="请输入身高"
-        value="{{babyData.height}}"
-        data-field="height"
-        bind:change="onInputChange"
-      />
-      
-      <t-input
-        label="头围 (cm)"
-        type="digit"
-        placeholder="请输入头围"
-        value="{{babyData.headSize}}"
-        data-field="headSize"
-        bind:change="onInputChange"
-      />
+      <t-cell title="当前身高 (cm)">
+        <input 
+          slot="note"
+          class="baby-input" 
+          placeholder="如：72" 
+          value="{{babyData.currentHeight}}" 
+          bindinput="onInputChange"
+          data-field="currentHeight"
+          type="digit"
+          style="text-align: right;"
+        />
+      </t-cell>
     </t-cell-group>
 
     <!-- 操作按钮 -->

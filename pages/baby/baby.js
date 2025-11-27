@@ -17,9 +17,13 @@ Page({
     bloodTypeIndex: null, 
     bloodTypeOptions: ['A', 'B', 'AB', 'O', '未知'], 
     
-    // 身体指标
+    // 身体指标 - 出生时
     birthHeight: '',
     birthWeight: '',
+    
+    // 当前身体指标（表单输入）
+    currentHeightInput: '',
+    currentWeightInput: '',
     
     isSaving: false,
     
@@ -106,6 +110,8 @@ Page({
             const dob = baby.birth_date || baby.birthDate || '';
             const bWeight = baby.birth_weight || baby.birthWeight;
             const bHeight = baby.birth_height || baby.birthHeight;
+            const cWeight = baby.current_weight || baby.currentWeight;
+            const cHeight = baby.current_height || baby.currentHeight;
 
             return {
                 ...baby,
@@ -116,7 +122,9 @@ Page({
                 ageStr: this.calculateAgeStr(dob),
                 
                 displayWeight: bWeight ? bWeight + ' kg' : '-',
-                displayHeight: bHeight ? bHeight + ' cm' : '-'
+                displayHeight: bHeight ? bHeight + ' cm' : '-',
+                currentWeight: cWeight ? cWeight + ' kg' : '-',
+                currentHeight: cHeight ? cHeight + ' cm' : '-'
             }
         })
         
@@ -135,8 +143,8 @@ Page({
       const baby = this.data.currentBaby;
       if (!baby) return;
       this.setData({
-          currentWeight: baby.displayWeight || '-',
-          currentHeight: baby.displayHeight || '-'
+          currentWeight: baby.currentWeight || '-',
+          currentHeight: baby.currentHeight || '-'
       })
   },
 
@@ -171,6 +179,10 @@ Page({
   // 5. 身体指标
   onBirthWeightInput(e) { this.setData({ birthWeight: e.detail.value }) },
   onBirthHeightInput(e) { this.setData({ birthHeight: e.detail.value }) },
+  
+  // 当前身体指标
+  onCurrentWeightInput(e) { this.setData({ currentWeightInput: e.detail.value }) },
+  onCurrentHeightInput(e) { this.setData({ currentHeightInput: e.detail.value }) },
 
   // ---------------------------------------------------------
   // 保存逻辑
@@ -201,6 +213,8 @@ Page({
         blood_type: bloodTypeMap[this.data.bloodType] || null,
         birth_weight: this.data.birthWeight ? parseFloat(this.data.birthWeight) : null,
         birth_height: this.data.birthHeight ? parseFloat(this.data.birthHeight) : null,
+        current_weight: this.data.currentWeightInput ? parseFloat(this.data.currentWeightInput) : null,
+        current_height: this.data.currentHeightInput ? parseFloat(this.data.currentHeightInput) : null,
         created_at: new Date().toISOString()
       }
       
@@ -237,6 +251,8 @@ Page({
             name: '', 
             birthWeight: '', 
             birthHeight: '', 
+            currentWeightInput: '',
+            currentHeightInput: '',
             bloodType: '', 
             bloodTypeIndex: null,
             isSaving: false 

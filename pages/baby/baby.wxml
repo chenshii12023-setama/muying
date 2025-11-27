@@ -106,8 +106,33 @@
             style="text-align: right;"
           />
         </t-cell>
+      </t-cell-group>
+      
+      <!-- 当前身体指标部分（可选） -->
+      <t-cell-group title="当前身体指标（可选）" style="margin-top: 20rpx;">
+        <t-cell title="当前体重(kg)">
+          <input 
+            slot="note"
+            class="baby-input" 
+            placeholder="如：8.5" 
+            value="{{currentWeight}}" 
+            bindinput="onCurrentWeightInput"
+            type="digit"
+            style="text-align: right;"
+          />
+        </t-cell>
         
-
+        <t-cell title="当前身高(cm)">
+          <input 
+            slot="note"
+            class="baby-input" 
+            placeholder="如：72" 
+            value="{{currentHeight}}" 
+            bindinput="onCurrentHeightInput"
+            type="digit"
+            style="text-align: right;"
+          />
+        </t-cell>
       </t-cell-group>
       
       <!-- 按钮操作区 -->

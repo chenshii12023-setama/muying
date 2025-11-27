@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/profile/profile",
     "pages/baby/baby",
+    "pages/baby/edit-baby",
     "pages/map/map",
     "pages/market/market",
     "pages/ai/ai",
@@ -64,7 +65,9 @@
     "t-message": "tdesign-miniprogram/message/message",
     "t-loading": "tdesign-miniprogram/loading/loading",
     "t-icon": "tdesign-miniprogram/icon/icon",
-    "t-divider": "tdesign-miniprogram/divider/divider"
+    "t-divider": "tdesign-miniprogram/divider/divider",
+    "t-radio": "tdesign-miniprogram/radio/radio",
+    "t-radio-group": "tdesign-miniprogram/radio-group/radio-group"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
