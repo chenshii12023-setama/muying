@@ -2,15 +2,20 @@ const app = getApp()
 
 Page({
   data: {
-    activeTab: 'chat',
-    inputMessage: '',
-    messages: [],
-    quickQuestions: [
-      '宝宝发烧怎么办？',
-      '辅食添加时间表',
-      '如何训练宝宝睡眠？',
-      '疫苗接种注意事项'
-    ],
+    activeTab: 'assessment',
+    
+    // 成长评估相关数据
+    babyInfo: null,
+    growthData: {
+      age: 0,
+      gender: '',
+      height: 0,
+      weight: 0
+    },
+    assessmentResult: null,
+    isAssessing: false,
+    
+    // 营养计算相关数据（保留原有功能）
     babyAge: 6,
     babyWeight: 7.5,
     ingredients: [
@@ -35,32 +40,26 @@ Page({
     }
     
     this.loadBabyInfo()
-    this.loadDefaultMessages()
   },
 
   loadBabyInfo: function() {
     const babyInfo = app.getBabyInfo()
     if (babyInfo) {
+      // 计算宝宝年龄（月）
+      const ageInMonths = this.calculateAgeInMonths(babyInfo.birthDate || babyInfo.birth_date)
+      
       this.setData({
-        babyAge: babyInfo.age || 6,
-        babyWeight: babyInfo.weight || 7.5
+        babyInfo: babyInfo,
+        babyAge: ageInMonths || 6,
+        babyWeight: babyInfo.current_weight || babyInfo.weight || 7.5,
+        growthData: {
+          age: ageInMonths || 6,
+          gender: babyInfo.gender === 'male' ? 'boy' : 'girl',
+          height: babyInfo.current_height || 0,
+          weight: babyInfo.current_weight || 0
+        }
       })
     }
-  },
-
-  loadDefaultMessages: function() {
-    const defaultMessages = [
-      {
-        id: 1,
-        role: 'ai',
-        content: '您好！我是您的AI育儿助手，可以为您解答各种育儿问题，包括宝宝健康、营养、发育等方面的问题。',
-        time: this.formatTime(new Date())
-      }
-    ]
-    
-    this.setData({
-      messages: defaultMessages
-    })
   },
 
   onTabChange: function(e) {
@@ -69,75 +68,193 @@ Page({
     })
   },
 
-  onInputChange: function(e) {
+  // 成长评估相关方法
+  onGrowthDataChange: function(e) {
+    const field = e.currentTarget.dataset.field
+    const value = e.detail.value
+    
     this.setData({
-      inputMessage: e.detail.value
+      [`growthData.${field}`]: value
     })
   },
 
-  sendMessage: function() {
-    const message = this.data.inputMessage.trim()
-    if (!message) return
+  // 计算宝宝年龄（月）
+  calculateAgeInMonths: function(birthDate) {
+    if (!birthDate) return 0
+    
+    const birth = new Date(birthDate)
+    const now = new Date()
+    let months = (now.getFullYear() - birth.getFullYear()) * 12 + (now.getMonth() - birth.getMonth())
+    if (now.getDate() < birth.getDate()) months--
+    
+    return months < 0 ? 0 : months
+  },
 
-    // 添加用户消息
-    const userMessage = {
-      id: Date.now(),
-      role: 'user',
-      content: message,
-      time: this.formatTime(new Date())
+  // 发起成长评估
+  startGrowthAssessment: function() {
+    const { age, gender, height, weight } = this.data.growthData
+    
+    if (!age || age <= 0) {
+      wx.showToast({ title: '请输入宝宝年龄', icon: 'none' })
+      return
     }
-
-    const messages = [...this.data.messages, userMessage]
-    this.setData({
-      messages: messages,
-      inputMessage: ''
-    })
-
-    // 模拟AI回复
-    this.simulateAIResponse(message)
+    
+    if (!height || height <= 0) {
+      wx.showToast({ title: '请输入宝宝身高', icon: 'none' })
+      return
+    }
+    
+    if (!weight || weight <= 0) {
+      wx.showToast({ title: '请输入宝宝体重', icon: 'none' })
+      return
+    }
+    
+    if (!gender) {
+      wx.showToast({ title: '请选择宝宝性别', icon: 'none' })
+      return
+    }
+    
+    this.setData({ isAssessing: true })
+    
+    // 构建请求数据
+    const assessmentData = {
+      gender: gender,
+      age: parseInt(age),
+      height: parseFloat(height),
+      weight: parseFloat(weight)
+    }
+    
+    console.log('发送成长评估数据:', assessmentData)
+    
+    // 调用n8n webhook
+    this.callGrowthAssessmentWebhook(assessmentData)
   },
 
-  simulateAIResponse: function(userMessage) {
-    // 模拟AI思考时间
-    setTimeout(() => {
-      let aiResponse = ''
+  // 调用n8n webhook进行成长评估
+  callGrowthAssessmentWebhook: function(assessmentData) {
+    wx.request({
+      url: 'http://localhost:5678/webhook/Growth-Assessment',
+      method: 'POST',
+      data: assessmentData,
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: (res) => {
+        console.log('成长评估API响应:', res)
+        
+        if (res.statusCode === 200) {
+          // 解析AI返回的评估结果
+          this.handleAssessmentResult(res.data)
+        } else {
+          wx.showToast({ title: '评估请求失败', icon: 'none' })
+          this.setData({ isAssessing: false })
+        }
+      },
+      fail: (err) => {
+        console.error('成长评估请求失败:', err)
+        wx.showToast({ title: '网络连接失败', icon: 'none' })
+        this.setData({ isAssessing: false })
+        
+        // 降级到本地模拟评估
+        this.simulateLocalAssessment(assessmentData)
+      }
+    })
+  },
+
+  // 处理AI返回的评估结果
+  handleAssessmentResult: function(result) {
+    try {
+      const assessmentResult = {
+        analysis: result.analysis || '未能获取发育分析',
+        advice: result.advice || '未能获取专业建议',
+        timestamp: new Date().toLocaleString()
+      }
       
-      // 简单的关键词匹配回复
-      if (userMessage.includes('发烧')) {
-        aiResponse = '宝宝发烧时，建议：1. 测量体温，38.5℃以下物理降温；2. 保持室内通风；3. 多喝水；4. 观察精神状态。如持续高热请及时就医。'
-      } else if (userMessage.includes('辅食')) {
-        aiResponse = '辅食添加建议：\n• 6个月：单一食材米糊\n• 7-8个月：蔬菜泥、水果泥\n• 9-10个月：肉泥、蛋黄\n• 11-12个月：软饭、小块食物'
-      } else if (userMessage.includes('睡眠')) {
-        aiResponse = '宝宝睡眠训练方法：\n1. 建立固定作息时间\n2. 睡前仪式（洗澡、故事）\n3. 让宝宝学会自主入睡\n4. 保持安静舒适的睡眠环境'
-      } else if (userMessage.includes('疫苗')) {
-        aiResponse = '疫苗接种注意事项：\n• 接种前确保宝宝健康\n• 接种后观察30分钟\n• 注意局部反应和发热\n• 按计划完成所有疫苗接种'
-      } else {
-        aiResponse = '感谢您的提问！关于这个问题，我建议您：\n1. 参考权威育儿书籍\n2. 咨询专业儿科医生\n3. 观察宝宝的具体表现\n4. 如有异常及时就医'
-      }
-
-      const aiMessage = {
-        id: Date.now() + 1,
-        role: 'ai',
-        content: aiResponse,
-        time: this.formatTime(new Date())
-      }
-
-      const messages = [...this.data.messages, aiMessage]
       this.setData({
-        messages: messages
+        assessmentResult: assessmentResult,
+        isAssessing: false
       })
-
-      // 滚动到最新消息
-      this.scrollToBottom()
-    }, 1000)
+      
+      wx.showToast({ title: '评估完成', icon: 'success' })
+    } catch (error) {
+      console.error('解析评估结果失败:', error)
+      wx.showToast({ title: '评估结果解析失败', icon: 'none' })
+      this.setData({ isAssessing: false })
+    }
   },
 
-  askQuickQuestion: function(e) {
-    const question = e.currentTarget.dataset.question
+  // 本地模拟评估（降级方案）
+  simulateLocalAssessment: function(assessmentData) {
+    const { age, gender, height, weight } = assessmentData
+    
+    // 简单的本地评估逻辑
+    let analysis = ''
+    let advice = ''
+    
+    if (age <= 12) {
+      // 1岁以下婴儿评估
+      const heightPercentile = this.calculatePercentile(height, age, gender, 'height')
+      const weightPercentile = this.calculatePercentile(weight, age, gender, 'weight')
+      
+      analysis = `根据WHO ${age}个月${gender === 'boy' ? '男宝' : '女宝'}生长标准，您的宝宝身高${height}厘米处于${heightPercentile}百分位，体重${weight}公斤处于${weightPercentile}百分位。`
+      
+      if (heightPercentile >= 75 && weightPercentile >= 75) {
+        analysis += '发育状况优秀，身高体重比例协调。'
+        advice = '建议继续保持均衡营养，适当添加辅食，保证充足睡眠，鼓励宝宝进行大动作训练。'
+      } else if (heightPercentile >= 25 && weightPercentile >= 25) {
+        analysis += '发育状况良好，符合正常生长曲线。'
+        advice = '建议继续观察，如有异常及时就医。'
+      } else {
+        analysis += '发育状况需要关注，建议咨询专业医生。'
+        advice = '建议及时就医检查，调整喂养方式。'
+      }
+    } else {
+      // 1岁以上幼儿评估
+      analysis = `根据幼儿生长标准，您的${gender === 'boy' ? '男宝' : '女宝'}身高${height}厘米，体重${weight}公斤。`
+      advice = '建议定期监测生长发育指标，保持均衡饮食和适当运动。'
+    }
+    
+    const assessmentResult = {
+      analysis: analysis,
+      advice: advice,
+      timestamp: new Date().toLocaleString(),
+      isLocal: true
+    }
+    
     this.setData({
-      inputMessage: question
+      assessmentResult: assessmentResult,
+      isAssessing: false
     })
-    this.sendMessage()
+    
+    wx.showToast({ title: '本地评估完成', icon: 'success' })
+  },
+
+  // 计算百分位（简化版）
+  calculatePercentile: function(value, age, gender, type) {
+    // 简化的百分位计算，实际应用中应该使用更精确的WHO标准数据
+    const baseValue = type === 'height' ? 50 + age * 2 : 3 + age * 0.5
+    const ratio = value / baseValue
+    
+    if (ratio >= 1.2) return '97-100'
+    if (ratio >= 1.1) return '85-97'
+    if (ratio >= 1.0) return '50-85'
+    if (ratio >= 0.9) return '15-50'
+    if (ratio >= 0.8) return '3-15'
+    return '0-3'
+  },
+
+  // 重新评估
+  reassess: function() {
+    this.setData({
+      assessmentResult: null
+    })
+  },
+
+  // 跳转到添加宝宝页面
+  goToAddBaby: function() {
+    wx.navigateTo({
+      url: '/pages/baby/baby'
+    })
   },
 
   toggleIngredient: function(e) {

@@ -269,3 +269,337 @@
   gap: 20rpx;
   margin-top: 40rpx;
 }
+
+/* 成长评估样式 */
+.assessment-container {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+}
+
+.baby-info-section {
+  margin-bottom: 40rpx;
+}
+
+.baby-info-card {
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  border-left: 4rpx solid #1890ff;
+}
+
+.baby-info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12rpx 0;
+  border-bottom: 1rpx solid #e8e8e8;
+}
+
+.baby-info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: 26rpx;
+  color: #666;
+  font-weight: bold;
+}
+
+.info-value {
+  font-size: 26rpx;
+  color: #333;
+}
+
+.input-section {
+  margin-bottom: 40rpx;
+}
+
+.input-group {
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  padding: 20rpx;
+}
+
+.input-row {
+  margin-bottom: 30rpx;
+}
+
+.input-row:last-child {
+  margin-bottom: 0;
+}
+
+.input-label {
+  display: block;
+  font-size: 26rpx;
+  color: #333;
+  margin-bottom: 12rpx;
+  font-weight: bold;
+}
+
+.gender-selector {
+  margin-top: 8rpx;
+}
+
+.assessment-actions {
+  text-align: center;
+  margin-top: 40rpx;
+}
+
+.result-section {
+  margin-top: 40rpx;
+}
+
+.result-card {
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  border-left: 4rpx solid #52c41a;
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.result-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.result-time {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.analysis-content {
+  margin-bottom: 30rpx;
+}
+
+.analysis-text {
+  font-size: 26rpx;
+  color: #333;
+  line-height: 1.6;
+}
+
+.advice-section {
+  background: white;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  border-left: 4rpx solid #faad14;
+}
+
+.advice-title {
+  display: block;
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #faad14;
+  margin-bottom: 8rpx;
+}
+
+.advice-text {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.5;
+}
+
+.result-footer {
+  margin-top: 20rpx;
+  text-align: right;
+}
+
+.local-tag {
+  display: inline-block;
+  background: #f0f0f0;
+  color: #999;
+  font-size: 20rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+}
+
+.reassess-actions {
+  text-align: center;
+  margin-top: 20rpx;
+}
+
+.no-baby-tip {
+  text-align: center;
+  padding: 60rpx 30rpx;
+}
+
+.tip-text {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 30rpx;
+}
+
+/* 成长评估样式 */
+.assessment-container {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+}
+
+.baby-info-section {
+  margin-bottom: 40rpx;
+}
+
+.baby-info-card {
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  border-left: 4rpx solid #1890ff;
+}
+
+.baby-info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12rpx 0;
+  border-bottom: 1rpx solid #e8e8e8;
+}
+
+.baby-info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: 26rpx;
+  color: #666;
+  font-weight: bold;
+}
+
+.info-value {
+  font-size: 26rpx;
+  color: #333;
+}
+
+.input-section {
+  margin-bottom: 40rpx;
+}
+
+.input-group {
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  padding: 20rpx;
+}
+
+.input-row {
+  margin-bottom: 30rpx;
+}
+
+.input-row:last-child {
+  margin-bottom: 0;
+}
+
+.input-label {
+  display: block;
+  font-size: 26rpx;
+  color: #333;
+  margin-bottom: 12rpx;
+  font-weight: bold;
+}
+
+.gender-selector {
+  margin-top: 8rpx;
+}
+
+.assessment-actions {
+  text-align: center;
+  margin-top: 40rpx;
+}
+
+.result-section {
+  margin-top: 40rpx;
+}
+
+.result-card {
+  background: #f8f9fa;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  border-left: 4rpx solid #52c41a;
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.result-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.result-time {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.analysis-content {
+  margin-bottom: 30rpx;
+}
+
+.analysis-text {
+  font-size: 26rpx;
+  color: #333;
+  line-height: 1.6;
+}
+
+.advice-section {
+  background: white;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  border-left: 4rpx solid #faad14;
+}
+
+.advice-title {
+  display: block;
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #faad14;
+  margin-bottom: 8rpx;
+}
+
+.advice-text {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.5;
+}
+
+.result-footer {
+  margin-top: 20rpx;
+  text-align: right;
+}
+
+.local-tag {
+  display: inline-block;
+  background: #f0f0f0;
+  color: #999;
+  font-size: 20rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+}
+
+.reassess-actions {
+  text-align: center;
+  margin-top: 20rpx;
+}
+
+.no-baby-tip {
+  text-align: center;
+  padding: 60rpx 30rpx;
+}
+
+.tip-text {
+  display: block;
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 30rpx;
+}
