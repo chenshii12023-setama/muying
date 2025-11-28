@@ -121,7 +121,7 @@
         </view>
         <view class="guide-item">
           <t-icon name="robot" size="24rpx"></t-icon>
-          <text>AI助手随时解答育儿问题</text>
+          <text>成长评估专业分析宝宝发育</text>
         </view>
       </view>
     </view>

@@ -93,8 +93,8 @@ Page({
       },
       {
         id: 6,
-        name: 'AI助手',
-        icon: '🤖',
+        name: '成长评估',
+        icon: '📊',
         iconClass: 'success',
         url: '/pages/ai/ai'
       },
@@ -273,8 +273,8 @@ Page({
     })
   },
 
-  // AI助手
-  goToAIAssistant: function() {
+  // 成长评估
+  goToGrowthAssessment: function() {
     wx.navigateTo({
       url: '/pages/ai/ai'
     })

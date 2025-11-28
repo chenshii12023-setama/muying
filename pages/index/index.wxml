@@ -84,11 +84,11 @@
     </view>
   </view>
 
-  <!-- AI助手入口 -->
-  <view class="ai-assistant-section">
-    <t-button class="ai-btn" theme="primary" bindtap="goToAIAssistant">
-      <text class="ai-icon">🤖</text>
-      <text>AI育儿助手</text>
+  <!-- 成长评估入口 -->
+  <view class="growth-assessment-section">
+    <t-button class="growth-btn" theme="primary" bindtap="goToGrowthAssessment">
+      <text class="growth-icon">📊</text>
+      <text>成长评估</text>
     </t-button>
   </view>
 </view>

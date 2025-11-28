@@ -11,7 +11,7 @@
 - `favorite-icon.png` - 收藏图标
 - `baby-icon.png` - 宝宝相关图标
 - `map-icon.png` - 地图资源图标
-- `ai-icon.png` - AI助手图标
+- `growth-icon.png` - 成长评估图标
 
 ## 建议的图片规格：
 
