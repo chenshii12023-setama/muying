@@ -1,11 +1,11 @@
 {
   "usingComponents": {
-    "t-button": "tdesign-miniprogram/button/button",
-    "t-input": "tdesign-miniprogram/input/input",
-    "t-cell": "tdesign-miniprogram/cell/cell",
-    "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",
-    "t-divider": "tdesign-miniprogram/divider/divider",
-    "t-icon": "tdesign-miniprogram/icon/icon"
+    "t-button": "tdesign-miniprogram/miniprogram_dist/button/button",
+    "t-input": "tdesign-miniprogram/miniprogram_dist/input/input",
+    "t-cell": "tdesign-miniprogram/miniprogram_dist/cell/cell",
+    "t-cell-group": "tdesign-miniprogram/miniprogram_dist/cell-group/cell-group",
+    "t-divider": "tdesign-miniprogram/miniprogram_dist/divider/divider",
+    "t-icon": "tdesign-miniprogram/miniprogram_dist/icon/icon"
   },
   "navigationBarTitleText": "登录注册",
   "navigationBarBackgroundColor": "#FFB6C1",

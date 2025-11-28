@@ -1,6 +1,11 @@
 <view class="map-page">
   <!-- 顶部搜索栏 -->
   <view class="search-bar">
+    <view class="location-btn" bind:tap="reLocate">
+      <text class="location-icon">📍</text>
+      <text class="location-text" wx:if="{{currentLocation}}">重新定位</text>
+      <text class="location-text" wx:else>获取位置</text>
+    </view>
     <view class="search-input">
       <t-input
         placeholder="搜索母婴室、游乐场、儿童医院..."
@@ -10,8 +15,8 @@
         <text slot="prefix-icon">🔍</text>
       </t-input>
     </view>
-    <view class="filter-btn" bind:tap="showFilter">
-      <text>筛选</text>
+    <view class="refresh-btn" bind:tap="refreshFacilities">
+      <text class="refresh-icon">🔄</text>
     </view>
   </view>
 
@@ -36,13 +41,24 @@
   <t-tabs value="{{activeTab}}" bind:change="onTabChange">
     <t-tab-panel label="附近设施" value="nearby">
       <view class="tab-content">
-        <!-- 简易地图占位 -->
-        <view class="map-container">
-          <view class="map-placeholder">
-            <text class="map-icon">🗺️</text>
-            <text class="map-text">地图功能开发中</text>
-            <text class="map-desc">当前显示列表形式，地图功能将在后续版本推出</text>
+        <!-- 当前位置信息 -->
+        <view class="current-location" wx:if="{{currentLocation}}">
+          <text class="location-info">📍 当前位置：已定位</text>
+          <text class="location-coords">{{currentLocation.latitude.toFixed(4)}}, {{currentLocation.longitude.toFixed(4)}}</text>
+        </view>
+
+        <!-- 加载状态 -->
+        <view class="loading-container" wx:if="{{isLoading}}">
+          <t-loading theme="circular" size="40rpx" text="搜索中..." />
+        </view>
+
+        <!-- 错误提示 -->
+        <view class="error-container" wx:if="{{errorMessage}}">
+          <view class="error-message">
+            <text class="error-icon">⚠️</text>
+            <text class="error-text">{{errorMessage}}</text>
           </view>
+          <t-button size="small" bind:tap="reLocate">重新定位</t-button>
         </view>
 
         <!-- 设施列表 -->
@@ -80,7 +96,8 @@
             
             <view class="facility-actions">
               <t-button size="small" bind:tap="navigateToFacility" data-id="{{item.id}}">查看详情</t-button>
-              <t-button size="small" theme="primary" bind:tap="addNewFacility" data-id="{{item.id}}">我要上传</t-button>
+              <t-button size="small" bind:tap="planWalkingRoute" data-facility="{{item}}">路线</t-button>
+              <t-button size="small" theme="primary" bind:tap="navigateToLocation" data-facility="{{item}}">导航</t-button>
             </view>
           </view>
         </view>

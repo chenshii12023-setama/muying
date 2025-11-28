@@ -12,8 +12,38 @@
   gap: 20rpx;
 }
 
+.location-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12rpx 16rpx;
+  background: #e6f7ff;
+  border-radius: 8rpx;
+  min-width: 100rpx;
+}
+
+.location-icon {
+  font-size: 28rpx;
+  margin-bottom: 4rpx;
+}
+
+.location-text {
+  font-size: 20rpx;
+  color: #1890ff;
+}
+
 .search-input {
   flex: 1;
+}
+
+.refresh-btn {
+  padding: 16rpx 20rpx;
+  background: #f0f0f0;
+  border-radius: 8rpx;
+}
+
+.refresh-icon {
+  font-size: 32rpx;
 }
 
 .filter-btn {
@@ -52,6 +82,66 @@
 
 .tab-content {
   padding: 20rpx;
+}
+
+.current-location {
+  background: white;
+  border-radius: 16rpx;
+  padding: 20rpx 30rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 8rpx solid #52c41a;
+}
+
+.location-info {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+.location-coords {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.loading-container {
+  background: white;
+  border-radius: 16rpx;
+  padding: 60rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error-container {
+  background: white;
+  border-radius: 16rpx;
+  padding: 40rpx 30rpx;
+  margin-bottom: 20rpx;
+  text-align: center;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30rpx;
+}
+
+.error-icon {
+  font-size: 48rpx;
+  margin-right: 16rpx;
+  color: #ff4d4f;
+}
+
+.error-text {
+  font-size: 28rpx;
+  color: #ff4d4f;
+  flex: 1;
+  text-align: left;
 }
 
 .map-container {

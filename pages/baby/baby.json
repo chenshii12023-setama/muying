@@ -1,12 +1,12 @@
 {
   "usingComponents": {
-    "t-tabs": "tdesign-miniprogram/tabs/tabs",
-    "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
-    "t-cell": "tdesign-miniprogram/cell/cell",
-    "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",
-    "t-button": "tdesign-miniprogram/button/button",
-    "t-input": "tdesign-miniprogram/input/input",
-    "t-upload": "tdesign-miniprogram/upload/upload",
+    "t-tabs": "tdesign-miniprogram/miniprogram_dist/tabs/tabs",
+    "t-tab-panel": "tdesign-miniprogram/miniprogram_dist/tab-panel/tab-panel",
+    "t-cell": "tdesign-miniprogram/miniprogram_dist/cell/cell",
+    "t-cell-group": "tdesign-miniprogram/miniprogram_dist/cell-group/cell-group",
+    "t-button": "tdesign-miniprogram/miniprogram_dist/button/button",
+    "t-input": "tdesign-miniprogram/miniprogram_dist/input/input",
+    "t-upload": "tdesign-miniprogram/miniprogram_dist/upload/upload",
     "t-calendar": "tdesign-miniprogram/calendar/calendar"
   },
   "navigationBarTitleText": "宝宝成长记录"
