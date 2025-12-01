@@ -1,94 +1,113 @@
 <!--pages/index/index.wxml-->
 <view class="index-page">
-  <!-- 顶部欢迎区域 -->
+  <!-- 顶部欢迎卡片 -->
   <view class="welcome-section">
     <view class="welcome-card">
-      <view class="baby-avatar">
-        {{babyInfo.avatarText || '👶'}}
-      </view>
+      <view class="baby-avatar">{{babyInfo.avatarText || '👶'}}</view>
       <view class="welcome-text">
-        <text class="greeting">你好，{{userInfo.nickName || '宝妈'}}！</text>
-        <text class="baby-info">{{babyInfo.name || '宝宝'}} {{babyInfo.age || '0'}}个月啦</text>
+        <text class="greeting">你好，{{userInfo.nickName || '宝妈'}}</text>
+        <text class="baby-info">
+          <text wx:if="{{babyInfo.age > 0}}">{{babyInfo.name}} {{babyInfo.age}}个月啦</text>
+          <text wx:else>请先添加宝宝信息</text>
+        </text>
       </view>
     </view>
   </view>
 
-  <!-- 功能统计 -->
-  <view class="stats-section">
-    <view class="stats-grid">
-      <view class="stats-item">
-        <text class="stats-number">{{growthRecords}}</text>
-        <text class="stats-label">成长记录</text>
-      </view>
-      <view class="stats-item">
-        <text class="stats-number">{{milestones}}</text>
-        <text class="stats-label">里程碑</text>
-      </view>
-      <view class="stats-item">
-        <text class="stats-number">{{nearbyFacilities}}</text>
-        <text class="stats-label">附近设施</text>
-      </view>
-    </view>
-  </view>
-
-  <!-- 主要功能网格 -->
+  <!-- 核心功能入口 -->
   <view class="function-grid">
-    <t-grid column="4" gutter="16">
-      <t-grid-item wx:for="{{functions}}" wx:key="id" bindtap="navigateTo" data-url="{{item.url}}">
-        <view class="function-item">
-          <view class="function-icon {{item.iconClass}}">{{item.icon}}</view>
-          <text class="function-name">{{item.name}}</text>
-        </view>
-      </t-grid-item>
-    </t-grid>
-  </view>
-
-  <!-- 今日提醒 -->
-  <view class="reminder-section" wx:if="{{todayReminders.length > 0}}">
-    <view class="section-header">
-      <text class="section-title">今日提醒</text>
-      <text class="more-link" bindtap="viewAllReminders">查看全部</text>
+    <view class="func-item primary" bindtap="navigate" data-url="/pages/ai/ai">
+      <text class="icon">📊</text>
+      <text>成长评估</text>
     </view>
-    <t-cell-group>
-      <t-cell wx:for="{{todayReminders}}" wx:key="id" 
-              title="{{item.title}}" 
-              note="{{item.time}}"
-              bindtap="handleReminder"
-              data-id="{{item.id}}">
-        <view slot="right-icon">
-          <view class="tag {{item.type}}">{{item.tag}}</view>
-        </view>
-      </t-cell>
-    </t-cell-group>
+    <view class="func-item secondary" bindtap="navigate" data-url="/pages/ai/ai?tab=nutrition">
+      <text class="icon">🍎</text>
+      <text>营养计算</text>
+    </view>
   </view>
 
-  <!-- 育儿知识卡片 -->
+  <!-- 育儿知识核心区域 -->
   <view class="knowledge-section">
+    <!-- 头部标题 + 选择器 -->
     <view class="section-header">
-      <text class="section-title">育儿知识</text>
-      <text class="more-link" bindtap="goToKnowledge">更多</text>
+      <view class="header-left">
+        <text class="title">育儿重点</text>
+        <!-- 月份选择器 -->
+        <picker mode="selector" range="{{monthRange}}" value="{{monthIndex}}" bindchange="onMonthChange">
+          <view class="picker-wrap">
+            <text class="picker-text">({{monthRange[monthIndex]}})</text>
+            <text class="picker-arrow">▼</text>
+          </view>
+        </picker>
+      </view>
     </view>
-    <view class="knowledge-cards">
-      <view class="knowledge-card" wx:for="{{knowledgeItems}}" wx:key="id" bindtap="viewKnowledge" data-id="{{item.id}}">
-        <view class="card-image">
-          <image src="{{item.image}}" mode="aspectFill"></image>
+    
+    <!-- 内容区域 -->
+    <view class="knowledge-content" wx:if="{{currentMonthKnowledge}}">
+      
+      <!-- 1. 能力发展 -->
+      <view class="k-category" wx:if="{{currentMonthKnowledge.skills.length > 0}}">
+        <view class="cat-label skills">能力发展</view>
+        <view class="cat-list">
+          <view wx:for="{{currentMonthKnowledge.skills}}" wx:key="index" 
+                class="k-item {{item.selected ? 'active' : ''}}"
+                bindtap="toggleKnowledgeItem" data-category="skills" data-index="{{index}}">
+            <text>{{item.text}}</text>
+            <view class="check-icon"></view>
+          </view>
         </view>
-        <view class="card-content">
-          <text class="card-title">{{item.title}}</text>
-          <text class="card-desc">{{item.desc}}</text>
-          <view class="card-tags">
-            <text class="tag" wx:for="{{item.tags}}" wx:key="*this">{{item}}</text>
+      </view>
+
+      <!-- 2. 营养指导 -->
+      <view class="k-category" wx:if="{{currentMonthKnowledge.nutrition.length > 0}}">
+        <view class="cat-label nutrition">营养指导</view>
+        <view class="cat-list">
+          <view wx:for="{{currentMonthKnowledge.nutrition}}" wx:key="index"
+                class="k-item {{item.selected ? 'active' : ''}}"
+                bindtap="toggleKnowledgeItem" data-category="nutrition" data-index="{{index}}">
+            <text>{{item.text}}</text>
+            <view class="check-icon"></view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 3. 睡眠建议 -->
+      <view class="k-category" wx:if="{{currentMonthKnowledge.sleep.length > 0}}">
+        <view class="cat-label sleep">睡眠建议</view>
+        <view class="cat-list">
+          <view wx:for="{{currentMonthKnowledge.sleep}}" wx:key="index"
+                class="k-item {{item.selected ? 'active' : ''}}"
+                bindtap="toggleKnowledgeItem" data-category="sleep" data-index="{{index}}">
+            <text>{{item.text}}</text>
+            <view class="check-icon"></view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 4. 健康预警 -->
+      <view class="k-category" wx:if="{{currentMonthKnowledge.warning.length > 0}}">
+        <view class="cat-label warning">健康预警</view>
+        <view class="cat-list">
+          <view wx:for="{{currentMonthKnowledge.warning}}" wx:key="index"
+                class="k-item warning-item {{item.selected ? 'active' : ''}}"
+                bindtap="toggleKnowledgeItem" data-category="warning" data-index="{{index}}">
+            <text>{{item.text}}</text>
+            <view class="check-icon"></view>
           </view>
         </view>
       </view>
     </view>
-  </view>
 
-  <!-- 成长评估入口 -->
-  <view class="growth-assessment-section">
-    <t-button class="growth-btn" theme="primary" bindtap="goToGrowthAssessment">
-      <text class="growth-icon">📊</text>
-      <text>成长评估</text>
-    </t-button>
+    <!-- 加载中或空状态 -->
+    <view class="empty-state" wx:else>
+      <text wx:if="{{isLoading}}">正在加载育儿知识...</text>
+      <text wx:else>暂无该月龄数据</text>
+    </view>
+
+    <!-- 底部保存条 -->
+    <view class="action-bar safe-area-bottom" wx:if="{{selectedItems.length > 0}}">
+      <view class="count">已选 {{selectedItems.length}} 项重点</view>
+      <button class="save-btn" bindtap="saveSelectedItems">存入计划</button>
+    </view>
   </view>
 </view>
