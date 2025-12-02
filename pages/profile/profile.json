@@ -3,7 +3,7 @@
     "t-button": "tdesign-miniprogram/miniprogram_dist/button/button",
     "t-cell": "tdesign-miniprogram/miniprogram_dist/cell/cell",
     "t-cell-group": "tdesign-miniprogram/miniprogram_dist/cell-group/cell-group",
-    "t-avatar": "tdesign-miniprogram/avatar/avatar",
+    "t-avatar": "tdesign-miniprogram/miniprogram_dist/avatar/avatar",
     "t-tag": "tdesign-miniprogram/miniprogram_dist/tag/tag"
   },
   "navigationBarTitleText": "个人中心",

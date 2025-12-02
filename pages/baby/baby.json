@@ -7,7 +7,7 @@
     "t-button": "tdesign-miniprogram/miniprogram_dist/button/button",
     "t-input": "tdesign-miniprogram/miniprogram_dist/input/input",
     "t-upload": "tdesign-miniprogram/miniprogram_dist/upload/upload",
-    "t-calendar": "tdesign-miniprogram/calendar/calendar"
+    "t-calendar": "tdesign-miniprogram/miniprogram_dist/calendar/calendar"
   },
   "navigationBarTitleText": "宝宝成长记录"
 }

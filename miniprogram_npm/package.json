@@ -1,9 +1,0 @@
-{
-  "name": "miniprogram_npm_packages",
-  "version": "1.0.0",
-  "description": "微信小程序NPM包构建目录",
-  "buildTime": "2025-11-28T03:19:00.797Z",
-  "packages": [
-    "tdesign-miniprogram"
-  ]
-}

@@ -7,7 +7,7 @@
     "t-button": "tdesign-miniprogram/miniprogram_dist/button/button",
     "t-input": "tdesign-miniprogram/miniprogram_dist/input/input",
     "t-tag": "tdesign-miniprogram/miniprogram_dist/tag/tag",
-    "t-avatar": "tdesign-miniprogram/avatar/avatar",
+    "t-avatar": "tdesign-miniprogram/miniprogram_dist/avatar/avatar",
     "t-rate": "tdesign-miniprogram/miniprogram_dist/rate/rate"
   },
   "navigationBarTitleText": "闲置母婴用品"

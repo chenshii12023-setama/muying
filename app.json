@@ -50,7 +50,7 @@
       "desc": "你的位置信息将用于小程序定位周边母婴设施"
     }
   },
-  "requiredPrivateInfos": ["getLocation"],
+  "requiredPrivateInfos": ["getLocation", "chooseAddress", "chooseLocation"],
   "plugins": {
     "amap-plugin": {
       "version": "1.0.0",
