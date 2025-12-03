@@ -81,7 +81,57 @@
 }
 
 .tab-content {
-  padding: 20rpx;
+  padding: 0;
+}
+
+.map-section {
+  background: white;
+  margin-bottom: 20rpx;
+}
+
+.facility-map {
+  width: 100%;
+  height: 500rpx;
+  position: relative;
+}
+
+.map-controls {
+  position: absolute;
+  right: 20rpx;
+  top: 20rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.control-btn {
+  width: 80rpx;
+  height: 80rpx;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+}
+
+.control-text {
+  font-size: 32rpx;
+  line-height: 1;
+}
+
+.map-stats {
+  padding: 20rpx 30rpx;
+  border-top: 1rpx solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fafafa;
+}
+
+.stats-text {
+  font-size: 24rpx;
+  color: #666;
 }
 
 .current-location {

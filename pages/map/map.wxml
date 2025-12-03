@@ -41,6 +41,40 @@
   <t-tabs value="{{activeTab}}" bind:change="onTabChange">
     <t-tab-panel label="附近设施" value="nearby">
       <view class="tab-content">
+        <!-- 地图容器 -->
+        <view class="map-section">
+          <map
+            id="facilityMap"
+            class="facility-map"
+            latitude="{{mapCenter.latitude}}"
+            longitude="{{mapCenter.longitude}}"
+            scale="{{mapScale}}"
+            markers="{{mapMarkers}}"
+            show-location="{{true}}"
+            bindmarkertap="onMarkerTap"
+            bindregionchange="onMapRegionChange"
+          >
+            <!-- 地图控制按钮 -->
+            <cover-view class="map-controls">
+              <cover-view class="control-btn" bind:tap="reLocate">
+                <cover-view class="control-text">📍</cover-view>
+              </cover-view>
+              <cover-view class="control-btn" bind:tap="zoomIn">
+                <cover-view class="control-text">➕</cover-view>
+              </cover-view>
+              <cover-view class="control-btn" bind:tap="zoomOut">
+                <cover-view class="control-text">➖</cover-view>
+              </cover-view>
+            </cover-view>
+          </map>
+          
+          <!-- 地图统计信息 -->
+          <view class="map-stats">
+            <text class="stats-text">📍 找到 {{nearbyFacilities.length}} 个附近设施</text>
+            <text class="stats-text" wx:if="{{currentLocation}}">⚡ {{activeFilterName}}</text>
+          </view>
+        </view>
+
         <!-- 当前位置信息 -->
         <view class="current-location" wx:if="{{currentLocation}}">
           <text class="location-info">📍 当前位置：已定位</text>

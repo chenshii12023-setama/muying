@@ -51,12 +51,7 @@
     }
   },
   "requiredPrivateInfos": ["getLocation", "chooseAddress", "chooseLocation"],
-  "plugins": {
-    "amap-plugin": {
-      "version": "1.0.0",
-      "provider": "wx76a9a06e5b4e693e"
-    }
-  },
+
   "usingComponents": {
     "t-button": "tdesign-miniprogram/miniprogram_dist/button/button",
     "t-cell": "tdesign-miniprogram/miniprogram_dist/cell/cell",

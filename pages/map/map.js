@@ -1,12 +1,12 @@
 const app = getApp()
-const amapApi = require('../../utils/amap_api.js')
-const { validateConfig } = require('../../utils/amap_config.js')
+const wxMapApi = require('../../utils/wx_map_api.js')
 
 Page({
   data: {
     activeTab: 'nearby',
     searchKeyword: '',
     activeFilter: 'all',
+    activeFilterName: '全部设施',
     filterTags: [
       { label: '全部', value: 'all' },
       { label: '母婴室', value: 'nursing_room' },
@@ -18,6 +18,9 @@ Page({
     nearbyFacilities: [],
     myUploads: [],
     currentLocation: null,
+    mapCenter: { latitude: 39.908823, longitude: 116.397470 }, // 默认北京中心
+    mapScale: 13,
+    mapMarkers: [],
     isLoading: false,
     showLocationModal: false,
     errorMessage: ''
@@ -25,15 +28,6 @@ Page({
 
   onLoad: function(options) {
     this.loadMyUploads()
-    
-    // 检查配置
-    const isConfigValid = validateConfig()
-    if (!isConfigValid) {
-      console.log('高德地图API配置有问题，使用模拟数据模式')
-      this.showToast('当前使用模拟数据演示', 'none')
-      this.loadMockFacilities()
-      return
-    }
     
     this.getCurrentLocationAndLoadFacilities()
   },
@@ -52,11 +46,12 @@ Page({
   getCurrentLocationAndLoadFacilities: function() {
     this.setData({ isLoading: true })
     
-    amapApi.getCurrentLocation()
+    wxMapApi.getCurrentLocation()
       .then(location => {
         console.log('当前位置:', location)
         this.setData({ 
           currentLocation: location,
+          mapCenter: { latitude: location.latitude, longitude: location.longitude },
           showLocationModal: false,
           errorMessage: ''
         })
@@ -92,27 +87,27 @@ Page({
     // 根据当前筛选类型搜索
     const facilityType = this.data.activeFilter === 'all' ? 'nursing_room' : this.data.activeFilter
     
-    amapApi.searchMaternalFacilities(this.data.currentLocation, facilityType, 5000)
+    wxMapApi.searchMaternalFacilities(this.data.currentLocation, facilityType, 5000)
       .then(result => {
         console.log('搜索结果:', result)
         
-        // 转换高德地图POI数据为应用格式
+        // 转换微信地图POI数据为应用格式
         const facilities = result.pois.map(poi => {
           return {
             id: poi.id,
             name: poi.name,
-            type: this.mapPoiTypeToAppType(poi.type),
-            typeName: this.getPoiTypeName(poi),
-            typeIcon: this.getPoiTypeIcon(poi.type),
-            address: poi.address || poi.location,
-            distance: this.calculateDistance(poi.location),
+            type: poi.type || this.mapKeywordToType(facilityType),
+            typeName: this.getTypeName(poi.type || facilityType),
+            typeIcon: this.getTypeIcon(poi.type || facilityType),
+            address: poi.address,
+            distance: poi.distance || 0,
             rating: Math.random() * 2 + 3, // 模拟评分
             reviewCount: Math.floor(Math.random() * 200) + 10, // 模拟评价数
-            tags: this.extractPoiTags(poi),
-            latitude: parseFloat(poi.location.split(',')[1]),
-            longitude: parseFloat(poi.location.split(',')[0]),
+            tags: poi.tags || this.getFacilityTags(poi.type || facilityType),
+            latitude: poi.latitude,
+            longitude: poi.longitude,
             tel: poi.tel || '',
-            businessArea: poi.business_area || ''
+            businessArea: poi.business_area || '附近商圈'
           }
         })
         
@@ -120,6 +115,9 @@ Page({
           nearbyFacilities: facilities,
           isLoading: false
         })
+        
+        // 更新地图标记
+        this.updateMapMarkers(facilities)
         
         if (facilities.length === 0) {
           this.showToast('未找到附近设施', 'none')
@@ -132,16 +130,9 @@ Page({
           errorMessage: `搜索失败: ${error.message}`
         })
         
-        // 检查是否是API密钥错误
-        if (error.message.includes('API密钥') || error.message.includes('USERKEY_PLAT_NOMATCH')) {
-          console.warn('高德地图API密钥配置问题，使用模拟数据')
-          this.showToast('使用模拟数据演示', 'none')
-          this.loadMockFacilities()
-        } else {
-          // 其他错误也使用模拟数据
-          console.warn('高德地图API调用失败，使用模拟数据')
-          this.loadMockFacilities()
-        }
+        // 降级到模拟数据
+        console.warn('微信地图API调用失败，使用模拟数据')
+        this.loadMockFacilities()
       })
   },
 
@@ -156,6 +147,9 @@ Page({
       nearbyFacilities: mockData,
       isLoading: false
     })
+    
+    // 更新地图标记
+    this.updateMapMarkers(mockData)
   },
 
   /**
@@ -410,6 +404,9 @@ Page({
       activeFilter: filter
     })
     
+    // 更新筛选器名称
+    this.updateFilterName()
+    
     if (filter === 'all') {
       this.loadNearbyFacilities()
     } else {
@@ -420,6 +417,9 @@ Page({
       this.setData({
         nearbyFacilities: filtered
       })
+      
+      // 更新地图标记
+      this.updateMapMarkers(filtered)
     }
   },
 
@@ -504,30 +504,11 @@ Page({
   },
 
   /**
-   * 打开地图导航
+   * 打开地图导航 - 直接调用高德地图
    */
   navigateToLocation: function(e) {
     const facility = e.currentTarget.dataset.facility
-    
-    if (!facility || !facility.latitude || !facility.longitude) {
-      this.showToast('位置信息不完整', 'error')
-      return
-    }
-    
-    wx.openLocation({
-      latitude: facility.latitude,
-      longitude: facility.longitude,
-      name: facility.name,
-      address: facility.address,
-      scale: 18,
-      success: () => {
-        console.log('打开地图导航成功')
-      },
-      fail: (error) => {
-        console.error('打开地图导航失败:', error)
-        this.showToast('导航失败', 'error')
-      }
-    })
+    this.navigateToAmap(facility)
   },
 
   /**
@@ -548,7 +529,7 @@ Page({
       latitude: facility.latitude
     }
     
-    amapApi.planWalkingRoute(this.data.currentLocation, destination)
+    wxMapApi.planWalkingRoute(this.data.currentLocation, destination)
       .then(result => {
         console.log('路径规划结果:', result)
         
@@ -596,6 +577,220 @@ Page({
       icon: type,
       duration: 2000
     })
+  },
+
+  /**
+   * 更新地图标记
+   */
+  updateMapMarkers: function(facilities) {
+    if (!this.data.currentLocation) return
+
+    const markers = []
+    
+    // 添加当前位置标记 - 使用系统默认样式
+    markers.push({
+      id: 0,
+      latitude: this.data.currentLocation.latitude,
+      longitude: this.data.currentLocation.longitude,
+      width: 30,
+      height: 30,
+      callout: {
+        content: '我的位置',
+        color: '#333',
+        fontSize: 12,
+        borderRadius: 4,
+        bgColor: '#52c41a',
+        color: '#fff',
+        padding: 5
+      }
+    })
+
+    // 添加设施标记 - 使用emoji作为临时标记
+    const emojiMap = {
+      'nursing_room': '🚼',
+      'playground': '🎪', 
+      'hospital': '🏥',
+      'shopping': '🏬',
+      'restaurant': '🍽️'
+    }
+
+    facilities.forEach((facility, index) => {
+      const markerIcon = emojiMap[facility.type] || '📍'
+      
+      markers.push({
+        id: facility.id || index + 1,
+        latitude: facility.latitude,
+        longitude: facility.longitude,
+        width: 32,
+        height: 32,
+        callout: {
+          content: `${markerIcon} ${facility.name} (${facility.distance}km)`,
+          color: '#333',
+          fontSize: 12,
+          borderRadius: 4,
+          bgColor: '#fff',
+          padding: 5,
+          display: 'BYCLICK'
+        }
+      })
+    })
+
+    this.setData({ mapMarkers: markers })
+  },
+
+  /**
+   * 地图标记点击事件
+   */
+  onMarkerTap: function(e) {
+    const markerId = e.detail.markerId
+    if (markerId === 0) {
+      // 点击了当前位置标记
+      this.showToast('我的位置', 'none')
+      return
+    }
+
+    // 找到对应的设施
+    const facility = this.data.nearbyFacilities.find(f => 
+      f.id === markerId || f.id === markerId.toString()
+    )
+
+    if (facility) {
+      this.showFacilityOptions(facility)
+    }
+  },
+
+  /**
+   * 显示设施操作选项
+   */
+  showFacilityOptions: function(facility) {
+    const that = this
+    wx.showModal({
+      title: facility.name,
+      content: `地址：${facility.address}\n距离：${facility.distance}km`,
+      confirmText: '导航',
+      cancelText: '详情',
+      success: function(res) {
+        if (res.confirm) {
+          that.navigateToAmap(facility)
+        } else if (res.cancel) {
+          that.navigateToFacility({ currentTarget: { dataset: { id: facility.id } } })
+        }
+      }
+    })
+  },
+
+  /**
+   * 跳转到高德地图导航
+   */
+  navigateToAmap: function(facility) {
+    if (!facility || !facility.latitude || !facility.longitude) {
+      this.showToast('位置信息不完整', 'error')
+      return
+    }
+
+    const destination = `${facility.latitude},${facility.longitude}`
+    const name = encodeURIComponent(facility.name)
+    const address = encodeURIComponent(facility.address)
+
+    // 高德地图导航URL
+    const amapUrl = `androidamap://route/plan/?slat=${this.data.currentLocation.latitude}&slon=${this.data.currentLocation.longitude}&sname=我的位置&dlat=${facility.latitude}&dlon=${facility.longitude}&dname=${name}&dev=0&t=0`
+
+    // 备用网页版高德地图
+    const webUrl = `https://uri.amap.com/navigation?to=${destination},${name},${address}&mode=car&coordinate=gaode&src=mypage`
+
+    wx.showModal({
+      title: '选择导航方式',
+      content: '是否使用高德地图进行导航？',
+      confirmText: '打开高德地图',
+      cancelText: '网页导航',
+      success: function(res) {
+        if (res.confirm) {
+          // 尝试打开高德地图APP
+          wx.openLocation({
+            latitude: facility.latitude,
+            longitude: facility.longitude,
+            name: facility.name,
+            address: facility.address,
+            scale: 18,
+            success: () => {
+              console.log('打开微信地图成功')
+            },
+            fail: () => {
+              // 如果微信地图也失败，使用网页导航
+              wx.showModal({
+                title: '提示',
+                content: '无法打开地图应用，是否使用网页导航？',
+                confirmText: '确定',
+                success: (webRes) => {
+                  if (webRes.confirm) {
+                    that.copyToClipboard(webUrl, '导航链接已复制，请在浏览器中打开')
+                  }
+                }
+              })
+            }
+          })
+        } else if (res.cancel) {
+          // 复制网页版导航链接
+          that.copyToClipboard(webUrl, '导航链接已复制，请在浏览器中打开')
+        }
+      }
+    })
+  },
+
+  /**
+   * 复制到剪贴板
+   */
+  copyToClipboard: function(text, message) {
+    wx.setClipboardData({
+      data: text,
+      success: function() {
+        wx.showToast({
+          title: message || '已复制到剪贴板',
+          icon: 'none'
+        })
+      },
+      fail: function() {
+        wx.showToast({
+          title: '复制失败',
+          icon: 'none'
+        })
+      }
+    })
+  },
+
+  /**
+   * 地图区域变化事件
+   */
+  onMapRegionChange: function(e) {
+    if (e.type === 'end') {
+      // 地图移动结束后，可以重新搜索该区域的设施
+      console.log('地图区域变化:', e.detail)
+    }
+  },
+
+  /**
+   * 地图放大
+   */
+  zoomIn: function() {
+    const newScale = Math.min(this.data.mapScale + 2, 20)
+    this.setData({ mapScale: newScale })
+  },
+
+  /**
+   * 地图缩小
+   */
+  zoomOut: function() {
+    const newScale = Math.max(this.data.mapScale - 2, 3)
+    this.setData({ mapScale: newScale })
+  },
+
+  /**
+   * 更新筛选器名称
+   */
+  updateFilterName: function() {
+    const filterItem = this.data.filterTags.find(tag => tag.value === this.data.activeFilter)
+    const filterName = filterItem ? filterItem.label : '全部设施'
+    this.setData({ activeFilterName: filterName })
   },
 
   /**
