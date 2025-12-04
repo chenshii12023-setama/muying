@@ -141,10 +141,32 @@
             <text class="calculator-desc">根据宝宝年龄和食材计算营养摄入</text>
           </view>
           
-          <t-cell-group title="宝宝信息">
-            <t-cell title="宝宝年龄" value="{{babyAge}}个月" />
-            <t-cell title="宝宝体重" value="{{babyWeight}}kg" />
-          </t-cell-group>
+          <view class="baby-info-section">
+            <text class="section-title">宝宝信息</text>
+            <view class="input-group">
+              <view class="input-row">
+                <text class="input-label">宝宝年龄（月）</text>
+                <t-input 
+                  type="number"
+                  placeholder="请输入宝宝年龄"
+                  value="{{babyAge}}"
+                  bind:change="onMilkDataChange"
+                  data-field="age"
+                />
+              </view>
+              
+              <view class="input-row">
+                <text class="input-label">宝宝体重（kg）</text>
+                <t-input 
+                  type="digit"
+                  placeholder="请输入体重"
+                  value="{{babyWeight}}"
+                  bind:change="onMilkDataChange"
+                  data-field="weight"
+                />
+              </view>
+            </view>
+          </view>
           
           <view class="ingredients-section">
             <text class="section-title">选择食材</text>
@@ -210,6 +232,119 @@
           <view class="calculator-actions">
             <t-button theme="primary" bind:tap="calculateNutrition">计算营养</t-button>
             <t-button bind:tap="resetCalculator">重置</t-button>
+          </view>
+        </view>
+      </view>
+    </t-tab-panel>
+    
+    <t-tab-panel label="奶量计算" value="milk">
+      <view class="tab-content">
+        <view class="milk-calculator">
+          <view class="calculator-header">
+            <text class="calculator-title">婴幼儿奶量计算器</text>
+            <text class="calculator-desc">根据宝宝年龄和体重计算每日奶量需求</text>
+          </view>
+          
+          <view class="baby-info-section">
+            <text class="section-title">宝宝信息</text>
+            <view class="input-group">
+              <view class="input-row">
+                <text class="input-label">宝宝年龄（月）</text>
+                <t-input 
+                  type="number"
+                  placeholder="请输入宝宝年龄"
+                  value="{{babyAge}}"
+                  bind:change="onMilkDataChange"
+                  data-field="age"
+                />
+              </view>
+              
+              <view class="input-row">
+                <text class="input-label">宝宝体重（kg）</text>
+                <t-input 
+                  type="digit"
+                  placeholder="请输入体重"
+                  value="{{babyWeight}}"
+                  bind:change="onMilkDataChange"
+                  data-field="weight"
+                />
+              </view>
+            </view>
+          </view>
+          
+          <view class="milk-type-section">
+            <text class="section-title">喂养方式</text>
+            <view class="type-selector">
+              <t-radio-group value="{{milkType}}" bind:change="onMilkTypeChange">
+                <t-radio value="formula">配方奶</t-radio>
+                <t-radio value="breast">母乳</t-radio>
+              </t-radio-group>
+            </view>
+          </view>
+          
+          <view class="calculate-section">
+            <t-button 
+              theme="primary" 
+              bind:tap="calculateMilk"
+              loading="{{isCalculatingMilk}}"
+              disabled="{{isCalculatingMilk}}"
+            >
+              {{isCalculatingMilk ? '计算中...' : '计算奶量'}}
+            </t-button>
+          </view>
+          
+          <view class="result-section" wx:if="{{milkResult}}">
+            <text class="section-title">奶量计算结果</text>
+            
+            <view class="milk-result-card">
+              <view class="result-header">
+                <text class="result-title">推荐奶量</text>
+                <text class="result-time">{{milkResult.timestamp}}</text>
+              </view>
+              
+              <view class="milk-data">
+                <view class="milk-item">
+                  <text class="milk-label">每日总量：</text>
+                  <text class="milk-value">{{milkResult.total_range}} {{milkResult.unit}}</text>
+                </view>
+                <view class="milk-item">
+                  <text class="milk-label">单次奶量：</text>
+                  <text class="milk-value">{{milkResult.per_feed}} {{milkResult.unit}}</text>
+                </view>
+                <view class="milk-item">
+                  <text class="milk-label">喂养次数：</text>
+                  <text class="milk-value">{{milkResult.calc_detail.frequency}}次/天</text>
+                </view>
+                <view class="milk-item">
+                  <text class="milk-label">喂养方式：</text>
+                  <text class="milk-value">{{milkResult.calc_detail.type === 'formula' ? '配方奶' : '母乳'}}</text>
+                </view>
+              </view>
+              
+              <view class="advice-section">
+                <text class="advice-title">喂养建议</text>
+                <text class="advice-text">{{milkResult.advice}}</text>
+              </view>
+              
+              <view class="ai-comment-section">
+                <text class="ai-comment-title">AI暖心提示</text>
+                <text class="ai-comment-text">{{milkResult.ai_comment}}</text>
+              </view>
+              
+              <view class="result-footer" wx:if="{{milkResult.isLocal}}">
+                <text class="local-tag">本地计算</text>
+              </view>
+            </view>
+            
+            <view class="recalculate-actions">
+              <t-button size="small" bind:tap="recalculateMilk">重新计算</t-button>
+            </view>
+          </view>
+          
+          <!-- 无宝宝信息提示 -->
+          <view class="no-baby-tip" wx:if="{{!babyInfo}}">
+            <text class="tip-text">请先添加宝宝信息，系统将自动填充成长数据</text>
+            <t-button theme="primary" bind:tap="goToAddBaby">去添加宝宝</t-button>
           </view>
         </view>
       </view>
