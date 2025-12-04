@@ -2,12 +2,12 @@
   "navigationBarTitleText": "编辑宝宝信息",
   "enablePullDownRefresh": false,
   "usingComponents": {
-    "t-button": "tdesign-miniprogram/button/button",
-    "t-cell": "tdesign-miniprogram/cell/cell",
-    "t-cell-group": "tdesign-miniprogram/cell-group/cell-group",
-    "t-input": "tdesign-miniprogram/input/input",
-    "t-radio-group": "tdesign-miniprogram/radio-group/radio-group",
-    "t-radio": "tdesign-miniprogram/radio/radio",
-    "t-upload": "tdesign-miniprogram/upload/upload"
+    "t-button": "tdesign-miniprogram/miniprogram_dist/button/button",
+    "t-cell": "tdesign-miniprogram/miniprogram_dist/cell/cell",
+    "t-cell-group": "tdesign-miniprogram/miniprogram_dist/cell-group/cell-group",
+    "t-input": "tdesign-miniprogram/miniprogram_dist/input/input",
+    "t-radio-group": "tdesign-miniprogram/miniprogram_dist/radio-group/radio-group",
+    "t-radio": "tdesign-miniprogram/miniprogram_dist/radio/radio",
+    "t-upload": "tdesign-miniprogram/miniprogram_dist/upload/upload"
   }
 }

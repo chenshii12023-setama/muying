@@ -18,9 +18,17 @@
   "author": "宝妈育儿轻指南团队",
   "license": "MIT",
   "dependencies": {
-    "tdesign-miniprogram": "^1.9.5"
+    "tdesign-miniprogram": "^1.11.2"
   },
   "devDependencies": {
     "miniprogram-api-typings": "^4.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenshii12023-setama/muying.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chenshii12023-setama/muying/issues"
+  },
+  "homepage": "https://github.com/chenshii12023-setama/muying#readme"
 }
