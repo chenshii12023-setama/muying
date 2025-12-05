@@ -1,0 +1,196 @@
+<view class="add-product-page">
+  <view class="page-header">
+    <text class="page-title">发布闲置商品</text>
+    <text class="page-subtitle">让闲置物品发挥更大价值</text>
+  </view>
+
+  <!-- 基本信息 -->
+  <view class="form-section">
+    <view class="section-title">基本信息</view>
+    
+    <view class="form-item">
+      <text class="form-label">商品标题 *</text>
+      <t-input
+        placeholder="请输入商品标题（建议包含品牌、规格等信息）"
+        value="{{title}}"
+        bind:change="onTitleInput"
+        maxlength="50"
+      />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">商品分类 *</text>
+      <picker
+        mode="selector"
+        range="{{categoryOptions}}"
+        range-key="label"
+        bindchange="onCategorySelect"
+        value="{{categoryIndex}}"
+      >
+        <view class="selector-wrapper">
+          <view class="selector-content {{category ? '' : 'placeholder'}}">
+            {{categoryName || '请选择商品分类'}}
+          </view>
+          <text class="selector-arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">商品成色 *</text>
+      <picker
+        mode="selector"
+        range="{{conditionOptions}}"
+        range-key="label"
+        bindchange="onConditionSelect"
+        value="{{conditionIndex}}"
+      >
+        <view class="selector-wrapper">
+          <view class="selector-content {{condition ? '' : 'placeholder'}}">
+            {{condition || '请选择商品成色'}}
+          </view>
+          <text class="selector-arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">使用时间 *</text>
+      <picker
+        mode="selector"
+        range="{{usageTimeOptions}}"
+        range-key="label"
+        bindchange="onUsageTimeSelect"
+        value="{{usageTimeIndex}}"
+      >
+        <view class="selector-wrapper">
+          <view class="selector-content {{usageTime ? '' : 'placeholder'}}">
+            {{usageTime || '请选择使用时间'}}
+          </view>
+          <text class="selector-arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <!-- 价格信息 -->
+  <view class="form-section">
+    <view class="section-title">价格信息</view>
+    
+    <view class="form-item">
+      <text class="form-label">转让价格 *</text>
+      <t-input
+        placeholder="请输入转让价格"
+        value="{{price}}"
+        bind:change="onPriceInput"
+        type="number"
+      >
+        <text slot="suffix">元</text>
+      </t-input>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">原价</text>
+      <t-input
+        placeholder="请输入商品原价（选填）"
+        value="{{originalPrice}}"
+        bind:change="onOriginalPriceInput"
+        type="number"
+      >
+        <text slot="suffix">元</text>
+      </t-input>
+    </view>
+  </view>
+
+  <!-- 图片上传 -->
+  <view class="form-section">
+    <view class="section-title">商品图片 *</view>
+    <view class="upload-tips">请上传清晰的商品图片，最多上传9张</view>
+    
+    <view class="image-grid">
+      <!-- 已上传的图片 -->
+      <view wx:for="{{imageList}}" wx:key="*this" class="image-item">
+        <image 
+          class="uploaded-image" 
+          src="{{item}}" 
+          mode="aspectFill"
+          bind:tap="previewImage"
+          data-current="{{item}}"
+          data-urls="{{imageList}}"
+        />
+        <view class="delete-btn" bind:tap="deleteImage" data-index="{{index}}">×</view>
+      </view>
+      
+      <!-- 上传按钮 -->
+      <view wx:if="{{imageList.length < maxImages}}" class="upload-btn" bind:tap="chooseImage">
+        <text class="upload-icon">📷</text>
+        <text class="upload-text">上传图片</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 商品描述 -->
+  <view class="form-section">
+    <view class="section-title">商品描述 *</view>
+    
+    <t-input
+      type="textarea"
+      placeholder="请详细描述商品状况、购买原因、使用感受等（建议包含品牌、规格、颜色、尺寸等信息）"
+      value="{{description}}"
+      bind:change="onDescriptionInput"
+      autosize="{{true}}"
+      maxlength="500"
+    />
+  </view>
+
+  <!-- 交易信息 -->
+  <view class="form-section">
+    <view class="section-title">交易信息</view>
+    
+    <view class="form-item">
+      <text class="form-label">交易地点 *</text>
+      <t-input
+        placeholder="请输入交易地点（建议选择地铁站、商场等公共场所）"
+        value="{{location}}"
+        bind:change="onLocationInput"
+      />
+    </view>
+
+    <view class="form-item">
+      <view class="checkbox-wrapper" bind:tap="toggleCertification">
+        <view class="checkbox {{hasCertification ? 'checked' : ''}}">
+          {{hasCertification ? '✓' : ''}}
+        </view>
+        <text class="checkbox-label">我有消毒证明或相关认证</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="form-actions">
+    <t-button size="large" bind:tap="resetForm">重置</t-button>
+    <t-button 
+      size="large" 
+      theme="primary" 
+      bind:tap="submitProduct"
+      loading="{{isSubmitting}}"
+      disabled="{{isSubmitting}}"
+    >
+      {{isSubmitting ? '发布中...' : '发布商品'}}
+    </t-button>
+  </view>
+
+  <!-- 发布指南 -->
+  <view class="guidelines">
+    <text class="guidelines-title">发布指南</text>
+    <view class="guidelines-list">
+      <text class="guideline-item">✅ 真实描述商品状况</text>
+      <text class="guideline-item">✅ 上传清晰商品图片</text>
+      <text class="guideline-item">✅ 合理定价提高成交率</text>
+      <text class="guideline-item">✅ 选择安全交易地点</text>
+    </view>
+    <text class="guidelines-more" bind:tap="showGuidelines">查看详细指南 ></text>
+  </view>
+
+
+</view>

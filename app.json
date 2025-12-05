@@ -6,6 +6,8 @@
     "pages/baby/edit-baby",
     "pages/map/map",
     "pages/market/market",
+    "pages/market/product-detail",
+    "pages/market/add-product",
     "pages/ai/ai",
     "pages/login/login",
     "pages/settings/terms",

@@ -1,0 +1,137 @@
+<view class="product-detail-page">
+  <!-- 加载状态 -->
+  <view class="loading-container" wx:if="{{isLoading}}">
+    <t-loading theme="circular" size="40rpx" text="加载中..." />
+  </view>
+
+  <!-- 商品详情内容 -->
+  <view class="detail-content" wx:if="{{!isLoading && product}}">
+    <!-- 商品图片轮播 -->
+    <swiper class="product-swiper" indicator-dots="true" autoplay="true">
+      <swiper-item wx:for="{{product.images}}" wx:key="*this">
+        <image 
+          class="product-image" 
+          src="{{item}}" 
+          mode="aspectFill"
+          bind:tap="previewImage"
+          data-current="{{item}}"
+          data-urls="{{product.images}}"
+        />
+      </swiper-item>
+    </swiper>
+
+    <!-- 商品基本信息 -->
+    <view class="product-info">
+      <view class="price-section">
+        <text class="current-price">¥{{product.price}}</text>
+        <text class="original-price">原价: ¥{{product.originalPrice}}</text>
+        <t-tag wx:if="{{product.hasCertification}}" class="cert-tag">消毒证明</t-tag>
+        <t-tag wx:if="{{product.isLocal}}" class="local-tag">同城交易</t-tag>
+      </view>
+      
+      <text class="product-title">{{product.title}}</text>
+      
+      <view class="product-meta">
+        <text class="meta-item">{{product.categoryName}}</text>
+        <text class="meta-item">{{product.condition}}</text>
+        <text class="meta-item">使用{{product.usageTime}}</text>
+      </view>
+    </view>
+
+    <!-- 商品详细信息 -->
+    <view class="detail-section">
+      <view class="section-title">商品描述</view>
+      <text class="description-text">{{product.description}}</text>
+    </view>
+
+    <!-- 交易信息 -->
+    <view class="detail-section">
+      <view class="section-title">交易信息</view>
+      <view class="trade-info">
+        <view class="info-row">
+          <text class="info-label">交易地点：</text>
+          <text class="info-value">{{product.location}}</text>
+          <text class="distance">({{product.distance}}km)</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">发布时间：</text>
+          <text class="info-value">{{product.publishTime}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">浏览次数：</text>
+          <text class="info-value">{{product.viewCount}}次</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 卖家信息 -->
+    <view class="detail-section">
+      <view class="section-title">卖家信息</view>
+      <view class="seller-info">
+        <view class="seller-header">
+          <t-avatar size="large" image="{{product.seller.avatar}}" />
+          <view class="seller-details">
+            <view class="seller-name-row">
+              <text class="seller-name">{{product.seller.name}}</text>
+              <t-tag wx:if="{{product.seller.isVerified}}" size="small" theme="success">已认证</t-tag>
+            </view>
+            <view class="seller-stats">
+              <t-rate value="{{product.seller.rating}}" disabled size="20" />
+              <text class="rating-text">{{product.seller.rating}}分</text>
+              <text class="review-count">({{product.seller.reviewCount}}条评价)</text>
+            </view>
+          </view>
+        </view>
+        
+        <view class="seller-meta">
+          <text class="meta-item">回复率 {{product.seller.responseRate}}%</text>
+          <text class="meta-item">{{product.seller.location}}</text>
+          <text class="meta-item">{{product.seller.joinTime}}加入</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 底部操作栏 -->
+    <view class="bottom-actions">
+      <view class="action-left">
+        <view class="action-btn" bind:tap="toggleLike">
+          <text class="action-icon {{isLiked ? 'liked' : ''}}">{{isLiked ? '❤️' : '🤍'}}</text>
+          <text class="action-text">收藏</text>
+        </view>
+        <view class="action-btn" bind:tap="reportProduct">
+          <text class="action-icon">🚨</text>
+          <text class="action-text">举报</text>
+        </view>
+      </view>
+      
+      <view class="action-right">
+        <t-button size="large" bind:tap="contactSeller">联系卖家</t-button>
+        <t-button size="large" theme="primary" bind:tap="makePhoneCall">拨打电话</t-button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 联系卖家弹窗 -->
+  <t-dialog
+    visible="{{showContactModal}}"
+    title="联系卖家"
+    confirm-btn="发送"
+    cancel-btn="取消"
+    bind:confirm="sendContactMessage"
+    bind:cancel="closeContactModal"
+  >
+    <view class="contact-form">
+      <t-input
+        type="textarea"
+        placeholder="请输入您想对卖家说的话..."
+        value="{{contactMessage}}"
+        bind:change="onMessageInput"
+        autosize="{{true}}"
+        maxlength="200"
+      />
+      <view class="contact-tips">
+        <text class="tips-text">💡 请文明交流，说明您的需求和联系方式</text>
+      </view>
+    </view>
+  </t-dialog>
+</view>
