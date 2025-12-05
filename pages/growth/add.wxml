@@ -1,0 +1,92 @@
+<view class="growth-add-page">
+  <!-- 页面头部 -->
+  <view class="page-header">
+    <text class="page-title">为{{babyName}}添加成长记录</text>
+    <text class="page-subtitle">记录宝宝成长的每一个重要时刻</text>
+  </view>
+
+  <!-- 表单内容 -->
+  <view class="form-container">
+    <!-- 记录类型选择 -->
+    <view class="form-section">
+      <view class="section-title">记录类型</view>
+      <t-radio-group value="{{recordType}}" bind:change="onRecordTypeChange">
+        <t-radio 
+          wx:for="{{recordTypes}}" 
+          wx:key="value"
+          value="{{item.value}}"
+          check-label="{{item.label}}"
+        />
+      </t-radio-group>
+    </view>
+
+    <!-- 记录日期 -->
+    <view class="form-section">
+      <view class="section-title">记录日期</view>
+      <picker mode="date" value="{{recordDate}}" bindchange="onDateChange">
+        <view class="date-picker">
+          <text class="date-text">{{recordDate || '请选择日期'}}</text>
+          <text class="picker-arrow">▼</text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 身高记录 -->
+    <view class="form-section" wx:if="{{recordType === 'height' || recordType === 'both'}}">
+      <view class="section-title">身高</view>
+      <t-input
+        placeholder="请输入身高"
+        value="{{height}}"
+        bind:change="onHeightInput"
+        type="number"
+      >
+        <text slot="suffix">cm</text>
+      </t-input>
+    </view>
+
+    <!-- 体重记录 -->
+    <view class="form-section" wx:if="{{recordType === 'weight' || recordType === 'both'}}">
+      <view class="section-title">体重</view>
+      <t-input
+        placeholder="请输入体重"
+        value="{{weight}}"
+        bind:change="onWeightInput"
+        type="number"
+      >
+        <text slot="suffix">kg</text>
+      </t-input>
+    </view>
+
+    <!-- 备注信息 -->
+    <view class="form-section">
+      <view class="section-title">备注（选填）</view>
+      <t-input
+        type="textarea"
+        placeholder="记录宝宝当天的特殊情况、饮食、睡眠等..."
+        value="{{notes}}"
+        bind:change="onNotesInput"
+        autosize="{{true}}"
+        maxlength="200"
+      />
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <t-button size="large" bind:tap="goBack">取消</t-button>
+    <t-button 
+      size="large" 
+      theme="primary" 
+      bind:tap="saveRecord"
+      loading="{{isSaving}}"
+      disabled="{{isSaving}}"
+    >
+      {{isSaving ? '保存中...' : '保存记录'}}
+    </t-button>
+  </view>
+
+  <!-- 快速操作 -->
+  <view class="quick-actions">
+    <t-button size="small" bind:tap="viewHistory">查看历史记录</t-button>
+  </view>
+</view>

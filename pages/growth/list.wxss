@@ -1,0 +1,201 @@
+.list-container {
+  padding: 20rpx;
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+.header-info {
+  background: #fff;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.baby-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.baby-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+}
+
+.baby-details {
+  flex: 1;
+}
+
+.baby-name {
+  display: block;
+  font-size: 34rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.record-count {
+  display: block;
+  font-size: 26rpx;
+  color: #999;
+}
+
+.add-btn {
+  width: 80rpx;
+  height: 80rpx;
+  background: #FF6B9D;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(255, 107, 157, 0.3);
+}
+
+.add-icon {
+  color: #fff;
+  font-size: 48rpx;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.loading {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999;
+  font-size: 30rpx;
+}
+
+.records-list {
+  margin-bottom: 40rpx;
+}
+
+.record-item {
+  background: #fff;
+  margin-bottom: 20rpx;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+.record-content {
+  padding: 30rpx;
+}
+
+.record-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.record-date {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.record-actions {
+  display: flex;
+  gap: 20rpx;
+}
+
+.edit-btn, .delete-btn {
+  font-size: 26rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 6rpx;
+  color: #fff;
+}
+
+.edit-btn {
+  background: #4CAF50;
+}
+
+.delete-btn {
+  background: #f44336;
+}
+
+.record-details {
+  
+}
+
+.metrics {
+  display: flex;
+  gap: 40rpx;
+  margin-bottom: 20rpx;
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  background: #f8f9fa;
+  border-radius: 8rpx;
+  min-width: 120rpx;
+}
+
+.metric-label {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+}
+
+.metric-value {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #FF6B9D;
+}
+
+.notes {
+  margin-bottom: 16rpx;
+}
+
+.notes-text {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.4;
+}
+
+.created-time {
+  border-top: 1rpx solid #f0f0f0;
+  padding-top: 16rpx;
+}
+
+.time-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 120rpx 40rpx;
+}
+
+.empty-icon {
+  width: 200rpx;
+  height: 200rpx;
+  margin-bottom: 40rpx;
+  opacity: 0.5;
+}
+
+.empty-text {
+  display: block;
+  font-size: 32rpx;
+  color: #999;
+  margin-bottom: 40rpx;
+}
+
+.empty-btn {
+  background: #FF6B9D;
+  color: #fff;
+  border: none;
+  border-radius: 50rpx;
+  padding: 24rpx 60rpx;
+  font-size: 30rpx;
+}

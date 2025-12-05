@@ -1,14 +1,20 @@
 <view class="profile-container">
   <!-- 用户信息头部 -->
   <view class="user-header">
-    <t-avatar size="80px" image="{{userInfo.avatar || '/images/default-avatar.png'}}"></t-avatar>
+    <view class="avatar-container" bind:tap="uploadAvatar">
+      <t-avatar size="80px" image="{{userInfo.avatar || '/images/default-avatar.png'}}"></t-avatar>
+      <view class="avatar-edit-btn">
+        <text class="edit-icon">📷</text>
+      </view>
+    </view>
     <view class="user-info">
       <text class="user-name">{{userInfo.nickName || '宝妈用户'}}</text>
       <text class="user-level">成长天数：{{growthDays}}天</text>
-      <view class="baby-info">
+      <view class="baby-info" bind:tap="goToBabyManage" hover-class="baby-info-hover">
         <t-tag theme="primary" size="small">{{babyInfo.name || '宝宝'}}</t-tag>
         <t-tag theme="success" size="small">{{babyInfo.age || 0}}个月</t-tag>
         <t-tag theme="warning" size="small">{{babyInfo.gender || '未知'}}</t-tag>
+        <text class="edit-hint">点击编辑宝宝信息 →</text>
       </view>
     </view>
   </view>

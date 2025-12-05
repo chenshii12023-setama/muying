@@ -4,6 +4,9 @@
     "pages/profile/profile",
     "pages/baby/baby",
     "pages/baby/edit-baby",
+    "pages/growth/add",
+    "pages/growth/list",
+    "pages/growth/edit",
     "pages/map/map",
     "pages/market/market",
     "pages/market/product-detail",
@@ -70,7 +73,9 @@
     "t-icon": "tdesign-miniprogram/miniprogram_dist/icon/icon",
     "t-divider": "tdesign-miniprogram/miniprogram_dist/divider/divider",
     "t-radio": "tdesign-miniprogram/miniprogram_dist/radio/radio",
-    "t-radio-group": "tdesign-miniprogram/miniprogram_dist/radio-group/radio-group"
+    "t-radio-group": "tdesign-miniprogram/miniprogram_dist/radio-group/radio-group",
+    "t-tag": "tdesign-miniprogram/miniprogram_dist/tag/tag",
+    "t-avatar": "tdesign-miniprogram/miniprogram_dist/avatar/avatar"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"

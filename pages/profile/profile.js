@@ -114,15 +114,34 @@ Page({
   },
 
   goToBabyManage: function() {
-    wx.navigateTo({
-      url: '/pages/baby/baby?action=manage'
-    })
+    if (this.data.currentBaby) {
+      // 如果有当前宝宝，直接跳转到编辑页面
+      wx.navigateTo({
+        url: `/pages/baby/edit-baby?id=${this.data.currentBaby.id}`
+      })
+    } else {
+      // 如果没有宝宝，跳转到添加页面
+      wx.navigateTo({
+        url: '/pages/baby/baby?action=add'
+      })
+    }
   },
 
   goToGrowthManage: function() {
-    wx.navigateTo({
-      url: '/pages/baby/baby?action=growth'
-    })
+    if (this.data.currentBaby) {
+      // 如果有当前宝宝，跳转到成长记录页面
+      wx.navigateTo({
+        url: `/pages/growth/add?babyId=${this.data.currentBaby.id}`
+      })
+    } else {
+      // 如果没有宝宝，提示先添加宝宝
+      wx.showModal({
+        title: '提示',
+        content: '请先添加宝宝信息',
+        showCancel: false,
+        confirmText: '知道了'
+      })
+    }
   },
 
   showBabySelector: function() {
@@ -205,6 +224,113 @@ Page({
           this.logout()
         }
       }
+    })
+  },
+
+  /**
+   * 上传头像
+   */
+  uploadAvatar: function() {
+    const that = this
+    wx.showActionSheet({
+      itemList: ['从相册选择', '拍照'],
+      success: (res) => {
+        if (res.tapIndex === 0) {
+          // 从相册选择
+          wx.chooseImage({
+            count: 1,
+            sizeType: ['compressed'],
+            sourceType: ['album'],
+            success: function(imageRes) {
+              that.updateAvatar(imageRes.tempFilePaths[0])
+            },
+            fail: function(error) {
+              console.error('选择图片失败:', error)
+              wx.showToast({
+                title: '选择图片失败',
+                icon: 'none'
+              })
+            }
+          })
+        } else if (res.tapIndex === 1) {
+          // 拍照
+          wx.chooseImage({
+            count: 1,
+            sizeType: ['compressed'],
+            sourceType: ['camera'],
+            success: function(imageRes) {
+              that.updateAvatar(imageRes.tempFilePaths[0])
+            },
+            fail: function(error) {
+              console.error('拍照失败:', error)
+              wx.showToast({
+                title: '拍照失败',
+                icon: 'none'
+              })
+            }
+          })
+        }
+      }
+    })
+  },
+
+  /**
+   * 更新头像
+   */
+  updateAvatar: function(avatarPath) {
+    const that = this
+    
+    // 显示加载状态
+    wx.showLoading({
+      title: '上传中...'
+    })
+
+    try {
+      // 模拟上传过程
+      setTimeout(() => {
+        // 更新用户信息
+        const userInfo = that.data.userInfo
+        userInfo.avatar = avatarPath
+        
+        // 保存到本地存储
+        wx.setStorageSync('userInfo', userInfo)
+        
+        // 更新到全局数据
+        const app = getApp()
+        app.globalData.userInfo = userInfo
+        
+        // 更新页面显示
+        that.setData({
+          'userInfo.avatar': avatarPath
+        })
+        
+        wx.hideLoading()
+        wx.showToast({
+          title: '头像更新成功',
+          icon: 'success'
+        })
+        
+        // 模拟保存到服务器
+        console.log('头像上传成功:', avatarPath)
+        
+      }, 1000)
+      
+    } catch (error) {
+      console.error('头像更新失败:', error)
+      wx.hideLoading()
+      wx.showToast({
+        title: '头像更新失败',
+        icon: 'none'
+      })
+    }
+  },
+
+  /**
+   * 跳转到宝宝管理页面
+   */
+  goToBabyManage: function() {
+    wx.navigateTo({
+      url: '/pages/baby/baby?action=manage'
     })
   },
 

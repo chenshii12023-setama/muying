@@ -14,6 +14,57 @@
   box-shadow: 0 4rpx 20rpx rgba(255, 182, 193, 0.3);
 }
 
+.avatar-container {
+  position: relative;
+  margin-right: 30rpx;
+}
+
+.avatar-edit-btn {
+  position: absolute;
+  bottom: -5rpx;
+  right: -5rpx;
+  width: 40rpx;
+  height: 40rpx;
+  background: #FF6B9D;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3rpx solid white;
+  box-shadow: 0 2rpx 8rpx rgba(255, 107, 157, 0.3);
+}
+
+.edit-icon {
+  font-size: 20rpx;
+  color: white;
+}
+
+.baby-info {
+  display: flex;
+  gap: 15rpx;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.baby-info-hover {
+  opacity: 0.8;
+  transform: scale(0.98);
+  transition: all 0.2s ease;
+}
+
+.edit-hint {
+  font-size: 20rpx;
+  color: #999;
+  margin-top: 10rpx;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.baby-info:hover .edit-hint {
+  opacity: 1;
+}
+
 .user-info {
   margin-left: 30rpx;
   flex: 1;

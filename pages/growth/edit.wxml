@@ -1,0 +1,68 @@
+<view class="edit-container">
+  <!-- 顶部信息 -->
+  <view class="header-info">
+    <view class="baby-info">
+      <image class="baby-avatar" src="{{baby.avatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+      <view class="baby-details">
+        <text class="baby-name">{{baby.name || '宝宝'}}</text>
+        <text class="page-title">编辑成长记录</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="form-section">
+    <!-- 记录类型 -->
+    <view class="form-item">
+      <text class="form-label">记录类型</text>
+      <picker bindchange="onTypeChange" value="{{typeIndex}}" range="{{typeOptions}}" class="picker">
+        <view class="picker-content">
+          <text>{{typeOptions[typeIndex]}}</text>
+          <text class="picker-arrow">></text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 标题 -->
+    <view class="form-item">
+      <text class="form-label">标题</text>
+      <input class="form-input" 
+             placeholder="请输入记录标题" 
+             value="{{record.title}}"
+             bindinput="onTitleInput" />
+    </view>
+
+    <!-- 数值 -->
+    <view class="form-item">
+      <text class="form-label">数值</text>
+      <input class="form-input" 
+             placeholder="请输入测量数值" 
+             value="{{record.value}}"
+             bindinput="onValueInput" />
+    </view>
+
+    <!-- 单位 -->
+    <view class="form-item">
+      <text class="form-label">单位</text>
+      <input class="form-input" 
+             placeholder="如：cm、kg、℃等" 
+             value="{{record.unit}}"
+             bindinput="onUnitInput" />
+    </view>
+
+    <!-- 备注 -->
+    <view class="form-item">
+      <text class="form-label">备注</text>
+      <textarea class="form-textarea" 
+                placeholder="添加备注信息..." 
+                value="{{record.note}}"
+                bindinput="onNoteInput" 
+                maxlength="200" />
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="button-group">
+    <t-button theme="primary" size="large" bindtap="saveRecord">保存修改</t-button>
+    <t-button theme="danger" size="large" bindtap="deleteRecord">删除记录</t-button>
+  </view>
+</view>

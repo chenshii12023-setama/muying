@@ -1,0 +1,66 @@
+<view class="list-container">
+  <!-- 顶部信息 -->
+  <view class="header-info" wx:if="{{baby}}">
+    <view class="baby-info">
+      <image class="baby-avatar" src="{{baby.avatar || '/images/default-avatar.png'}}" mode="aspectFill"></image>
+      <view class="baby-details">
+        <text class="baby-name">{{baby.name}}的成长记录</text>
+        <text class="record-count">共{{records.length}}条记录</text>
+      </view>
+    </view>
+    <view class="add-btn" bindtap="addRecord">
+      <text class="add-icon">+</text>
+    </view>
+  </view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 记录列表 -->
+  <view class="records-list" wx:elif="{{records.length > 0}}">
+    <view class="record-item" wx:for="{{records}}" wx:key="id">
+      <view class="record-content">
+        <view class="record-header">
+          <text class="record-date">{{item.recordDate}}</text>
+          <view class="record-actions">
+            <text class="edit-btn" bindtap="editRecord" data-id="{{item.id}}">编辑</text>
+            <text class="delete-btn" bindtap="deleteRecord" data-id="{{item.id}}">删除</text>
+          </view>
+        </view>
+        
+        <view class="record-details">
+          <!-- 身高体重显示 -->
+          <view class="metrics" wx:if="{{item.height || item.weight}}">
+            <view class="metric-item" wx:if="{{item.height}}">
+              <text class="metric-label">身高</text>
+              <text class="metric-value">{{item.height}}cm</text>
+            </view>
+            <view class="metric-item" wx:if="{{item.weight}}">
+              <text class="metric-label">体重</text>
+              <text class="metric-value">{{item.weight}}kg</text>
+            </view>
+          </view>
+          
+          <!-- 备注信息 -->
+          <view class="notes" wx:if="{{item.notes}}">
+            <text class="notes-text">{{item.notes}}</text>
+          </view>
+          
+          <!-- 创建时间 -->
+          <view class="created-time">
+            <text class="time-text">记录于 {{item.createdAt}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:else>
+    <image class="empty-icon" src="/images/empty-box.png" mode="aspectFit"></image>
+    <text class="empty-text">还没有成长记录</text>
+    <button class="empty-btn" bindtap="addRecord">添加第一条记录</button>
+  </view>
+</view>
