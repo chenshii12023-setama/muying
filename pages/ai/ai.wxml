@@ -1,353 +1,525 @@
 <view class="ai-page">
-  <!-- 成长评估页面 -->
-  <t-tabs value="{{activeTab}}" bind:change="onTabChange">
-    <t-tab-panel label="成长评估" value="assessment">
-      <view class="tab-content">
-        <!-- 成长评估区域 -->
-        <view class="assessment-container">
-          
-          <!-- 宝宝信息展示 -->
-          <view class="baby-info-section" wx:if="{{babyInfo}}">
-            <text class="section-title">当前宝宝信息</text>
-            <view class="baby-info-card">
-              <view class="baby-info-item">
-                <text class="info-label">姓名：</text>
-                <text class="info-value">{{babyInfo.name}}</text>
-              </view>
-              <view class="baby-info-item">
-                <text class="info-label">性别：</text>
-                <text class="info-value">{{babyInfo.gender === 'male' ? '男宝' : '女宝'}}</text>
-              </view>
-              <view class="baby-info-item">
-                <text class="info-label">年龄：</text>
-                <text class="info-value">{{growthData.age}}个月</text>
-              </view>
-              <view class="baby-info-item">
-                <text class="info-label">身高：</text>
-                <text class="info-value">{{growthData.height || 0}} cm</text>
-              </view>
-              <view class="baby-info-item">
-                <text class="info-label">体重：</text>
-                <text class="info-value">{{growthData.weight || 0}} kg</text>
-              </view>
-            </view>
-          </view>
-          
-          <!-- 评估数据输入 -->
-          <view class="input-section">
-            <text class="section-title">成长评估数据</text>
-            
-            <view class="input-group">
-              <view class="input-row">
-                <text class="input-label">宝宝年龄（月）</text>
-                <t-input 
-                  type="number"
-                  placeholder="请输入宝宝年龄"
-                  value="{{growthData.age}}"
-                  bind:change="onGrowthDataChange"
-                  data-field="age"
-                />
-              </view>
-              
-              <view class="input-row">
-                <text class="input-label">宝宝性别</text>
-                <view class="gender-selector">
-                  <t-radio-group value="{{growthData.gender}}" bind:change="onGrowthDataChange" data-field="gender">
-                    <t-radio value="boy">男宝</t-radio>
-                    <t-radio value="girl">女宝</t-radio>
-                  </t-radio-group>
-                </view>
-              </view>
-              
-              <view class="input-row">
-                <text class="input-label">身高（cm）</text>
-                <t-input 
-                  type="digit"
-                  placeholder="请输入身高"
-                  value="{{growthData.height}}"
-                  bind:change="onGrowthDataChange"
-                  data-field="height"
-                />
-              </view>
-              
-              <view class="input-row">
-                <text class="input-label">体重（kg）</text>
-                <t-input 
-                  type="digit"
-                  placeholder="请输入体重"
-                  value="{{growthData.weight}}"
-                  bind:change="onGrowthDataChange"
-                  data-field="weight"
-                />
-              </view>
-            </view>
-            
-            <view class="assessment-actions">
-              <t-button 
-                theme="primary" 
-                bind:tap="startGrowthAssessment"
-                loading="{{isAssessing}}"
-                disabled="{{isAssessing}}"
-              >
-                {{isAssessing ? '评估中...' : '开始成长评估'}}
-              </t-button>
-            </view>
-          </view>
-          
-          <!-- 评估结果显示 -->
-          <view class="result-section" wx:if="{{assessmentResult}}">
-            <text class="section-title">成长评估结果</text>
-            
-            <view class="result-card">
-              <view class="result-header">
-                <text class="result-title">发育分析</text>
-                <text class="result-time">{{assessmentResult.timestamp}}</text>
-              </view>
-              
-              <view class="analysis-content">
-                <text class="analysis-text">{{assessmentResult.analysis}}</text>
-              </view>
-              
-              <view class="advice-section">
-                <text class="advice-title">专业建议</text>
-                <text class="advice-text">{{assessmentResult.advice}}</text>
-              </view>
-              
-              <view class="result-footer" wx:if="{{assessmentResult.isLocal}}">
-                <text class="local-tag">本地评估</text>
-              </view>
-            </view>
-            
-            <view class="reassess-actions">
-              <t-button size="small" bind:tap="reassess">重新评估</t-button>
-            </view>
-          </view>
-          
-          <!-- 无宝宝信息提示 -->
-          <view class="no-baby-tip" wx:if="{{!babyInfo}}">
-            <text class="tip-text">请先添加宝宝信息，系统将自动填充成长数据</text>
-            <t-button theme="primary" bind:tap="goToAddBaby">去添加宝宝</t-button>
-          </view>
-          
-        </view>
+  <!-- 导航栏 -->
+  <view class="tabs-container">
+    <view class="tab-list">
+      <view class="tab-item {{activeTab === 'assessment' ? 'active' : ''}}" bind:tap="switchTab" data-tab="assessment">
+        AI育儿
       </view>
-    </t-tab-panel>
-    
-    <t-tab-panel label="营养计算" value="nutrition">
-      <view class="tab-content">
-        <view class="nutrition-calculator">
-          <view class="calculator-header">
-            <text class="calculator-title">婴幼儿辅食营养计算器</text>
-            <text class="calculator-desc">根据宝宝年龄和食材计算营养摄入</text>
+      <view class="tab-item {{activeTab === 'nutrition' ? 'active' : ''}}" bind:tap="switchTab" data-tab="nutrition">
+        营养计算
+      </view>
+      <view class="tab-item {{activeTab === 'milk' ? 'active' : ''}}" bind:tap="switchTab" data-tab="milk">
+        奶量计算
+      </view>
+      <view class="tab-indicator" style="width: calc(100% / 3); left: {{tabIndicatorPosition}};"></view>
+    </view>
+  </view>
+
+  <!-- 页面内容区域 -->
+  <view class="page-content">
+
+    <!-- 成长评估页面 -->
+    <view wx:if="{{activeTab === 'assessment'}}" class="fade-in">
+      <view class="section-header">
+        <text class="section-title">成长评估</text>
+        <text class="section-desc">专业评估宝宝生长发育情况，提供个性化建议</text>
+      </view>
+
+      <!-- 宝宝信息展示 -->
+      <view class="card" wx:if="{{babyInfo}}">
+        <view class="card-header">
+          <text class="card-title">👶 当前宝宝信息</text>
+        </view>
+        <view class="info-grid">
+          <view class="info-item">
+            <text class="info-label">姓名</text>
+            <text class="info-value">{{babyInfo.name}}</text>
           </view>
-          
-          <view class="baby-info-section">
-            <text class="section-title">宝宝信息</text>
-            <view class="input-group">
-              <view class="input-row">
-                <text class="input-label">宝宝年龄（月）</text>
-                <t-input 
-                  type="number"
-                  placeholder="请输入宝宝年龄"
-                  value="{{babyAge}}"
-                  bind:change="onMilkDataChange"
-                  data-field="age"
-                />
-              </view>
-              
-              <view class="input-row">
-                <text class="input-label">宝宝体重（kg）</text>
-                <t-input 
-                  type="digit"
-                  placeholder="请输入体重"
-                  value="{{babyWeight}}"
-                  bind:change="onMilkDataChange"
-                  data-field="weight"
-                />
-              </view>
-            </view>
+          <view class="info-item">
+            <text class="info-label">性别</text>
+            <text class="info-value">{{babyInfo.gender === 'male' ? '男宝' : '女宝'}}</text>
           </view>
-          
-          <view class="ingredients-section">
-            <text class="section-title">选择食材</text>
-            <view class="ingredients-grid">
-              <view 
-                wx:for="{{ingredients}}" 
-                wx:key="id" 
-                class="ingredient-item {{item.selected ? 'selected' : ''}}"
-                bind:tap="toggleIngredient"
-                data-id="{{item.id}}"
-              >
-                <view class="ingredient-icon">{{item.icon}}</view>
-                <text class="ingredient-name">{{item.name}}</text>
-              </view>
-            </view>
+          <view class="info-item">
+            <text class="info-label">年龄</text>
+            <text class="info-value">{{growthData.age}}个月</text>
           </view>
-          
-          <view class="amount-section" wx:if="{{selectedIngredients.length > 0}}">
-            <text class="section-title">食材用量</text>
-            <view wx:for="{{selectedIngredients}}" wx:key="id" class="amount-item">
-              <text class="ingredient-name">{{item.name}}</text>
-              <view class="amount-control">
-                <t-slider 
-                  value="{{item.amount}}" 
-                  min="10" 
-                  max="200" 
-                  step="10"
-                  bind:change="onAmountChange"
-                  data-id="{{item.id}}"
-                />
-                <text class="amount-value">{{item.amount}}g</text>
-              </view>
-            </view>
+          <view class="info-item">
+            <text class="info-label">身高</text>
+            <text class="info-value">{{growthData.height || 0}} cm</text>
           </view>
-          
-          <view class="result-section" wx:if="{{nutritionResult}}">
-            <text class="section-title">营养分析结果</text>
-            <view class="nutrition-results">
-              <view class="nutrition-item">
-                <text class="nutrient-name">热量</text>
-                <text class="nutrient-value">{{nutritionResult.calories}} kcal</text>
-              </view>
-              <view class="nutrition-item">
-                <text class="nutrient-name">蛋白质</text>
-                <text class="nutrient-value">{{nutritionResult.protein}}g</text>
-              </view>
-              <view class="nutrition-item">
-                <text class="nutrient-name">碳水化合物</text>
-                <text class="nutrient-value">{{nutritionResult.carbs}}g</text>
-              </view>
-              <view class="nutrition-item">
-                <text class="nutrient-name">脂肪</text>
-                <text class="nutrient-value">{{nutritionResult.fat}}g</text>
-              </view>
-            </view>
-            
-            <view class="recommendation">
-              <text class="rec-title">营养建议</text>
-              <text class="rec-content">{{nutritionResult.recommendation}}</text>
-            </view>
-          </view>
-          
-          <view class="calculator-actions">
-            <t-button theme="primary" bind:tap="calculateNutrition">计算营养</t-button>
-            <t-button bind:tap="resetCalculator">重置</t-button>
+          <view class="info-item">
+            <text class="info-label">体重</text>
+            <text class="info-value">{{growthData.weight || 0}} kg</text>
           </view>
         </view>
       </view>
-    </t-tab-panel>
-    
-    <t-tab-panel label="奶量计算" value="milk">
-      <view class="tab-content">
-        <view class="milk-calculator">
-          <view class="calculator-header">
-            <text class="calculator-title">婴幼儿奶量计算器</text>
-            <text class="calculator-desc">根据宝宝年龄和体重计算每日奶量需求</text>
+
+      <!-- 评估数据输入 -->
+      <view class="card">
+        <view class="card-header">
+          <text class="card-title">📊 成长评估数据</text>
+          <text class="card-subtitle">请输入准确的宝宝信息进行评估</text>
+        </view>
+
+        <view class="input-group">
+          <view class="input-row">
+            <text class="input-label">宝宝年龄（月）</text>
+            <input type="number" placeholder="请输入宝宝年龄" value="{{growthData.age}}" bind:input="onGrowthDataChange" data-field="age" class="custom-input" />
           </view>
-          
-          <view class="baby-info-section">
-            <text class="section-title">宝宝信息</text>
-            <view class="input-group">
-              <view class="input-row">
-                <text class="input-label">宝宝年龄（月）</text>
-                <t-input 
-                  type="number"
-                  placeholder="请输入宝宝年龄"
-                  value="{{babyAge}}"
-                  bind:change="onMilkDataChange"
-                  data-field="age"
-                />
+
+          <view class="input-row">
+            <text class="input-label">宝宝性别</text>
+            <view class="gender-selector">
+              <view class="gender-option {{growthData.gender === 'boy' ? 'selected' : ''}}" bind:tap="selectGender" data-gender="boy">
+                <text class="gender-icon">👦</text>
+                <text class="gender-text">男宝</text>
               </view>
-              
-              <view class="input-row">
-                <text class="input-label">宝宝体重（kg）</text>
-                <t-input 
-                  type="digit"
-                  placeholder="请输入体重"
-                  value="{{babyWeight}}"
-                  bind:change="onMilkDataChange"
-                  data-field="weight"
-                />
+              <view class="gender-option {{growthData.gender === 'girl' ? 'selected' : ''}}" bind:tap="selectGender" data-gender="girl">
+                <text class="gender-icon">👧</text>
+                <text class="gender-text">女宝</text>
               </view>
             </view>
           </view>
-          
-          <view class="milk-type-section">
-            <text class="section-title">喂养方式</text>
-            <view class="type-selector">
-              <t-radio-group value="{{milkType}}" bind:change="onMilkTypeChange">
-                <t-radio value="formula">配方奶</t-radio>
-                <t-radio value="breast">母乳</t-radio>
-              </t-radio-group>
+
+          <view class="input-row">
+            <text class="input-label">身高（cm）</text>
+            <input type="digit" placeholder="请输入身高" value="{{growthData.height}}" bind:input="onGrowthDataChange" data-field="height" class="custom-input" />
+          </view>
+
+          <view class="input-row">
+            <text class="input-label">体重（kg）</text>
+            <input type="digit" placeholder="请输入体重" value="{{growthData.weight}}" bind:input="onGrowthDataChange" data-field="weight" class="custom-input" />
+          </view>
+        </view>
+
+        <view class="action-section">
+          <button class="btn-primary" bind:tap="startGrowthAssessment" disabled="{{isAssessing}}">
+            {{isAssessing ? '评估中...' : '🚀 开始成长评估'}}
+          </button>
+        </view>
+      </view>
+
+      <!-- 评估结果显示 -->
+      <view wx:if="{{assessmentResult}}" class="fade-in">
+        <view class="section-header">
+          <text class="section-title">成长评估结果</text>
+          <text class="section-desc">基于专业标准的个性化评估报告</text>
+        </view>
+
+        <view class="card result-card">
+          <view class="card-header">
+            <text class="card-title">📈 发育分析</text>
+            <text class="result-time">{{assessmentResult.timestamp}}</text>
+          </view>
+
+          <view class="result-content">
+            <view class="analysis-section">
+              <text class="section-icon">🔍</text>
+              <text class="section-title-small">详细分析</text>
+              <text class="analysis-text">{{assessmentResult.analysis}}</text>
+            </view>
+
+            <view class="divider"></view>
+
+            <view class="advice-section">
+              <text class="section-icon">💡</text>
+              <text class="section-title-small">专业建议</text>
+              <text class="advice-text">{{assessmentResult.advice}}</text>
             </view>
           </view>
-          
-          <view class="calculate-section">
-            <t-button 
-              theme="primary" 
-              bind:tap="calculateMilk"
-              loading="{{isCalculatingMilk}}"
-              disabled="{{isCalculatingMilk}}"
-            >
-              {{isCalculatingMilk ? '计算中...' : '计算奶量'}}
+
+          <view class="result-footer" wx:if="{{assessmentResult.isLocal}}">
+            <text class="local-tag">⚠️ 本地评估结果</text>
+          </view>
+        </view>
+
+        <view class="action-section">
+          <button class="btn-secondary" bind:tap="reassess">🔄 重新评估</button>
+        </view>
+      </view>
+
+      <!-- 无宝宝信息提示 -->
+      <view wx:if="{{!babyInfo}}" class="card">
+        <view class="empty-state">
+          <text class="empty-icon">👶</text>
+          <text class="empty-title">还没有宝宝信息</text>
+          <text class="empty-desc">请先添加宝宝信息，系统将自动填充成长数据</text>
+          <button class="btn-primary" bind:tap="goToAddBaby">➕ 去添加宝宝</button>
+        </view>
+      </view>
+
+    </view>
+
+    <!-- 营养计算页面 (已根据你的JSON要求更新) -->
+    <view wx:if="{{activeTab === 'nutrition'}}" class="fade-in">
+
+      <view class="section-header">
+        <text class="section-title">营养计算</text>
+        <text class="section-desc">科学计算辅食营养，为宝宝成长保驾护航</text>
+      </view>
+
+      <!-- 宝宝信息 -->
+      <view class="card">
+        <view class="card-header">
+          <text class="card-title">👶 宝宝信息</text>
+        </view>
+
+        <view class="input-group">
+          <view class="input-row">
+            <text class="input-label">宝宝年龄（月）</text>
+            <input type="number" placeholder="请输入宝宝年龄" value="{{babyAge}}" bind:input="onNutritionDataChange" data-field="age" class="custom-input" />
+          </view>
+
+          <view class="input-row">
+            <text class="input-label">宝宝体重（kg）</text>
+            <input type="digit" placeholder="请输入体重" value="{{babyWeight}}" bind:input="onNutritionDataChange" data-field="weight" class="custom-input" />
+          </view>
+        </view>
+      </view>
+
+      <!-- 食材管理组件 -->
+      <view class="card">
+        <view class="card-header">
+          <text class="card-title">🥬 食材管理</text>
+        </view>
+        
+        <!-- 添加食材 -->
+        <view class="food-input-row">
+          <view class="input-left">
+            <t-input 
+              value="{{newFoodName}}" 
+              placeholder="请输入食材名称"
+              bind:change="onNewFoodNameInput"
+            />
+          </view>
+          <view class="input-right">
+            <t-button size="small" theme="primary" bind:tap="addFood">
+              添加
             </t-button>
           </view>
-          
-          <view class="result-section" wx:if="{{milkResult}}">
-            <text class="section-title">奶量计算结果</text>
-            
-            <view class="milk-result-card">
-              <view class="result-header">
-                <text class="result-title">推荐奶量</text>
-                <text class="result-time">{{milkResult.timestamp}}</text>
-              </view>
-              
-              <view class="milk-data">
-                <view class="milk-item">
-                  <text class="milk-label">每日总量：</text>
-                  <text class="milk-value">{{milkResult.total_range}} {{milkResult.unit}}</text>
-                </view>
-                <view class="milk-item">
-                  <text class="milk-label">单次奶量：</text>
-                  <text class="milk-value">{{milkResult.per_feed}} {{milkResult.unit}}</text>
-                </view>
-                <view class="milk-item">
-                  <text class="milk-label">喂养次数：</text>
-                  <text class="milk-value">{{milkResult.calc_detail.frequency}}次/天</text>
-                </view>
-                <view class="milk-item">
-                  <text class="milk-label">喂养方式：</text>
-                  <text class="milk-value">{{milkResult.calc_detail.type === 'formula' ? '配方奶' : '母乳'}}</text>
-                </view>
-              </view>
-              
-              <view class="advice-section">
-                <text class="advice-title">喂养建议</text>
-                <text class="advice-text">{{milkResult.advice}}</text>
-              </view>
-              
-              <view class="ai-comment-section">
-                <text class="ai-comment-title">AI暖心提示</text>
-                <text class="ai-comment-text">{{milkResult.ai_comment}}</text>
-              </view>
-              
-              <view class="result-footer" wx:if="{{milkResult.isLocal}}">
-                <text class="local-tag">本地计算</text>
-              </view>
+        </view>
+        
+        <!-- 食材列表 -->
+        <view class="ingredients-list" wx:if="{{ingredients.length > 0}}">
+          <view wx:for="{{ingredients}}" wx:key="id" class="ingredient-item {{item.selected ? 'selected' : ''}}">
+            <view class="item-left" bind:tap="toggleIngredient" data-id="{{item.id}}">
+              <text class="ingredient-icon">{{item.icon}}</text>
+              <text class="ingredient-name">{{item.name}}</text>
             </view>
-            
-            <view class="recalculate-actions">
-              <t-button size="small" bind:tap="recalculateMilk">重新计算</t-button>
+            <view class="item-right">
+              <t-slider value="{{item.amount}}" min="10" max="200" step="10" bind:change="onAmountChange" data-id="{{item.id}}" />
+              <text class="amount-value">{{item.amount}}g</text>
+              <view class="delete-btn" catch:tap="deleteIngredient" data-id="{{item.id}}">
+                <text class="delete-icon">✕</text>
+              </view>
             </view>
           </view>
-          
-          <!-- 无宝宝信息提示 -->
-          <view class="no-baby-tip" wx:if="{{!babyInfo}}">
-            <text class="tip-text">请先添加宝宝信息，系统将自动填充成长数据</text>
-            <t-button theme="primary" bind:tap="goToAddBaby">去添加宝宝</t-button>
+        </view>
+        
+        <!-- 空状态 -->
+        <view wx:else class="empty-state">
+          <text class="empty-icon">🥬</text>
+          <text class="empty-title">还没有添加食材</text>
+          <text class="empty-desc">在上方输入食材名称并点击"添加"</text>
+        </view>
+      </view>
+
+      <!-- 食材用量 -->
+      <view class="card" wx:if="{{selectedIngredients.length > 0}}">
+        <view class="card-header">
+          <text class="card-title">⚖️ 食材用量</text>
+          <text class="card-subtitle">已选择 {{selectedIngredients.length}} 种食材</text>
+        </view>
+        <view class="amount-section">
+          <view wx:for="{{selectedIngredients}}" wx:key="id" class="amount-item">
+            <view class="ingredient-info">
+              <text class="ingredient-icon">{{item.icon}}</text>
+              <text class="ingredient-name">{{item.name}}</text>
+            </view>
+            <view class="amount-control">
+              <t-slider value="{{item.amount}}" min="10" max="200" step="10" bind:change="onAmountChange" data-id="{{item.id}}" />
+              <text class="amount-value">{{item.amount}}g</text>
+            </view>
           </view>
         </view>
       </view>
-    </t-tab-panel>
-  </t-tabs>
+
+      <!-- 计算按钮 -->
+      <view class="calculator-actions">
+        <t-button theme="primary" bind:tap="calculateNutrition" loading="{{isCalculatingNutrition}}" disabled="{{isCalculatingNutrition}}">
+          {{isCalculatingNutrition ? '计算中...' : '计算营养'}}
+        </t-button>
+        <t-button bind:tap="resetCalculator">重置</t-button>
+      </view>
+
+      <!-- 营养分析结果区域 -->
+      <view wx:if="{{nutritionResult && nutritionResult.success}}" class="result-section fade-in">
+        <view class="result-header-row">
+          <text class="section-title">营养评估报告</text>
+          <text class="result-date">{{nutritionResult.timestamp}}</text>
+        </view>
+
+        <!-- 1. 适龄性判断 -->
+        <view wx:if="{{nutritionResult.analysis.ageSuitability}}" class="report-card highlight-card {{nutritionResult.analysis.ageSuitability.conclusion && nutritionResult.analysis.ageSuitability.conclusion.indexOf('不适合') !== -1 ? 'caution' : 'suitable'}}">
+          <view class="card-header">
+            <view class="status-badge">
+              <text class="icon">{{nutritionResult.analysis.ageSuitability.conclusion && nutritionResult.analysis.ageSuitability.conclusion.indexOf('不适合') !== -1 ? '⚠️' : '✅'}}</text>
+              <text class="status-text">{{nutritionResult.analysis.ageSuitability.conclusion}}</text>
+            </view>
+          </view>
+          <view class="card-body">
+            <text class="analysis-text">{{nutritionResult.analysis.ageSuitability.detailedAnalysis}}</text>
+            <view wx:if="{{nutritionResult.analysis.ageSuitability.warning}}" class="warning-section">
+              <text class="warning-title">⚠️ 重要警告</text>
+              <text class="warning-text">{{nutritionResult.analysis.ageSuitability.warning}}</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 2. 基础宏观营养素 -->
+        <view class="report-card">
+          <view class="card-title-row">
+            <text class="card-title">🔬 营养成分分析</text>
+          </view>
+          <view class="macro-grid">
+            <view class="macro-item calorie">
+              <text class="macro-label">热量</text>
+              <text class="macro-value">{{nutritionResult.nutrition.calories}}</text>
+              <text class="macro-unit">kcal</text>
+            </view>
+            <view class="macro-item protein">
+              <text class="macro-label">蛋白质</text>
+              <text class="macro-value">{{nutritionResult.nutrition.protein}}</text>
+              <text class="macro-unit">g</text>
+            </view>
+            <view class="macro-item carbs">
+              <text class="macro-label">碳水</text>
+              <text class="macro-value">{{nutritionResult.nutrition.carbs}}</text>
+              <text class="macro-unit">g</text>
+            </view>
+            <view class="macro-item fat">
+              <text class="macro-label">脂肪</text>
+              <text class="macro-value">{{nutritionResult.nutrition.fat}}</text>
+              <text class="macro-unit">g</text>
+            </view>
+            <view class="macro-item fiber">
+              <text class="macro-label">纤维</text>
+              <text class="macro-value">{{nutritionResult.nutrition.fiber}}</text>
+              <text class="macro-unit">g</text>
+            </view>
+            <view class="macro-item sugar">
+              <text class="macro-label">糖分</text>
+              <text class="macro-value">{{nutritionResult.nutrition.sugar}}</text>
+              <text class="macro-unit">g</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 3. 营养价值分析 -->
+        <view wx:if="{{nutritionResult.analysis.nutritionalValue}}" class="report-card">
+          <view class="card-title-row">
+            <text class="card-title">💎 核心营养价值</text>
+          </view>
+          <view class="nutrition-benefits">
+            <view wx:for="{{nutritionResult.analysis.nutritionalValue.coreBenefits}}" wx:key="index" class="benefit-item">
+              <view style="font-weight: bold; margin-bottom: 4rpx;">{{item.nutrient}} ({{item.content}}):</view>
+              <text class="benefit-content">{{item.benefit}}</text>
+            </view>
+            <view wx:if="{{nutritionResult.analysis.nutritionalValue.specialAttention}}" class="special-attention">
+              <text class="attention-title">💡 需注意点：</text>
+              <text class="attention-text">{{nutritionResult.analysis.nutritionalValue.specialAttention}}</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 4. 食材处理与性状 -->
+        <view wx:if="{{nutritionResult.analysis.foodHandling}}" class="report-card">
+          <view class="card-title-row">
+            <text class="card-title">👨‍🍳 食材处理建议</text>
+          </view>
+          <view class="food-handling">
+            <view wx:if="{{nutritionResult.analysis.foodHandling.ageGuidance}}" class="handling-item">
+              <text class="handling-label">月龄指导：</text>
+              <text class="handling-value">{{nutritionResult.analysis.foodHandling.ageGuidance}}</text>
+            </view>
+            <view wx:if="{{nutritionResult.analysis.foodHandling.suggestedTexture}}" class="handling-item">
+              <text class="handling-label">推荐性状：</text>
+              <text class="handling-value">{{nutritionResult.analysis.foodHandling.suggestedTexture}}</text>
+            </view>
+            <view wx:if="{{nutritionResult.analysis.foodHandling.specialProcessing}}" class="special-handling">
+              <text class="special-title">🔥 特殊处理建议</text>
+              <text class="special-text">{{nutritionResult.analysis.foodHandling.specialProcessing}}</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 5. 安全与过敏 -->
+        <view wx:if="{{nutritionResult.analysis.safetyAllergy}}" class="report-card">
+          <view class="card-title-row">
+            <text class="card-title">🛡️ 安全提醒</text>
+          </view>
+          <view class="safety-info">
+            <view wx:if="{{nutritionResult.analysis.safetyAllergy.allergyRisk}}" class="safety-item">
+              <text class="safety-label">过敏风险：</text>
+              <text class="safety-value">{{nutritionResult.analysis.safetyAllergy.allergyRisk}}</text>
+            </view>
+            <view wx:if="{{nutritionResult.analysis.safetyAllergy.introductionAdvice}}" class="safety-item">
+              <text class="safety-label">引入建议：</text>
+              <text class="safety-value">{{nutritionResult.analysis.safetyAllergy.introductionAdvice}}</text>
+            </view>
+            <view wx:if="{{nutritionResult.analysis.safetyAllergy.chokingRisk}}" class="safety-item">
+              <text class="safety-label">窒息风险：</text>
+              <text class="safety-value">{{nutritionResult.analysis.safetyAllergy.chokingRisk}}</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 6. 搭配建议 -->
+        <view wx:if="{{nutritionResult.analysis.pairingSuggestions}}" class="report-card">
+          <view class="card-title-row">
+            <text class="card-title">🍽️ 营养搭配建议</text>
+          </view>
+          <view class="pairing-suggestions">
+            <view wx:for="{{nutritionResult.analysis.pairingSuggestions.pairings}}" wx:key="index" class="pairing-item">
+              <text class="pairing-reason">{{item.principle}}：</text>
+              <text class="pairing-suggestion">{{item.suggestion}}</text>
+            </view>
+            <view wx:if="{{nutritionResult.analysis.pairingSuggestions.mealExample}}" class="meal-example">
+              <text class="example-title">🍴 一餐示例：</text>
+              <text class="example-text">{{nutritionResult.analysis.pairingSuggestions.mealExample}}</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 7. 专家温馨提醒 -->
+        <view wx:if="{{nutritionResult.analysis.expertReminder}}" class="report-card expert-reminder">
+          <view class="card-title-row">
+            <text class="card-title">💖 专家温馨提醒</text>
+          </view>
+          <view class="expert-content">
+            <text class="expert-text">{{nutritionResult.analysis.expertReminder}}</text>
+          </view>
+        </view>
+
+        <!-- 本地计算标识 -->
+        <view class="result-footer" wx:if="{{nutritionResult.isLocal}}">
+          <text class="local-tag">⚠ 当前为本地估算，仅供参考</text>
+        </view>
+
+        <view class="recalculate-actions">
+          <t-button size="small" variant="outline" bind:tap="resetCalculator">重新计算</t-button>
+        </view>
+      </view>
+
+    </view>
+
+    <!-- 奶量计算页面 -->
+    <view wx:if="{{activeTab === 'milk'}}" class="fade-in">
+      <view class="section-header">
+        <text class="section-title">奶量计算</text>
+        <text class="section-desc">根据宝宝年龄和体重计算每日奶量需求</text>
+      </view>
+
+      <!-- 宝宝信息 -->
+      <view class="card">
+        <view class="card-header">
+          <text class="card-title">👶 宝宝信息</text>
+        </view>
+
+        <view class="input-group">
+          <view class="input-row">
+            <text class="input-label">宝宝年龄（月）</text>
+            <t-input type="number" placeholder="请输入宝宝年龄" value="{{babyAge}}" bind:change="onMilkDataChange" data-field="age" />
+          </view>
+
+          <view class="input-row">
+            <text class="input-label">宝宝体重（kg）</text>
+            <t-input type="digit" placeholder="请输入体重" value="{{babyWeight}}" bind:change="onMilkDataChange" data-field="weight" />
+          </view>
+        </view>
+      </view>
+
+      <!-- 喂养方式选择 -->
+      <view class="card">
+        <view class="card-header">
+          <text class="card-title">🍼 喂养方式</text>
+        </view>
+        <view class="milk-type-section">
+          <view class="type-selector">
+            <t-radio-group value="{{milkType}}" bind:change="onMilkTypeChange">
+              <t-radio value="formula">配方奶</t-radio>
+              <t-radio value="breast">母乳</t-radio>
+            </t-radio-group>
+          </view>
+        </view>
+      </view>
+
+      <!-- 计算按钮 -->
+      <view class="calculate-section">
+        <t-button theme="primary" bind:tap="calculateMilk" loading="{{isCalculatingMilk}}" disabled="{{isCalculatingMilk}}">
+          {{isCalculatingMilk ? '计算中...' : '计算奶量'}}
+        </t-button>
+      </view>
+
+      <!-- 奶量计算结果 -->
+      <view wx:if="{{milkResult}}" class="result-section fade-in">
+        <text class="section-title">奶量计算结果</text>
+
+        <view class="milk-result-card">
+          <view class="result-header">
+            <text class="result-title">推荐奶量</text>
+            <text class="result-time">{{milkResult.timestamp}}</text>
+          </view>
+
+          <view class="milk-data">
+            <view class="milk-item">
+              <text class="milk-label">每日总量：</text>
+              <text class="milk-value">{{milkResult.total_range}} {{milkResult.unit}}</text>
+            </view>
+            <view class="milk-item">
+              <text class="milk-label">单次奶量：</text>
+              <text class="milk-value">{{milkResult.per_feed}} {{milkResult.unit}}</text>
+            </view>
+            <view class="milk-item">
+              <text class="milk-label">喂养次数：</text>
+              <text class="milk-value">{{milkResult.calc_detail.frequency}}次/天</text>
+            </view>
+            <view class="milk-item">
+              <text class="milk-label">喂养方式：</text>
+              <text class="milk-value">{{milkResult.calc_detail.type === 'formula' ? '配方奶' : '母乳'}}</text>
+            </view>
+          </view>
+
+          <view class="advice-section">
+            <text class="advice-title">喂养建议</text>
+            <text class="advice-text">{{milkResult.advice}}</text>
+          </view>
+
+          <view class="ai-comment-section">
+            <text class="ai-comment-title">AI暖心提示</text>
+            <text class="ai-comment-text">{{milkResult.ai_comment}}</text>
+          </view>
+
+          <view class="result-footer" wx:if="{{milkResult.isLocal}}">
+            <text class="local-tag">本地计算</text>
+          </view>
+        </view>
+
+        <view class="recalculate-actions">
+          <t-button size="small" bind:tap="recalculateMilk">重新计算</t-button>
+        </view>
+      </view>
+
+      <!-- 无宝宝信息提示 -->
+      <view wx:if="{{!babyInfo}}" class="card">
+        <view class="empty-state">
+          <text class="empty-icon">👶</text>
+          <text class="empty-title">还没有宝宝信息</text>
+          <text class="empty-desc">请先添加宝宝信息，系统将自动填充成长数据</text>
+          <button class="btn-primary" bind:tap="goToAddBaby">➕ 去添加宝宝</button>
+        </view>
+      </view>
+
+    </view>
+  </view>
 </view>
