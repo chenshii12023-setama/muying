@@ -6,6 +6,61 @@
   min-height: 100vh;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 /* 重新设计导航栏 */
 .tabs-container {
   position: sticky;
@@ -15,6 +70,61 @@
   box-shadow: 0 2rpx 20rpx rgba(0, 0, 0, 0.08);
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .tab-list {
   display: flex;
   background: #f8f9fa;
@@ -22,6 +132,61 @@
   margin: 30rpx;
   padding: 8rpx;
   position: relative;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .tab-item {
@@ -35,20 +200,186 @@
   z-index: 1;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .tab-item.active {
   color: #fff;
   font-weight: bold;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .tab-indicator {
   position: absolute;
   top: 8rpx;
   left: 0;
+  width: calc(100% / 3);
   height: calc(100% - 16rpx);
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 16rpx;
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease;
   box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3);
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 /* 页面内容区域 */
@@ -56,8 +387,118 @@
   padding: 0 30rpx 80rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .section-header {
   margin: 40rpx 0 30rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .section-title {
@@ -67,10 +508,120 @@
   margin-bottom: 8rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .section-desc {
   font-size: 26rpx;
   color: #666;
   line-height: 1.4;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 /* 卡片通用样式 */
@@ -84,9 +635,119 @@
   transition: all 0.3s ease;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .card:hover {
   transform: translateY(-2rpx);
   box-shadow: 0 12rpx 50rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .card-header {
@@ -98,15 +759,180 @@
   border-bottom: 1rpx solid #f0f0f0;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .card-title {
   font-size: 32rpx;
   font-weight: bold;
   color: #1a1a1a;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .card-subtitle {
   font-size: 26rpx;
   color: #666;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 /* 按钮样式 */
@@ -122,9 +948,119 @@
   transition: all 0.3s ease;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .btn-primary:active {
   transform: translateY(2rpx);
   box-shadow: 0 4rpx 15rpx rgba(102, 126, 234, 0.3);
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .btn-secondary {
@@ -137,13 +1073,178 @@
   transition: all 0.3s ease;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .btn-secondary:active {
   background: #e9ecef;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 /* 输入框样式 */
 .input-group {
   margin-bottom: 32rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .input-row {
@@ -153,11 +1254,121 @@
   padding: 0 20rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .input-label {
   width: 200rpx;
   font-size: 28rpx;
   color: #333;
   font-weight: 500;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .custom-input {
@@ -169,15 +1380,180 @@
   background: #f8f9fa;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .custom-input:focus {
   border-color: #667eea;
   background: #fff;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 /* 性别选择器 */
 .gender-selector {
   display: flex;
   gap: 20rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .gender-option {
@@ -190,10 +1566,120 @@
   transition: all 0.3s ease;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .gender-option.selected {
   border-color: #667eea;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .gender-icon {
@@ -201,9 +1687,119 @@
   margin-right: 12rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .gender-text {
   font-size: 26rpx;
   font-weight: 500;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 /* 信息网格 */
@@ -213,9 +1809,119 @@
   gap: 20rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .info-item {
   display: flex;
   flex-direction: column;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .info-label {
@@ -224,16 +1930,181 @@
   margin-bottom: 8rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .info-value {
   font-size: 28rpx;
   color: #333;
   font-weight: 500;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 /* 操作区域 */
 .action-section {
   text-align: center;
   margin-top: 32rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 /* 结果内容 */
@@ -243,15 +2114,180 @@
   gap: 24rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .analysis-section, .advice-section {
   display: flex;
   flex-direction: column;
   gap: 12rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .section-icon {
   font-size: 32rpx;
   margin-right: 12rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .section-title-small {
@@ -262,10 +2298,120 @@
   align-items: center;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .analysis-text, .advice-text {
   font-size: 26rpx;
   color: #555;
   line-height: 1.6;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .divider {
@@ -274,16 +2420,181 @@
   margin: 0 0 24rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 /* 空状态 */
 .empty-state {
   text-align: center;
   padding: 60rpx 0;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .empty-icon {
   font-size: 80rpx;
   display: block;
   margin-bottom: 20rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .empty-title {
@@ -293,10 +2604,120 @@
   margin-bottom: 12rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .empty-desc {
   font-size: 26rpx;
   color: #666;
   margin-bottom: 32rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 /* 加载动画 */
@@ -305,20 +2726,295 @@
     opacity: 0; 
     transform: translateY(20rpx); 
   }
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
   to { 
     opacity: 1; 
     transform: translateY(0); 
   }
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .fade-in {
   animation: fadeIn 0.5s ease;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 /* 结果区域通用样式 */
 .result-section {
   padding: 30rpx 0;
   animation: fadeIn 0.5s ease;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .result-header-row {
@@ -329,9 +3025,119 @@
   padding: 0 10rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .result-date {
   font-size: 24rpx;
   color: #999;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 /* 1. 适龄性卡片 */
@@ -340,9 +3146,119 @@
   border: 2rpx solid #b5f5ec;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .highlight-card.caution {
   background: linear-gradient(135deg, #fff7e6 0%, #ffffff 100%);
   border: 2rpx solid #ffe7ba;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .status-badge {
@@ -351,9 +3267,119 @@
   margin-bottom: 16rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .status-badge .icon {
   font-size: 36rpx;
   margin-right: 12rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .status-text {
@@ -362,11 +3388,121 @@
   color: #333;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .analysis-text {
   font-size: 28rpx;
   color: #555;
   line-height: 1.6;
   display: block;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .warning-box {
@@ -378,9 +3514,119 @@
   align-items: flex-start;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .warning-icon {
   margin-right: 10rpx;
   font-size: 24rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .warning-box text:last-child {
@@ -389,11 +3635,121 @@
   flex: 1;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 /* 2. 宏观营养素 (四宫格) */
 .macro-grid {
   display: flex;
   justify-content: space-between;
   gap: 20rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .macro-item {
@@ -407,15 +3763,345 @@
   overflow: hidden;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .macro-item.calorie { background: #fff1f0; color: #f5222d; }
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
 .macro-item.protein { background: #e6f7ff; color: #1890ff; }
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
 .macro-item.carbs { background: #fff7e6; color: #fa8c16; }
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
 .macro-item.fat { background: #f6ffed; color: #52c41a; }
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
 
 .macro-label {
   font-size: 22rpx;
   opacity: 0.8;
   margin-bottom: 8rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .macro-value {
@@ -424,10 +4110,120 @@
   line-height: 1;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .macro-unit {
   font-size: 20rpx;
   opacity: 0.7;
   margin-top: 4rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 /* 3. 核心营养亮点 */
@@ -437,10 +4233,120 @@
   gap: 20rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .benefit-item {
   background: #f9f9f9;
   padding: 20rpx;
   border-radius: 12rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .benefit-header {
@@ -449,10 +4355,120 @@
   margin-bottom: 8rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .nutrient-name {
   font-weight: bold;
   color: #333;
   font-size: 28rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .nutrient-content {
@@ -461,10 +4477,120 @@
   font-size: 28rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .nutrient-desc {
   font-size: 26rpx;
   color: #666;
   line-height: 1.4;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 /* 4. 安全与处理 */
@@ -474,15 +4600,290 @@
   margin-bottom: 16rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .info-label-box {
   display: flex;
   align-items: center;
   width: 180rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .info-icon { margin-right: 8rpx; }
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
 .info-label { font-size: 28rpx; font-weight: bold; color: #333; }
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
 .info-value { font-size: 28rpx; color: #555; flex: 1; }
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
 
 .info-box {
   background: #f5f5f5;
@@ -491,10 +4892,120 @@
   margin-bottom: 24rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .info-box-text {
   font-size: 26rpx;
   color: #555;
   line-height: 1.5;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .divider {
@@ -503,9 +5014,119 @@
   margin: 20rpx 0;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .risk-tags {
   display: flex;
   gap: 20rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .risk-tag {
@@ -516,14 +5137,234 @@
   color: #d4380d;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .risk-label { opacity: 0.8; margin-right: 6rpx; }
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
 .risk-val { font-weight: bold; }
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
 
 /* 5. 搭配建议 */
 .pairing-item {
   display: flex;
   align-items: flex-start;
   margin-bottom: 16rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .pairing-dot {
@@ -533,18 +5374,238 @@
   margin-top: 6rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .pairing-text {
   font-size: 28rpx;
   color: #555;
   line-height: 1.5;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .bold { font-weight: bold; color: #333; }
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
 
 .meal-example {
   margin-top: 24rpx;
   padding-top: 24rpx;
   border-top: 2rpx dashed #eee;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .example-label {
@@ -553,9 +5614,119 @@
   font-size: 28rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .example-text {
   color: #555;
   font-size: 28rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 /* 食材网格 */
@@ -563,6 +5734,61 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .ingredient-item {
@@ -576,6 +5802,61 @@
   transition: all 0.3s ease;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .ingredient-item.selected {
   border-color: #667eea;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -583,14 +5864,179 @@
   transform: scale(1.05);
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .ingredient-icon {
   font-size: 48rpx;
   margin-bottom: 12rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .ingredient-name {
   font-size: 24rpx;
   font-weight: 500;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 /* 食材用量 */
@@ -600,10 +6046,120 @@
   gap: 24rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .amount-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .amount-control {
@@ -614,7 +6170,117 @@
   max-width: 300rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .custom-slider {
+  flex: 1;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
   flex: 1;
 }
 
@@ -625,10 +6291,120 @@
   min-width: 80rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 /* 喂养方式选择 */
 .feeding-type-selector {
   display: flex;
   gap: 20rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .feeding-option {
@@ -643,6 +6419,61 @@
   transition: all 0.3s ease;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .feeding-option.selected {
   border-color: #667eea;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -650,14 +6481,179 @@
   transform: scale(1.05);
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .feeding-icon {
   font-size: 64rpx;
   margin-bottom: 16rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .feeding-text {
   font-size: 28rpx;
   font-weight: 500;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 /* 奶量数据网格 */
@@ -666,6 +6662,61 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 20rpx;
   margin-bottom: 32rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .milk-data-item {
@@ -677,10 +6728,120 @@
   border-radius: 16rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .milk-label {
   font-size: 24rpx;
   color: #666;
   margin-bottom: 8rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .milk-value {
@@ -689,9 +6850,119 @@
   color: #333;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 /* 建议区域 */
 .advice-section {
   margin-bottom: 24rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .advice-title {
@@ -701,10 +6972,120 @@
   margin-bottom: 12rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .advice-text {
   font-size: 26rpx;
   color: #555;
   line-height: 1.6;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .ai-comment-section {
@@ -714,11 +7095,121 @@
   border-left: 4rpx solid #ffc53d;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .ai-comment-title {
   font-size: 28rpx;
   font-weight: bold;
   color: #d46b08;
   margin-bottom: 12rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .ai-comment-text {
@@ -727,10 +7218,120 @@
   line-height: 1.6;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 /* 底部 */
 .result-footer {
   text-align: center;
   margin: 30rpx 0;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }
 
 .local-tag {
@@ -741,8 +7342,118 @@
   border-radius: 8rpx;
 }
 
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
+}
+
 .recalculate-actions {
   display: flex;
   justify-content: center;
   margin-bottom: 40rpx;
+}
+
+/* 其他食物小组件样式 */
+.ingredient-item.custom-food {
+  border: 2rpx dashed #ccc;
+  background: #f8f9fa;
+}
+
+.ingredient-item.custom-food.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-style: solid;
+}
+
+/* 自定义食物弹窗样式 */
+.custom-food-popup {
+  background: white;
+  border-radius: 20rpx;
+  width: 560rpx;
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-header {
+  padding: 30rpx 30rpx 0;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup-content {
+  padding: 30rpx;
+}
+
+.popup-content .input-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  font-weight: 500;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 20rpx;
+  padding: 0 30rpx 30rpx;
+}
+
+.popup-actions t-button {
+  flex: 1;
 }

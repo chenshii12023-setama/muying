@@ -24,6 +24,10 @@
       <text class="icon">🍎</text>
       <text>营养计算</text>
     </view>
+    <view class="func-item tertiary" bindtap="navigate" data-url="/pages/ai/ai?tab=milk">
+      <text class="icon">🍼</text>
+      <text>奶量计算</text>
+    </view>
   </view>
 
   <!-- 育儿知识核心区域 -->
