@@ -3,6 +3,7 @@ const app = getApp()
 Page({
   data: {
     activeTab: 'assessment',
+    tabIndicatorPosition: '0%',
     
     // 成长评估相关数据
     babyInfo: null,
@@ -30,6 +31,7 @@ Page({
     ],
     selectedIngredients: [],
     nutritionResult: null,
+    isCalculatingNutrition: false,
     
     // 奶量计算相关数据
     milkType: 'formula', // formula: 配方奶, breast: 母乳
@@ -45,6 +47,51 @@ Page({
     }
     
     this.loadBabyInfo()
+    this.updateTabIndicator()
+  },
+
+  // 切换标签页
+  switchTab: function(e) {
+    const tab = e.currentTarget.dataset.tab
+    this.setData({
+      activeTab: tab
+    })
+    this.updateTabIndicator()
+  },
+
+  // 更新标签指示器位置
+  updateTabIndicator: function() {
+    const tabs = ['assessment', 'nutrition', 'milk']
+    const index = tabs.indexOf(this.data.activeTab)
+    const position = index >= 0 ? `calc(${index} * 100% / 3)` : '0%'
+    
+    this.setData({
+      tabIndicatorPosition: position
+    })
+  },
+
+  // 选择性别
+  selectGender: function(e) {
+    const gender = e.currentTarget.dataset.gender
+    this.setData({
+      'growthData.gender': gender
+    })
+  },
+
+  // 选择喂养方式
+  selectFeedingType: function(e) {
+    const type = e.currentTarget.dataset.type
+    this.setData({
+      milkType: type
+    })
+  },
+
+  // 选择喂养方式
+  selectFeedingType: function(e) {
+    const type = e.currentTarget.dataset.type
+    this.setData({
+      milkType: type
+    })
   },
 
   loadBabyInfo: function() {
@@ -81,38 +128,6 @@ Page({
     this.setData({
       [`growthData.${field}`]: value
     })
-  },
-
-  // 营养计算页面数据变更
-  onNutritionDataChange: function(e) {
-    const field = e.currentTarget.dataset.field
-    const value = e.detail.value
-    
-    if (field === 'age') {
-      this.setData({
-        babyAge: value
-      })
-    } else if (field === 'weight') {
-      this.setData({
-        babyWeight: value
-      })
-    }
-  },
-
-  // 奶量计算页面数据变更
-  onMilkDataChange: function(e) {
-    const field = e.currentTarget.dataset.field
-    const value = e.detail.value
-    
-    if (field === 'age') {
-      this.setData({
-        babyAge: value
-      })
-    } else if (field === 'weight') {
-      this.setData({
-        babyWeight: value
-      })
-    }
   },
 
   // 营养计算页面数据变更
@@ -299,7 +314,7 @@ Page({
   },
 
   // 计算百分位（简化版）
-  calculatePercentile: function(value, age, gender, type) {
+  calculatePercentile: function(value, age, type) {
     // 简化的百分位计算，实际应用中应该使用更精确的WHO标准数据
     const baseValue = type === 'height' ? 50 + age * 2 : 3 + age * 0.5
     const ratio = value / baseValue
@@ -371,22 +386,201 @@ Page({
       return
     }
 
-    // 模拟营养计算
-    const totalCalories = this.data.selectedIngredients.reduce((sum, item) => {
-      return sum + (item.amount * 0.8) // 简化计算
-    }, 0)
+    // 检查宝宝年龄
+    if (!this.data.babyAge || this.data.babyAge <= 0) {
+      wx.showToast({ title: '请输入宝宝年龄', icon: 'none' })
+      return
+    }
+
+    this.setData({ isCalculatingNutrition: true })
+
+    // 构建请求数据
+    const nutritionData = {
+      ingredients: this.data.selectedIngredients.map(item => ({
+        name: item.name,
+        amount: item.amount,
+        unit: 'g'
+      })),
+      babyAge: parseInt(this.data.babyAge),
+      userId: 'user-' + Date.now() // 生成临时用户ID
+    }
+
+    console.log('发送营养计算数据:', nutritionData)
+
+    // 调用n8n webhook进行营养计算
+    this.callNutritionCalculationWebhook(nutritionData)
+  },
+
+  // 调用n8n webhook进行营养计算
+  callNutritionCalculationWebhook: function(nutritionData) {
+    wx.request({
+      url: 'http://localhost:5678/webhook/nutrition-calculator',
+      method: 'POST',
+      data: nutritionData,
+      header: {
+        'Content-Type': 'application/json'
+      },
+      success: (res) => {
+        console.log('营养计算API响应:', res)
+        
+        if (res.statusCode === 200 && res.data.success) {
+          // 解析AI返回的营养计算结果
+          this.handleNutritionResult(res.data)
+        } else {
+          wx.showToast({ title: '营养计算请求失败', icon: 'none' })
+          this.setData({ isCalculatingNutrition: false })
+        }
+      },
+      fail: (err) => {
+        console.error('营养计算请求失败:', err)
+        wx.showToast({ title: '网络连接失败', icon: 'none' })
+        this.setData({ isCalculatingNutrition: false })
+        
+        // 降级到本地模拟营养计算
+        this.simulateLocalNutritionCalculation(nutritionData)
+      }
+    })
+  },
+
+  // 处理AI返回的营养计算结果
+  handleNutritionResult: function(result) {
+    try {
+      // 转换中文属性名为英文属性名
+      const nutritionResult = {
+        success: result.success,
+        nutrition: result.nutrition || {},
+        analysis: this.transformAnalysisData(result.analysis || {}),
+        perServing: result.perServing || {},
+        timestamp: new Date().toLocaleString()
+      }
+      
+      this.setData({
+        nutritionResult: nutritionResult,
+        isCalculatingNutrition: false
+      })
+      
+      wx.showToast({ title: '营养计算完成', icon: 'success' })
+    } catch (error) {
+      console.error('解析营养计算结果失败:', error)
+      wx.showToast({ title: '结果解析失败', icon: 'none' })
+      this.setData({ isCalculatingNutrition: false })
+    }
+  },
+
+  // ai.js - 仅修改 transformAnalysisData 部分，其他保持不变
+
+  // ... 前面的代码 ...
+
+  // 转换分析数据的中文属性名为英文，并做格式化处理
+  transformAnalysisData: function(analysis) {
+    const transformed = {}
+
+    // 1. 适龄性判断
+    if (analysis.适龄性判断) {
+      transformed.ageSuitability = {
+        conclusion: analysis.适龄性判断.结论 || '综合评估中',
+        // 移除可能存在的 "暂无结论" 字样，优化显示
+        detailedAnalysis: (analysis.适龄性判断.详细分析 || analysis.适龄性判断.详细说明 || '').replace(/暂无结论/g, ''),
+        warning: analysis.适龄性判断.警告 || '无特殊警告',
+        isSuitable: (analysis.适龄性判断.结论 || '').includes('不适合') ? false : true
+      }
+    }
+    
+    // 2. 营养价值分析
+    if (analysis.营养价值分析) {
+      const benefits = analysis.营养价值分析.核心益处 || analysis.营养价值分析.核心营养素 || [];
+      transformed.nutritionalValue = {
+        coreBenefits: benefits.map(nutrient => ({
+          name: nutrient.营养素 || nutrient.名称 || '营养素',
+          content: nutrient.含量 || '',
+          benefit: nutrient.对宝宝的好处 || nutrient.对宝宝益处 || ''
+        })),
+        specialAttention: analysis.营养价值分析.需注意点 || analysis.营养价值分析.特别关注 || ''
+      }
+    }
+    
+    // 3. 食材处理与性状
+    if (analysis.食材处理与性状) {
+      transformed.foodHandling = {
+        suggestedTexture: analysis.食材处理与性状.推荐性状 || analysis.食材处理与性状.建议性状 || '泥糊状',
+        processingAdvice: analysis.食材处理与性状.特殊处理建议 || analysis.食材处理与性状.处理建议 || '煮熟煮透'
+      }
+    }
+    
+    // 4. 安全与过敏
+    if (analysis.安全与过敏) {
+      transformed.safetyAllergy = {
+        allergyRisk: analysis.安全与过敏.过敏风险 || '低风险',
+        chokingRisk: analysis.安全与过敏.窒息风险 || '注意颗粒大小',
+        introductionAdvice: analysis.安全与过敏.引入建议 || '首次少量尝试'
+      }
+    }
+    
+    // 5. 搭配建议
+    if (analysis.搭配建议) {
+      const pairings = analysis.搭配建议.营养互补搭配 || analysis.搭配建议.黄金搭配 || [];
+      transformed.pairingSuggestions = {
+        pairings: pairings.map(p => ({
+          principle: p.搭配理由 || p.搭配原则,
+          suggestion: p.建议搭配 || p.具体建议
+        })),
+        mealExample: analysis.搭配建议.一餐示例 || ''
+      }
+    }
+    
+    return transformed
+  },
+
+  // ... 后面的代码 ...
+
+  // 本地模拟营养计算（降级方案）
+  simulateLocalNutritionCalculation: function(nutritionData) {
+    const { ingredients } = nutritionData
+    
+    // 简化的营养计算逻辑
+    const totalAmount = ingredients.reduce((sum, item) => sum + item.amount, 0)
+    const nutrition = {
+      calories: Math.round(totalAmount * 0.8),
+      protein: Math.round(totalAmount * 0.15),
+      carbs: Math.round(totalAmount * 0.6),
+      fat: Math.round(totalAmount * 0.25)
+    }
+
+    const analysis = this.transformAnalysisData({
+      适龄性判断: {
+        是否适合: '适合',
+        详细说明: '食材组合营养均衡，适合当前月龄宝宝',
+        警告: '无'
+      },
+      营养价值分析: {
+        核心营养素: [
+          {
+            名称: '蛋白质',
+            含量: `${nutrition.protein}g`,
+            对宝宝益处: '是构建身体组织的重要营养素'
+          }
+        ]
+      },
+      搭配建议: {
+        温馨提示: '本地计算完成，建议使用在线计算获取更详细的分析'
+      }
+    })
 
     const nutritionResult = {
-      calories: Math.round(totalCalories),
-      protein: Math.round(totalCalories * 0.15),
-      carbs: Math.round(totalCalories * 0.6),
-      fat: Math.round(totalCalories * 0.25),
-      recommendation: this.getNutritionRecommendation(totalCalories)
+      success: true,
+      nutrition: nutrition,
+      analysis: analysis,
+      perServing: {},
+      timestamp: new Date().toLocaleString(),
+      isLocal: true
     }
 
     this.setData({
-      nutritionResult: nutritionResult
+      nutritionResult: nutritionResult,
+      isCalculatingNutrition: false
     })
+    
+    wx.showToast({ title: '本地营养计算完成', icon: 'success' })
   },
 
   getNutritionRecommendation: function(calories) {
@@ -516,7 +710,7 @@ Page({
 
   // 本地模拟奶量计算（降级方案）
   simulateLocalMilkCalculation: function(milkData) {
-    const { age, weight, type } = milkData
+    const { age } = milkData
     
     // 简化的奶量计算逻辑
     let total_range, per_feed, advice, frequency

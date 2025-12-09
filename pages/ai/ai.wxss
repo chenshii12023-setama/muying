@@ -1,605 +1,748 @@
+/* ai.wxss - 重新设计UI */
+
+/* 页面整体样式 */
 .ai-page {
-  background-color: #f5f5f5;
+  background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
   min-height: 100vh;
 }
 
-.tab-content {
-  padding: 20rpx;
+/* 重新设计导航栏 */
+.tabs-container {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  box-shadow: 0 2rpx 20rpx rgba(0, 0, 0, 0.08);
 }
 
-/* AI聊天样式 */
-.chat-container {
-  height: calc(100vh - 200rpx);
+.tab-list {
+  display: flex;
+  background: #f8f9fa;
+  border-radius: 20rpx;
+  margin: 30rpx;
+  padding: 8rpx;
+  position: relative;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  font-size: 28rpx;
+  color: #666;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.tab-item.active {
+  color: #fff;
+  font-weight: bold;
+}
+
+.tab-indicator {
+  position: absolute;
+  top: 8rpx;
+  left: 0;
+  height: calc(100% - 16rpx);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16rpx;
+  transition: all 0.3s ease;
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3);
+}
+
+/* 页面内容区域 */
+.page-content {
+  padding: 0 30rpx 80rpx;
+}
+
+.section-header {
+  margin: 40rpx 0 30rpx;
+}
+
+.section-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #1a1a1a;
+  margin-bottom: 8rpx;
+}
+
+.section-desc {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* 卡片通用样式 */
+.card {
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 32rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 8rpx 40rpx rgba(0, 0, 0, 0.06);
+  border: 1rpx solid rgba(0, 0, 0, 0.03);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2rpx);
+  box-shadow: 0 12rpx 50rpx rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+.card-subtitle {
+  font-size: 26rpx;
+  color: #666;
+}
+
+/* 按钮样式 */
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 20rpx;
+  padding: 24rpx 40rpx;
+  color: white;
+  font-size: 28rpx;
+  font-weight: bold;
+  box-shadow: 0 8rpx 25rpx rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 4rpx 15rpx rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary {
+  background: #f8f9fa;
+  border: 1rpx solid #e9ecef;
+  border-radius: 20rpx;
+  padding: 20rpx 32rpx;
+  color: #666;
+  font-size: 26rpx;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:active {
+  background: #e9ecef;
+}
+
+/* 输入框样式 */
+.input-group {
+  margin-bottom: 32rpx;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+  padding: 0 20rpx;
+}
+
+.input-label {
+  width: 200rpx;
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.custom-input {
+  flex: 1;
+  border: 1rpx solid #e9ecef;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  font-size: 28rpx;
+  background: #f8f9fa;
+}
+
+.custom-input:focus {
+  border-color: #667eea;
+  background: #fff;
+}
+
+/* 性别选择器 */
+.gender-selector {
+  display: flex;
+  gap: 20rpx;
+}
+
+.gender-option {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 32rpx;
+  border: 2rpx solid #e9ecef;
+  border-radius: 16rpx;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.gender-option.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.gender-icon {
+  font-size: 32rpx;
+  margin-right: 12rpx;
+}
+
+.gender-text {
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+/* 信息网格 */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+}
+
+.info-item {
   display: flex;
   flex-direction: column;
 }
 
-.messages-container {
-  flex: 1;
-  overflow-y: auto;
-  margin-bottom: 20rpx;
-}
-
-.message {
-  display: flex;
-  margin-bottom: 30rpx;
-  align-items: flex-start;
-}
-
-.message.user-message {
-  flex-direction: row-reverse;
-}
-
-.message-avatar {
-  width: 80rpx;
-  height: 80rpx;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40rpx;
-  margin: 0 20rpx;
-}
-
-.user-message .message-avatar {
-  background: #1890ff;
-  color: white;
-}
-
-.ai-message .message-avatar {
-  background: #52c41a;
-  color: white;
-}
-
-.message-content {
-  flex: 1;
-  max-width: 70%;
-}
-
-.message-text {
-  display: block;
-  padding: 20rpx;
-  border-radius: 16rpx;
-  font-size: 28rpx;
-  line-height: 1.5;
-}
-
-.user-message .message-text {
-  background: #1890ff;
-  color: white;
-  border-top-right-radius: 4rpx;
-}
-
-.ai-message .message-text {
-  background: white;
-  color: #333;
-  border-top-left-radius: 4rpx;
-  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.1);
-}
-
-.message-time {
-  display: block;
-  font-size: 22rpx;
-  color: #999;
-  margin-top: 8rpx;
-  text-align: right;
-}
-
-.input-container {
-  background: white;
-  padding: 20rpx;
-  border-radius: 16rpx;
-  box-shadow: 0 -2rpx 8rpx rgba(0,0,0,0.1);
-}
-
-.input-box {
-  display: flex;
-  gap: 20rpx;
-  align-items: center;
-}
-
-.send-btn {
-  flex-shrink: 0;
-}
-
-.quick-questions {
-  margin-top: 20rpx;
-}
-
-.quick-title {
-  display: block;
+.info-label {
   font-size: 24rpx;
   color: #666;
-  margin-bottom: 12rpx;
-}
-
-.quick-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12rpx;
-}
-
-/* 营养计算器样式 */
-.nutrition-calculator {
-  background: white;
-  border-radius: 16rpx;
-  padding: 30rpx;
-}
-
-.calculator-header {
-  text-align: center;
-  margin-bottom: 30rpx;
-}
-
-.calculator-title {
-  display: block;
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #333;
   margin-bottom: 8rpx;
 }
 
-.calculator-desc {
-  display: block;
-  font-size: 24rpx;
-  color: #666;
+.info-value {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
 }
 
-.ingredients-section {
-  margin: 30rpx 0;
+/* 操作区域 */
+.action-section {
+  text-align: center;
+  margin-top: 32rpx;
 }
 
-.section-title {
-  display: block;
+/* 结果内容 */
+.result-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.analysis-section, .advice-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.section-icon {
+  font-size: 32rpx;
+  margin-right: 12rpx;
+}
+
+.section-title-small {
   font-size: 28rpx;
   font-weight: bold;
   color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.analysis-text, .advice-text {
+  font-size: 26rpx;
+  color: #555;
+  line-height: 1.6;
+}
+
+.divider {
+  height: 1rpx;
+  background: #f0f0f0;
+  margin: 0 0 24rpx;
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 60rpx 0;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  display: block;
   margin-bottom: 20rpx;
 }
 
+.empty-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.empty-desc {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 32rpx;
+}
+
+/* 加载动画 */
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20rpx); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease;
+}
+
+/* 结果区域通用样式 */
+.result-section {
+  padding: 30rpx 0;
+  animation: fadeIn 0.5s ease;
+}
+
+.result-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24rpx;
+  padding: 0 10rpx;
+}
+
+.result-date {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 1. 适龄性卡片 */
+.highlight-card.suitable {
+  background: linear-gradient(135deg, #e6fffb 0%, #ffffff 100%);
+  border: 2rpx solid #b5f5ec;
+}
+
+.highlight-card.caution {
+  background: linear-gradient(135deg, #fff7e6 0%, #ffffff 100%);
+  border: 2rpx solid #ffe7ba;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.status-badge .icon {
+  font-size: 36rpx;
+  margin-right: 12rpx;
+}
+
+.status-text {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.analysis-text {
+  font-size: 28rpx;
+  color: #555;
+  line-height: 1.6;
+  display: block;
+}
+
+.warning-box {
+  margin-top: 16rpx;
+  background: rgba(255, 156, 110, 0.1);
+  padding: 16rpx;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: flex-start;
+}
+
+.warning-icon {
+  margin-right: 10rpx;
+  font-size: 24rpx;
+}
+
+.warning-box text:last-child {
+  font-size: 24rpx;
+  color: #d4380d;
+  flex: 1;
+}
+
+/* 2. 宏观营养素 (四宫格) */
+.macro-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+
+.macro-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx 0;
+  border-radius: 16rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.macro-item.calorie { background: #fff1f0; color: #f5222d; }
+.macro-item.protein { background: #e6f7ff; color: #1890ff; }
+.macro-item.carbs { background: #fff7e6; color: #fa8c16; }
+.macro-item.fat { background: #f6ffed; color: #52c41a; }
+
+.macro-label {
+  font-size: 22rpx;
+  opacity: 0.8;
+  margin-bottom: 8rpx;
+}
+
+.macro-value {
+  font-size: 36rpx;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.macro-unit {
+  font-size: 20rpx;
+  opacity: 0.7;
+  margin-top: 4rpx;
+}
+
+/* 3. 核心营养亮点 */
+.benefit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.benefit-item {
+  background: #f9f9f9;
+  padding: 20rpx;
+  border-radius: 12rpx;
+}
+
+.benefit-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8rpx;
+}
+
+.nutrient-name {
+  font-weight: bold;
+  color: #333;
+  font-size: 28rpx;
+}
+
+.nutrient-content {
+  color: #FF6B9D;
+  font-weight: bold;
+  font-size: 28rpx;
+}
+
+.nutrient-desc {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* 4. 安全与处理 */
+.info-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.info-label-box {
+  display: flex;
+  align-items: center;
+  width: 180rpx;
+}
+
+.info-icon { margin-right: 8rpx; }
+.info-label { font-size: 28rpx; font-weight: bold; color: #333; }
+.info-value { font-size: 28rpx; color: #555; flex: 1; }
+
+.info-box {
+  background: #f5f5f5;
+  padding: 20rpx;
+  border-radius: 12rpx;
+  margin-bottom: 24rpx;
+}
+
+.info-box-text {
+  font-size: 26rpx;
+  color: #555;
+  line-height: 1.5;
+}
+
+.divider {
+  height: 2rpx;
+  background: #eee;
+  margin: 20rpx 0;
+}
+
+.risk-tags {
+  display: flex;
+  gap: 20rpx;
+}
+
+.risk-tag {
+  background: #fff2e8;
+  padding: 10rpx 20rpx;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  color: #d4380d;
+}
+
+.risk-label { opacity: 0.8; margin-right: 6rpx; }
+.risk-val { font-weight: bold; }
+
+/* 5. 搭配建议 */
+.pairing-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 16rpx;
+}
+
+.pairing-dot {
+  color: #FF6B9D;
+  margin-right: 12rpx;
+  font-size: 20rpx;
+  margin-top: 6rpx;
+}
+
+.pairing-text {
+  font-size: 28rpx;
+  color: #555;
+  line-height: 1.5;
+}
+
+.bold { font-weight: bold; color: #333; }
+
+.meal-example {
+  margin-top: 24rpx;
+  padding-top: 24rpx;
+  border-top: 2rpx dashed #eee;
+}
+
+.example-label {
+  font-weight: bold;
+  color: #2c3e50;
+  font-size: 28rpx;
+}
+
+.example-text {
+  color: #555;
+  font-size: 28rpx;
+}
+
+/* 食材网格 */
 .ingredients-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20rpx;
 }
 
 .ingredient-item {
-  text-align: center;
-  padding: 20rpx;
-  border: 2rpx solid #f0f0f0;
-  border-radius: 12rpx;
-  cursor: pointer;
-  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx 16rpx;
+  border: 2rpx solid #e9ecef;
+  border-radius: 16rpx;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
 }
 
 .ingredient-item.selected {
-  border-color: #1890ff;
-  background: #f0f8ff;
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  transform: scale(1.05);
 }
 
 .ingredient-icon {
   font-size: 48rpx;
-  margin-bottom: 8rpx;
+  margin-bottom: 12rpx;
 }
 
 .ingredient-name {
   font-size: 24rpx;
-  color: #666;
+  font-weight: 500;
 }
 
-.amount-section {
-  margin: 30rpx 0;
+/* 食材用量 */
+.amount-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
 }
 
 .amount-item {
-  margin-bottom: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .amount-control {
   display: flex;
   align-items: center;
   gap: 20rpx;
-  margin-top: 12rpx;
+  flex: 1;
+  max-width: 300rpx;
+}
+
+.custom-slider {
+  flex: 1;
 }
 
 .amount-value {
-  font-size: 24rpx;
-  color: #1890ff;
-  font-weight: bold;
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
   min-width: 80rpx;
 }
 
-.result-section {
-  margin: 30rpx 0;
-  padding: 20rpx;
-  background: #f8f9fa;
-  border-radius: 12rpx;
-}
-
-.nutrition-results {
-  margin-bottom: 20rpx;
-}
-
-.nutrition-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12rpx 0;
-  border-bottom: 1rpx solid #e8e8e8;
-}
-
-.nutrition-item:last-child {
-  border-bottom: none;
-}
-
-.nutrient-name {
-  font-size: 26rpx;
-  color: #333;
-}
-
-.nutrient-value {
-  font-size: 26rpx;
-  font-weight: bold;
-  color: #1890ff;
-}
-
-.recommendation {
-  background: white;
-  padding: 20rpx;
-  border-radius: 8rpx;
-  border-left: 4rpx solid #52c41a;
-}
-
-.rec-title {
-  display: block;
-  font-size: 24rpx;
-  font-weight: bold;
-  color: #52c41a;
-  margin-bottom: 8rpx;
-}
-
-.rec-content {
-  font-size: 24rpx;
-  color: #666;
-  line-height: 1.5;
-}
-
-.calculator-actions {
+/* 喂养方式选择 */
+.feeding-type-selector {
   display: flex;
   gap: 20rpx;
-  margin-top: 40rpx;
 }
 
-/* 成长评估样式 */
-.assessment-container {
-  background: white;
-  border-radius: 16rpx;
-  padding: 30rpx;
-}
-
-.baby-info-section {
-  margin-bottom: 40rpx;
-}
-
-.baby-info-card {
-  background: #f8f9fa;
-  border-radius: 12rpx;
-  padding: 30rpx;
-  border-left: 4rpx solid #1890ff;
-}
-
-.baby-info-item {
+.feeding-option {
+  flex: 1;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  padding: 12rpx 0;
-  border-bottom: 1rpx solid #e8e8e8;
-}
-
-.baby-info-item:last-child {
-  border-bottom: none;
-}
-
-.info-label {
-  font-size: 26rpx;
-  color: #666;
-  font-weight: bold;
-}
-
-.info-value {
-  font-size: 26rpx;
-  color: #333;
-}
-
-.input-section {
-  margin-bottom: 40rpx;
-}
-
-.input-group {
+  padding: 32rpx 24rpx;
+  border: 2rpx solid #e9ecef;
+  border-radius: 20rpx;
   background: #f8f9fa;
-  border-radius: 12rpx;
-  padding: 20rpx;
+  transition: all 0.3s ease;
 }
 
-.input-row {
-  margin-bottom: 30rpx;
+.feeding-option.selected {
+  border-color: #667eea;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  transform: scale(1.05);
 }
 
-.input-row:last-child {
-  margin-bottom: 0;
+.feeding-icon {
+  font-size: 64rpx;
+  margin-bottom: 16rpx;
 }
 
-.input-label {
-  display: block;
-  font-size: 26rpx;
-  color: #333;
-  margin-bottom: 12rpx;
-  font-weight: bold;
-}
-
-.gender-selector {
-  margin-top: 8rpx;
-}
-
-.assessment-actions {
-  text-align: center;
-  margin-top: 40rpx;
-}
-
-.result-section {
-  margin-top: 40rpx;
-}
-
-.result-card {
-  background: #f8f9fa;
-  border-radius: 12rpx;
-  padding: 30rpx;
-  border-left: 4rpx solid #52c41a;
-}
-
-.result-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20rpx;
-}
-
-.result-title {
+.feeding-text {
   font-size: 28rpx;
-  font-weight: bold;
-  color: #333;
+  font-weight: 500;
 }
 
-.result-time {
-  font-size: 22rpx;
-  color: #999;
+/* 奶量数据网格 */
+.milk-data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+  margin-bottom: 32rpx;
 }
 
-.analysis-content {
-  margin-bottom: 30rpx;
+.milk-data-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24rpx;
+  background: #f8f9fa;
+  border-radius: 16rpx;
 }
 
-.analysis-text {
-  font-size: 26rpx;
-  color: #333;
-  line-height: 1.6;
-}
-
-.advice-section {
-  background: white;
-  border-radius: 8rpx;
-  padding: 20rpx;
-  border-left: 4rpx solid #faad14;
-}
-
-.advice-title {
-  display: block;
+.milk-label {
   font-size: 24rpx;
-  font-weight: bold;
-  color: #faad14;
+  color: #666;
   margin-bottom: 8rpx;
 }
 
-.advice-text {
-  font-size: 24rpx;
-  color: #666;
-  line-height: 1.5;
-}
-
-.result-footer {
-  margin-top: 20rpx;
-  text-align: right;
-}
-
-.local-tag {
-  display: inline-block;
-  background: #f0f0f0;
-  color: #999;
-  font-size: 20rpx;
-  padding: 4rpx 12rpx;
-  border-radius: 8rpx;
-}
-
-.reassess-actions {
-  text-align: center;
-  margin-top: 20rpx;
-}
-
-.no-baby-tip {
-  text-align: center;
-  padding: 60rpx 30rpx;
-}
-
-.tip-text {
-  display: block;
-  font-size: 26rpx;
-  color: #666;
-  margin-bottom: 30rpx;
-}
-
-/* 成长评估样式 */
-.assessment-container {
-  background: white;
-  border-radius: 16rpx;
-  padding: 30rpx;
-}
-
-.baby-info-section {
-  margin-bottom: 40rpx;
-}
-
-.baby-info-card {
-  background: #f8f9fa;
-  border-radius: 12rpx;
-  padding: 30rpx;
-  border-left: 4rpx solid #1890ff;
-}
-
-.baby-info-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12rpx 0;
-  border-bottom: 1rpx solid #e8e8e8;
-}
-
-.baby-info-item:last-child {
-  border-bottom: none;
-}
-
-.info-label {
-  font-size: 26rpx;
-  color: #666;
-  font-weight: bold;
-}
-
-.info-value {
-  font-size: 26rpx;
-  color: #333;
-}
-
-.input-section {
-  margin-bottom: 40rpx;
-}
-
-.input-group {
-  background: #f8f9fa;
-  border-radius: 12rpx;
-  padding: 20rpx;
-}
-
-.input-row {
-  margin-bottom: 30rpx;
-}
-
-.input-row:last-child {
-  margin-bottom: 0;
-}
-
-.input-label {
-  display: block;
-  font-size: 26rpx;
-  color: #333;
-  margin-bottom: 12rpx;
-  font-weight: bold;
-}
-
-.gender-selector {
-  margin-top: 8rpx;
-}
-
-.assessment-actions {
-  text-align: center;
-  margin-top: 40rpx;
-}
-
-.result-section {
-  margin-top: 40rpx;
-}
-
-.result-card {
-  background: #f8f9fa;
-  border-radius: 12rpx;
-  padding: 30rpx;
-  border-left: 4rpx solid #52c41a;
-}
-
-.result-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20rpx;
-}
-
-.result-title {
-  font-size: 28rpx;
+.milk-value {
+  font-size: 32rpx;
   font-weight: bold;
   color: #333;
 }
 
-.result-time {
-  font-size: 22rpx;
-  color: #999;
-}
-
-.analysis-content {
-  margin-bottom: 30rpx;
-}
-
-.analysis-text {
-  font-size: 26rpx;
-  color: #333;
-  line-height: 1.6;
-}
-
+/* 建议区域 */
 .advice-section {
-  background: white;
-  border-radius: 8rpx;
-  padding: 20rpx;
-  border-left: 4rpx solid #faad14;
+  margin-bottom: 24rpx;
 }
 
 .advice-title {
-  display: block;
-  font-size: 24rpx;
+  font-size: 28rpx;
   font-weight: bold;
-  color: #faad14;
-  margin-bottom: 8rpx;
+  color: #333;
+  margin-bottom: 12rpx;
 }
 
 .advice-text {
-  font-size: 24rpx;
-  color: #666;
-  line-height: 1.5;
+  font-size: 26rpx;
+  color: #555;
+  line-height: 1.6;
 }
 
+.ai-comment-section {
+  background: linear-gradient(135deg, #fff7e6 0%, #ffffff 100%);
+  padding: 24rpx;
+  border-radius: 16rpx;
+  border-left: 4rpx solid #ffc53d;
+}
+
+.ai-comment-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #d46b08;
+  margin-bottom: 12rpx;
+}
+
+.ai-comment-text {
+  font-size: 26rpx;
+  color: #8c6b08;
+  line-height: 1.6;
+}
+
+/* 底部 */
 .result-footer {
-  margin-top: 20rpx;
-  text-align: right;
+  text-align: center;
+  margin: 30rpx 0;
 }
 
 .local-tag {
-  display: inline-block;
-  background: #f0f0f0;
+  font-size: 24rpx;
   color: #999;
-  font-size: 20rpx;
-  padding: 4rpx 12rpx;
+  background: #eee;
+  padding: 6rpx 16rpx;
   border-radius: 8rpx;
 }
 
-.reassess-actions {
-  text-align: center;
-  margin-top: 20rpx;
-}
-
-.no-baby-tip {
-  text-align: center;
-  padding: 60rpx 30rpx;
-}
-
-.tip-text {
-  display: block;
-  font-size: 26rpx;
-  color: #666;
-  margin-bottom: 30rpx;
+.recalculate-actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40rpx;
 }
