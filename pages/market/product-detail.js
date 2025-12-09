@@ -36,13 +36,12 @@ Page({
   /**
    * 加载商品详情
    */
-  async loadProductDetail(productId) {
-    this.setData({ isLoading: true })
-
-    try {
-      // 使用新的getSecondhandItemById方法直接根据ID查询
-      const product = await SupabaseAPI.getSecondhandItemById(productId)
-      
+  loadProductDetail: function(productId) {
+    const that = this
+    that.setData({ isLoading: true })
+    
+    // 使用新的getSecondhandItemById方法直接根据ID查询
+    SupabaseAPI.getSecondhandItemById(productId).then(function(product) {
       if (product) {
         // 获取卖家信息（这里需要根据实际的表结构调整）
         const sellerInfo = product.profiles || {
@@ -52,16 +51,35 @@ Page({
 
         const fullProduct = {
           ...product,
-          seller: sellerInfo,
+          seller: {
+            ...sellerInfo,
+            name: sellerInfo.nickname || '用户', // WXML中使用的是seller.name
+            avatar: sellerInfo.avatar_url || '/images/default-avatar.png', // WXML中使用的是seller.avatar
+            rating: 4.5, // 默认评分
+            reviewCount: 0,
+            responseRate: 95,
+            location: product.location || '未知',
+            isVerified: false,
+            joinTime: '2024-01-01' // 简化显示固定时间
+          },
+          // 确保images是数组
+          images: Array.isArray(product.images) ? product.images : (product.images ? [product.images] : []),
           publishTime: product.created_at ? product.created_at.split('T')[0] : new Date().toISOString().split('T')[0],
           viewCount: product.view_count || 0,
           inquiryCount: product.inquiry_count || 0,
           favoriteCount: product.favorite_count || 0,
+          // 处理价格显示
+          price: product.price || 0,
+          originalPrice: product.original_price || 0,
+          // 处理分类和成色
+          categoryName: product.category_name || '其他',
+          condition: that.formatCondition(product.condition),
+          usageTime: that.formatUsageTime(product.usage_time),
           deliveryOptions: ['自提', '同程配送'],
           paymentMethods: ['微信支付', '支付宝', '现金']
         }
 
-        this.setData({
+        that.setData({
           product: fullProduct,
           isLoading: false
         })
@@ -70,7 +88,7 @@ Page({
         SupabaseAPI.incrementItemViewCount(productId)
       } else {
         // 商品不存在
-        this.setData({ isLoading: false })
+        that.setData({ isLoading: false })
         wx.showToast({
           title: '商品不存在或已删除',
           icon: 'error'
@@ -79,14 +97,14 @@ Page({
           wx.navigateBack()
         }, 1500)
       }
-    } catch (error) {
+    }).catch(function(error) {
       console.error('加载商品详情失败:', error)
-      this.setData({ isLoading: false })
+      that.setData({ isLoading: false })
       wx.showToast({
         title: '加载失败',
         icon: 'error'
       })
-    }
+    })
   },
 
   /**
@@ -160,10 +178,12 @@ Page({
    * 联系卖家
    */
   contactSeller: function() {
+    console.log('🔘 联系卖家按钮被点击')
     this.setData({
       showContactModal: true,
       contactMessage: ''
     })
+    console.log('📱 弹窗状态已设置:', this.data.showContactModal)
   },
 
   /**
@@ -178,17 +198,73 @@ Page({
       return
     }
 
-    // 这里应该发送消息到服务器
-    console.log('发送消息:', this.data.contactMessage)
+    const that = this
     
-    wx.showToast({
-      title: '消息已发送',
-      icon: 'success'
-    })
-    
-    this.setData({
-      showContactModal: false,
-      contactMessage: ''
+    // 获取当前用户信息
+    const app = getApp()
+    app.getUserProfile().then(function(currentUserProfile) {
+      if (!currentUserProfile || !currentUserProfile.id) {
+        wx.showToast({
+          title: '请先登录',
+          icon: 'none'
+        })
+        return
+      }
+
+      const product = that.data.product
+      const sellerId = product.profile_id
+      const senderId = currentUserProfile.id
+      
+      // 检查是否是联系自己的商品
+      if (sellerId === senderId) {
+        wx.showToast({
+          title: '不能联系自己的商品',
+          icon: 'none'
+        })
+        return
+      }
+
+      wx.showLoading({
+        title: '发送中...',
+        mask: true
+      })
+
+      // 发送消息到数据库 - 正确处理异步方法
+      SupabaseAPI.sendMessage(
+        product.id,
+        senderId,
+        sellerId,
+        that.data.contactMessage,
+        'inquiry'
+      ).then(function(result) {
+        console.log('消息发送结果:', result)
+        // 更新商品咨询次数
+        return SupabaseAPI.incrementItemInquiryCount(product.id)
+      }).then(function() {
+        wx.hideLoading()
+        wx.showToast({
+          title: '消息已发送',
+          icon: 'success'
+        })
+        
+        that.setData({
+          showContactModal: false,
+          contactMessage: ''
+        })
+      }).catch(function(error) {
+        wx.hideLoading()
+        console.error('发送消息失败:', error)
+        wx.showToast({
+          title: '发送失败，请重试',
+          icon: 'none'
+        })
+      })
+    }).catch(function(error) {
+      console.error('获取用户信息失败:', error)
+      wx.showToast({
+        title: '获取用户信息失败',
+        icon: 'none'
+      })
     })
   },
 
@@ -272,5 +348,30 @@ Page({
     this.setData({
       contactMessage: e.detail.value
     })
+  },
+
+  // 格式化成色显示
+  formatCondition: function(condition) {
+    const conditionMap = {
+      'new': '全新',
+      '95new': '95成新',
+      '9new': '9成新',
+      '8new': '8成新',
+      '7new': '7成新及以下'
+    }
+    return conditionMap[condition] || condition || '9成新'
+  },
+
+  // 格式化使用时间显示
+  formatUsageTime: function(usageTime) {
+    const usageTimeMap = {
+      'unused': '未使用',
+      '1-3months': '1-3个月',
+      '3-6months': '3-6个月',
+      '6-12months': '6-12个月',
+      '1-2years': '1-2年',
+      '2years+': '2年以上'
+    }
+    return usageTimeMap[usageTime] || usageTime || '3-6个月'
   }
 })

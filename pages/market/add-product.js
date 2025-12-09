@@ -173,10 +173,63 @@ Page({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
       success: function(res) {
-        const newImages = that.data.imageList.concat(res.tempFilePaths)
-        that.setData({
-          imageList: newImages
+        const that = this
+        wx.showLoading({
+          title: '上传图片中...',
+          mask: true
         })
+        
+        // 上传图片到Supabase存储
+        const uploadedImages = []
+        let uploadIndex = 0
+        
+        function uploadNextImage() {
+          if (uploadIndex >= res.tempFilePaths.length) {
+            // 所有图片上传完成
+            const newImages = that.data.imageList.concat(uploadedImages)
+            
+            that.setData({
+              imageList: newImages
+            })
+            
+            wx.hideLoading()
+            wx.showToast({
+              title: '图片上传成功',
+              icon: 'success'
+            })
+            return
+          }
+          
+          const tempPath = res.tempFilePaths[uploadIndex]
+          
+          SupabaseAPI.uploadFile(tempPath, 'market-images').then(function(uploadUrl) {
+            uploadedImages.push(uploadUrl)
+            uploadIndex++
+            uploadNextImage()
+          }).catch(function(error) {
+            console.error('图片上传失败:', error)
+            
+            if (uploadIndex === 0) {
+              // 第一张图片上传失败，使用降级方案
+              wx.hideLoading()
+              wx.showToast({
+                title: '图片上传失败',
+                icon: 'none'
+              })
+              
+              const newImages = that.data.imageList.concat(res.tempFilePaths)
+              that.setData({
+                imageList: newImages
+              })
+            } else {
+              // 部分图片上传失败，继续上传剩余图片
+              uploadIndex++
+              uploadNextImage()
+            }
+          })
+        }
+        
+        uploadNextImage()
       }
     })
   },

@@ -221,11 +221,43 @@ class SupabaseAPI {
 
   static async incrementItemViewCount(itemId) {
     try {
-      await this.request(`/rest/v1/secondhand_items?id=eq.${itemId}`, 'PATCH', {
-        view_count: 'view_count + 1'
-      })
+      // 先获取当前浏览量
+      const currentItem = await this.request(`/rest/v1/secondhand_items?id=eq.${itemId}&select=view_count`)
+      if (currentItem && currentItem.length > 0) {
+        const currentViewCount = currentItem[0].view_count || 0
+        const newViewCount = currentViewCount + 1
+        
+        // 更新浏览量
+        await this.request(`/rest/v1/secondhand_items?id=eq.${itemId}`, 'PATCH', {
+          view_count: newViewCount
+        })
+        
+        console.log(`✅ 浏览量更新成功: ${currentViewCount} -> ${newViewCount}`)
+      }
     } catch (error) {
       console.warn('更新浏览量失败:', error.message)
+    }
+  }
+
+  static async incrementItemInquiryCount(itemId) {
+    try {
+      // 先获取当前咨询次数
+      const currentItem = await this.request(`/rest/v1/secondhand_items?id=eq.${itemId}&select=inquiry_count`)
+      if (currentItem && currentItem.length > 0) {
+        const currentInquiryCount = currentItem[0].inquiry_count || 0
+        const newInquiryCount = currentInquiryCount + 1
+        
+        // 更新咨询次数
+        await this.request(`/rest/v1/secondhand_items?id=eq.${itemId}`, 'PATCH', {
+          inquiry_count: newInquiryCount
+        })
+        
+        console.log(`✅ 咨询次数更新成功: ${currentInquiryCount} -> ${newInquiryCount}`)
+        return newInquiryCount
+      }
+    } catch (error) {
+      console.warn('更新咨询次数失败:', error.message)
+      return null
     }
   }
 
@@ -265,6 +297,10 @@ class SupabaseAPI {
     if (existing && existing.length > 0) {
       // 取消收藏
       await this.request(`/rest/v1/item_favorites?item_id=eq.${itemId}&profile_id=eq.${profileId}`, 'DELETE')
+      
+      // 减少收藏次数
+      await this.decrementItemFavoriteCount(itemId)
+      
       return false
     } else {
       // 添加收藏
@@ -272,7 +308,55 @@ class SupabaseAPI {
         item_id: itemId,
         profile_id: profileId
       })
+      
+      // 增加收藏次数
+      await this.incrementItemFavoriteCount(itemId)
+      
       return true
+    }
+  }
+
+  static async incrementItemFavoriteCount(itemId) {
+    try {
+      // 先获取当前收藏次数
+      const currentItem = await this.request(`/rest/v1/secondhand_items?id=eq.${itemId}&select=favorite_count`)
+      if (currentItem && currentItem.length > 0) {
+        const currentFavoriteCount = currentItem[0].favorite_count || 0
+        const newFavoriteCount = currentFavoriteCount + 1
+        
+        // 更新收藏次数
+        await this.request(`/rest/v1/secondhand_items?id=eq.${itemId}`, 'PATCH', {
+          favorite_count: newFavoriteCount
+        })
+        
+        console.log(`✅ 收藏次数增加成功: ${currentFavoriteCount} -> ${newFavoriteCount}`)
+        return newFavoriteCount
+      }
+    } catch (error) {
+      console.warn('增加收藏次数失败:', error.message)
+      return null
+    }
+  }
+
+  static async decrementItemFavoriteCount(itemId) {
+    try {
+      // 先获取当前收藏次数
+      const currentItem = await this.request(`/rest/v1/secondhand_items?id=eq.${itemId}&select=favorite_count`)
+      if (currentItem && currentItem.length > 0) {
+        const currentFavoriteCount = currentItem[0].favorite_count || 0
+        const newFavoriteCount = Math.max(0, currentFavoriteCount - 1) // 确保不为负数
+        
+        // 更新收藏次数
+        await this.request(`/rest/v1/secondhand_items?id=eq.${itemId}`, 'PATCH', {
+          favorite_count: newFavoriteCount
+        })
+        
+        console.log(`✅ 收藏次数减少成功: ${currentFavoriteCount} -> ${newFavoriteCount}`)
+        return newFavoriteCount
+      }
+    } catch (error) {
+      console.warn('减少收藏次数失败:', error.message)
+      return null
     }
   }
 
@@ -311,21 +395,116 @@ class SupabaseAPI {
     return Math.round(distance * 100) / 100
   }
 
-  // 文件上传
-  static async uploadFile(filePath, bucketName = 'images') {
-    const fileName = `${Date.now()}-${filePath.split('/').pop()}`
-    const uploadUrl = supabaseUrl + `/storage/v1/object/${bucketName}/${fileName}`
-    
-    const result = await APIUtils.uploadFile(filePath, uploadUrl, {}, {
-      showError: true,
-      header: {
-        'apikey': supabaseAnonKey,
-        'Authorization': `Bearer ${supabaseAnonKey}`
+  // 发送商品消息
+  static async sendMessage(itemId, senderId, receiverId, content, messageType = 'inquiry') {
+    try {
+      const messageData = {
+        item_id: itemId,
+        sender_id: senderId,
+        receiver_id: receiverId,
+        content: content,
+        message_type: messageType,
+        is_read: false
       }
-    })
-    
-    // 修正返回的路径
-    return `/storage/v1/object/public/${bucketName}/${fileName}`
+      
+      console.log('📨 准备发送消息:', messageData)
+      const result = await this.request('/rest/v1/item_messages', 'POST', messageData)
+      console.log('✅ 消息发送成功:', result)
+      return result && result.length > 0 ? result[0] : result
+    } catch (error) {
+      console.error('❌ 发送消息失败:', error.message)
+      console.error('📍 详细错误信息:', error)
+      throw new Error(`发送消息失败: ${error.message}`)
+    }
+  }
+
+  // 获取商品相关的消息
+  static async getItemMessages(itemId, profileId = null) {
+    try {
+      let url = `/rest/v1/item_messages?item_id=eq.${itemId}&select=*,sender:profiles!sender_id(nickname,avatar_url),receiver:profiles!receiver_id(nickname,avatar_url)&order=created_at.desc`
+      
+      // 如果指定了用户ID，只获取该用户相关的消息
+      if (profileId) {
+        url = `/rest/v1/item_messages?or=(and(item_id.eq.${itemId},sender_id.eq.${profileId}),and(item_id.eq.${itemId},receiver_id.eq.${profileId}))&select=*,sender:profiles!sender_id(nickname,avatar_url),receiver:profiles!receiver_id(nickname,avatar_url)&order=created_at.desc`
+      }
+      
+      const result = await this.request(url)
+      return result || []
+    } catch (error) {
+      console.error('获取消息失败:', error.message)
+      return []
+    }
+  }
+
+  // 获取用户的消息列表
+  static async getUserMessages(profileId) {
+    try {
+      const url = `/rest/v1/item_messages?or=(sender_id.eq.${profileId},receiver_id.eq.${profileId})&select=*,item:secondhand_items(id,title,price,images),sender:profiles!sender_id(nickname,avatar_url),receiver:profiles!receiver_id(nickname,avatar_url)&order=created_at.desc`
+      
+      const result = await this.request(url)
+      return result || []
+    } catch (error) {
+      console.error('获取用户消息失败:', error.message)
+      return []
+    }
+  }
+
+  // 标记消息为已读
+  static async markMessageAsRead(messageId, userId) {
+    try {
+      // 只有接收者才能标记为已读
+      const url = `/rest/v1/item_messages?id=eq.${messageId}&receiver_id=eq.${userId}`
+      const result = await this.request(url, 'PATCH', { is_read: true })
+      return result && result.length > 0 ? result[0] : null
+    } catch (error) {
+      console.error('标记消息已读失败:', error.message)
+      return null
+    }
+  }
+
+  // 删除消息
+  static async deleteMessage(messageId, userId) {
+    try {
+      // 只有发送者或接收者才能删除消息
+      const url = `/rest/v1/item_messages?id=eq.${messageId}&or=(sender_id.eq.${userId},receiver_id.eq.${userId})`
+      const result = await this.request(url, 'DELETE')
+      return result
+    } catch (error) {
+      console.error('删除消息失败:', error.message)
+      throw new Error(`删除消息失败: ${error.message}`)
+    }
+  }
+
+  // 文件上传到Supabase存储
+  static async uploadFile(filePath, bucketName = 'market-images') {
+    try {
+      // 生成唯一文件名
+      const fileExt = filePath.split('.').pop()
+      const fileName = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}.${fileExt}`
+      const uploadUrl = `${supabaseUrl}/storage/v1/object/${bucketName}/${fileName}`
+      
+      console.log('开始上传文件:', filePath, '->', uploadUrl)
+      
+      // 使用微信小程序的uploadFile
+      const result = await APIUtils.uploadFile(filePath, uploadUrl, {}, {
+        showError: true,
+        header: {
+          'apikey': supabaseAnonKey,
+          'Authorization': `Bearer ${supabaseAnonKey}`
+        }
+      })
+      
+      console.log('上传成功:', result)
+      
+      // 返回公开访问URL
+      const publicUrl = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${fileName}`
+      console.log('文件访问URL:', publicUrl)
+      
+      return publicUrl
+    } catch (error) {
+      console.error('文件上传失败:', error)
+      throw error
+    }
   }
 }
 
