@@ -153,6 +153,7 @@
     <!-- 营养计算页面 (已根据你的JSON要求更新) -->
     <view wx:if="{{activeTab === 'nutrition'}}" class="fade-in">
 
+      <!-- 营养计算标题 -->
       <view class="section-header">
         <text class="section-title">营养计算</text>
         <text class="section-desc">科学计算辅食营养，为宝宝成长保驾护航</text>

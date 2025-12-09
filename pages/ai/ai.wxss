@@ -203,6 +203,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -437,6 +447,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -669,6 +689,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -907,6 +937,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -1135,6 +1175,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -1374,6 +1424,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -1604,6 +1664,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -1831,6 +1901,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -2065,6 +2145,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -2294,6 +2384,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -2532,6 +2632,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -2760,6 +2870,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -2996,6 +3116,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -3227,6 +3357,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -3455,6 +3595,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -3695,6 +3845,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -3923,6 +4083,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -4160,6 +4330,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -4387,6 +4567,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -4617,6 +4807,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -4851,6 +5051,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -5081,6 +5291,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -5317,6 +5537,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -5545,6 +5775,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -5776,6 +6016,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -6013,6 +6263,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -6242,6 +6502,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -6474,6 +6744,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -6702,6 +6982,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -6936,6 +7226,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -7164,6 +7464,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -7397,6 +7707,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -7628,6 +7948,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -7857,6 +8187,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -8091,6 +8431,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -8322,6 +8672,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -8550,6 +8910,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -8785,6 +9155,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -9014,6 +9394,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -9247,6 +9637,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -9478,6 +9878,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -9707,6 +10117,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -9941,6 +10361,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -10170,6 +10600,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -10404,6 +10844,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -10633,6 +11083,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -10857,6 +11317,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -11088,6 +11558,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -11317,6 +11797,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -11552,6 +12042,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -11780,6 +12280,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -12013,6 +12523,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -12241,6 +12761,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -12474,6 +13004,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -12702,6 +13242,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -12935,6 +13485,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -13165,6 +13725,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -13401,6 +13971,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -13629,6 +14209,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -13862,6 +14452,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -14092,6 +14692,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -14330,6 +14940,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -14555,6 +15175,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -14783,6 +15413,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -15009,6 +15649,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -15233,6 +15883,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -15466,6 +16126,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -15697,6 +16367,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -15926,6 +16606,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -16160,6 +16850,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -16389,6 +17089,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -16622,6 +17332,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -16851,6 +17571,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -17084,6 +17814,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -17313,6 +18053,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -17547,6 +18297,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -17778,6 +18538,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -18003,6 +18773,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -18231,6 +19011,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -18455,6 +19245,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -18689,6 +19489,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -18918,6 +19728,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -19151,6 +19971,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -19379,6 +20209,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -19614,6 +20454,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -19841,6 +20691,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -20065,6 +20925,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -20299,6 +21169,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -20529,6 +21409,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -20762,6 +21652,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -20987,6 +21887,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -21220,6 +22130,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -21449,6 +22369,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -21681,6 +22611,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -21911,6 +22851,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -22149,6 +23099,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -22381,6 +23341,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -22611,6 +23581,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -22839,6 +23819,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -23073,6 +24063,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -23302,6 +24302,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -23537,6 +24547,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -23764,6 +24784,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -23998,6 +25028,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -24227,6 +25267,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -24466,6 +25516,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -24698,6 +25758,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -24928,6 +25998,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -25156,6 +26236,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -25389,6 +26479,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -25625,6 +26725,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -25854,6 +26964,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -26087,6 +27207,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -26315,6 +27445,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -26549,6 +27689,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -26778,6 +27928,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -27012,6 +28172,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -27242,6 +28412,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -27475,6 +28655,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -27704,6 +28894,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
@@ -27939,6 +29139,16 @@
   line-height: 1.4;
 }
 
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
 /* 响应式调整 */
 @media (max-width: 750rpx) {
   .food-input-row {
@@ -28168,6 +29378,16 @@
   font-size: 24rpx;
   color: #999;
   line-height: 1.4;
+}
+
+/* 计算按钮居中 */
+.calculator-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
 }
 
 /* 响应式调整 */
