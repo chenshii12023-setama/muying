@@ -3,7 +3,7 @@
   <view class="tabs-container">
     <view class="tab-list">
       <view class="tab-item {{activeTab === 'assessment' ? 'active' : ''}}" bind:tap="switchTab" data-tab="assessment">
-        成长评估
+        AI育儿
       </view>
       <view class="tab-item {{activeTab === 'nutrition' ? 'active' : ''}}" bind:tap="switchTab" data-tab="nutrition">
         营养计算
@@ -177,50 +177,65 @@
         </view>
       </view>
 
-      <!-- 食材选择 -->
+      <!-- 食材管理组件 -->
       <view class="card">
         <view class="card-header">
-          <text class="card-title">🥬 选择食材</text>
+          <text class="card-title">🥬 食材管理</text>
         </view>
-        <view class="ingredients-section">
-          <view class="ingredients-grid">
-            <view wx:for="{{ingredients}}" wx:key="id" class="ingredient-item {{item.selected ? 'selected' : ''}} {{item.isCustom ? 'custom-food' : ''}}" bind:tap="toggleIngredient" data-id="{{item.id}}">
-              <view class="ingredient-icon">{{item.icon}}</view>
+        
+        <!-- 添加食材 -->
+        <view class="food-input-row">
+          <view class="input-left">
+            <t-input 
+              value="{{newFoodName}}" 
+              placeholder="请输入食材名称"
+              bind:change="onNewFoodNameInput"
+            />
+          </view>
+          <view class="input-right">
+            <t-button size="small" theme="primary" bind:tap="addFood">
+              添加
+            </t-button>
+          </view>
+        </view>
+        
+        <!-- 食材列表 -->
+        <view class="ingredients-list" wx:if="{{ingredients.length > 0}}">
+          <view wx:for="{{ingredients}}" wx:key="id" class="ingredient-item {{item.selected ? 'selected' : ''}}">
+            <view class="item-left" bind:tap="toggleIngredient" data-id="{{item.id}}">
+              <text class="ingredient-icon">{{item.icon}}</text>
               <text class="ingredient-name">{{item.name}}</text>
+            </view>
+            <view class="item-right">
+              <t-slider value="{{item.amount}}" min="10" max="200" step="10" bind:change="onAmountChange" data-id="{{item.id}}" />
+              <text class="amount-value">{{item.amount}}g</text>
+              <view class="delete-btn" catch:tap="deleteIngredient" data-id="{{item.id}}">
+                <text class="delete-icon">✕</text>
+              </view>
             </view>
           </view>
         </view>
-      </view>
-
-      <!-- 编辑自定义食物弹窗 -->
-      <t-popup visible="{{editingCustomFood}}" placement="center">
-        <view class="custom-food-popup">
-          <view class="popup-header">
-            <text class="popup-title">➕ 添加其他食物</text>
-          </view>
-          <view class="popup-content">
-            <text class="input-label">请输入食物名称：</text>
-            <t-input 
-              value="{{customFoodName}}" 
-              placeholder="例如：香蕉、南瓜、鸡肉等"
-              bind:change="onCustomFoodNameInput"
-            />
-          </view>
-          <view class="popup-actions">
-            <t-button variant="outline" bind:tap="cancelCustomFood">取消</t-button>
-            <t-button theme="primary" bind:tap="confirmCustomFood">确定</t-button>
-          </view>
+        
+        <!-- 空状态 -->
+        <view wx:else class="empty-state">
+          <text class="empty-icon">🥬</text>
+          <text class="empty-title">还没有添加食材</text>
+          <text class="empty-desc">在上方输入食材名称并点击"添加"</text>
         </view>
-      </t-popup>
+      </view>
 
       <!-- 食材用量 -->
       <view class="card" wx:if="{{selectedIngredients.length > 0}}">
         <view class="card-header">
           <text class="card-title">⚖️ 食材用量</text>
+          <text class="card-subtitle">已选择 {{selectedIngredients.length}} 种食材</text>
         </view>
         <view class="amount-section">
           <view wx:for="{{selectedIngredients}}" wx:key="id" class="amount-item">
-            <text class="ingredient-name">{{item.name}}</text>
+            <view class="ingredient-info">
+              <text class="ingredient-icon">{{item.icon}}</text>
+              <text class="ingredient-name">{{item.name}}</text>
+            </view>
             <view class="amount-control">
               <t-slider value="{{item.amount}}" min="10" max="200" step="10" bind:change="onAmountChange" data-id="{{item.id}}" />
               <text class="amount-value">{{item.amount}}g</text>

@@ -19,22 +19,10 @@ Page({
     // 营养计算相关数据
     babyAge: 6,
     babyWeight: 7.5,
-    ingredients: [
-      { id: 1, name: '米糊', icon: '🍚', selected: false, amount: 50 },
-      { id: 2, name: '胡萝卜', icon: '🥕', selected: false, amount: 30 },
-      { id: 3, name: '苹果', icon: '🍎', selected: false, amount: 50 },
-      { id: 4, name: '鸡蛋', icon: '🥚', selected: false, amount: 30 },
-      { id: 5, name: '菠菜', icon: '🥬', selected: false, amount: 30 },
-      { id: 6, name: '牛肉', icon: '🥩', selected: false, amount: 30 },
-      { id: 7, name: '鱼肉', icon: '🐟', selected: false, amount: 30 },
-      { id: 8, name: '土豆', icon: '🥔', selected: false, amount: 50 },
-      { id: 9, name: '其他食物', icon: '➕', selected: false, amount: 50, isCustom: true }
-    ],
-    selectedIngredients: [],
+    ingredients: [], // 已添加的食材列表
     nutritionResult: null,
     isCalculatingNutrition: false,
-    editingCustomFood: false,
-    customFoodName: '',
+    newFoodName: '',
 
     // 奶量计算相关数据
     milkType: 'formula', // formula: 配方奶, breast: 母乳
@@ -382,32 +370,23 @@ Page({
 
   toggleIngredient: function (e) {
     const id = e.currentTarget.dataset.id
-    const item = this.data.ingredients.find(ingredient => ingredient.id === id)
     
-    if (item && item.isCustom) {
-      // 如果是其他食物，打开编辑模式
-      this.setData({
-        editingCustomFood: true,
-        customFoodName: ''
-      })
-    } else {
-      // 普通食材的正常切换逻辑
-      const ingredients = this.data.ingredients.map(item => {
-        if (item.id === id) {
-          return { ...item,
-            selected: !item.selected
-          }
+    // 切换食材选择状态
+    const ingredients = this.data.ingredients.map(item => {
+      if (item.id === id) {
+        return { ...item,
+          selected: !item.selected
         }
-        return item
-      })
+      }
+      return item
+    })
 
-      const selectedIngredients = ingredients.filter(item => item.selected)
+    const selectedIngredients = ingredients.filter(item => item.selected)
 
-      this.setData({
-        ingredients: ingredients,
-        selectedIngredients: selectedIngredients
-      })
-    }
+    this.setData({
+      ingredients: ingredients,
+      selectedIngredients: selectedIngredients
+    })
   },
 
   onAmountChange: function (e) {
@@ -667,19 +646,74 @@ Page({
     })
   },
 
-  resetCalculator: function () {
-    const ingredients = this.data.ingredients.map(item => ({
-      ...item,
-      selected: false,
-      amount: item.id <= 3 ? 50 : 30 // 重置为默认值
-    }))
+  // 食材名称输入
+  onNewFoodNameInput: function (e) {
+    this.setData({
+      newFoodName: e.detail.value
+    })
+  },
+
+  // 添加食材
+  addFood: function () {
+    const { newFoodName, ingredients } = this.data
+    
+    if (!newFoodName.trim()) {
+      wx.showToast({
+        title: '请输入食材名称',
+        icon: 'none'
+      })
+      return
+    }
+
+    // 生成新食材ID
+    const newId = ingredients.length > 0 ? Math.max(...ingredients.map(item => item.id)) + 1 : 1
+    
+    // 添加新食材，默认用量50g，并自动选中
+    const newIngredient = {
+      id: newId,
+      name: newFoodName.trim(),
+      icon: this.getFoodIcon(newFoodName.trim()),
+      amount: 50,
+      selected: true
+    }
+
+    const updatedIngredients = [...ingredients, newIngredient]
+    const selectedIngredients = updatedIngredients.filter(item => item.selected)
 
     this.setData({
-      ingredients: ingredients,
-      selectedIngredients: [],
+      ingredients: updatedIngredients,
+      selectedIngredients: selectedIngredients,
+      newFoodName: ''
+    })
+  },
+
+  // 删除食材
+  deleteIngredient: function (e) {
+    const id = e.currentTarget.dataset.id
+    
+    wx.showModal({
+      title: '确认删除',
+      content: '确定要删除这个食材吗？',
+      success: (res) => {
+        if (res.confirm) {
+          const ingredients = this.data.ingredients.filter(item => item.id !== id)
+          const selectedIngredients = ingredients.filter(item => item.selected)
+          
+          this.setData({
+            ingredients: ingredients,
+            selectedIngredients: selectedIngredients
+          })
+        }
+      }
+    })
+  },
+
+  resetCalculator: function () {
+    // 清空所有食材
+    this.setData({
+      ingredients: [],
       nutritionResult: null,
-      editingCustomFood: false,
-      customFoodName: ''
+      newFoodName: ''
     })
   },
 
