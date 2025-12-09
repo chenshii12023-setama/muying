@@ -1,0 +1,184 @@
+.edit-product-page {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.page-header {
+  background: white;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-container {
+  height: calc(100vh - 200rpx);
+  padding: 20rpx;
+}
+
+.form-section {
+  background: white;
+  border-radius: 16rpx;
+  margin-bottom: 20rpx;
+  padding: 30rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.section-desc {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 20rpx;
+}
+
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.form-item:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 12rpx;
+  font-weight: 500;
+}
+
+/* 单选按钮组样式 */
+.radio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+}
+
+.radio-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+}
+
+/* 图片上传样式 */
+.image-uploader {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
+}
+
+.image-item {
+  position: relative;
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.uploaded-image {
+  width: 100%;
+  height: 100%;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 8rpx;
+  right: 8rpx;
+  width: 40rpx;
+  height: 40rpx;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-icon {
+  color: white;
+  font-size: 20rpx;
+  font-weight: bold;
+}
+
+.upload-btn {
+  width: 200rpx;
+  height: 200rpx;
+  border: 2rpx dashed #ddd;
+  border-radius: 12rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fafafa;
+  color: #999;
+}
+
+.upload-icon {
+  font-size: 48rpx;
+  margin-bottom: 8rpx;
+}
+
+.upload-text {
+  font-size: 24rpx;
+}
+
+/* 字符计数 */
+.char-count {
+  text-align: right;
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+/* 位置选择 */
+.location-btn {
+  margin-top: 20rpx;
+}
+
+/* 底部操作栏 */
+.action-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 20rpx 30rpx;
+  border-top: 1rpx solid #eee;
+  display: flex;
+  gap: 20rpx;
+  z-index: 100;
+}
+
+.action-bar t-button {
+  flex: 1;
+}
+
+/* 响应式调整 */
+@media (max-width: 750rpx) {
+  .radio-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .image-uploader {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .image-item,
+  .upload-btn {
+    width: 100%;
+    height: 200rpx;
+  }
+}

@@ -9,7 +9,8 @@ Page({
     isLiked: false,
     canContact: true,
     showContactModal: false,
-    contactMessage: ''
+    contactMessage: '',
+    isContacting: false
   },
 
   onLoad: function(options) {
@@ -27,8 +28,8 @@ Page({
   },
 
   onShow: function() {
-    // 页面显示时刷新数据
-    if (this.data.productId) {
+    // 页面显示时刷新数据，但如果有弹窗打开则不刷新
+    if (this.data.productId && !this.data.showContactModal) {
       this.loadProductDetail(this.data.productId)
     }
   },
@@ -62,8 +63,16 @@ Page({
             isVerified: false,
             joinTime: '2024-01-01' // 简化显示固定时间
           },
-          // 确保images是数组
-          images: Array.isArray(product.images) ? product.images : (product.images ? [product.images] : []),
+          // 确保images是数组，并添加默认图片和错误处理
+          images: Array.isArray(product.images) && product.images.length > 0 ? 
+            product.images.map(img => {
+              // 检查图片路径是否有效，如果无效则使用默认图片
+              if (!img || img.trim() === '' || img === 'null' || img === 'undefined') {
+                return '/images/default-product.jpg'
+              }
+              return img
+            }) : 
+            ['/images/default-product.jpg'],
           publishTime: product.created_at ? product.created_at.split('T')[0] : new Date().toISOString().split('T')[0],
           viewCount: product.view_count || 0,
           inquiryCount: product.inquiry_count || 0,
@@ -175,94 +184,127 @@ Page({
   },
 
   /**
-   * 联系卖家
+   * 联系卖家 - 使用微信官方弹窗
    */
   contactSeller: function() {
     console.log('🔘 联系卖家按钮被点击')
-    this.setData({
-      showContactModal: true,
-      contactMessage: ''
+    
+    // 获取当前用户信息
+    const app = getApp()
+    const currentUserProfile = app.getUserProfile()
+    
+    if (!currentUserProfile || !currentUserProfile.id) {
+      wx.showModal({
+        title: '提示',
+        content: '请先登录后再联系卖家',
+        showCancel: false,
+        confirmText: '知道了'
+      })
+      return
+    }
+    
+    const product = this.data.product
+    const sellerId = product.profile_id
+    const senderId = currentUserProfile.id
+    
+    // 检查是否是联系自己的商品
+    if (sellerId === senderId) {
+      wx.showModal({
+        title: '提示',
+        content: '不能联系自己的商品',
+        showCancel: false,
+        confirmText: '知道了'
+      })
+      return
+    }
+    
+    // 使用微信官方弹窗组件
+    wx.showModal({
+      title: '联系卖家',
+      editable: true,
+      placeholderText: '请输入您想对卖家说的话...',
+      confirmText: '发送',
+      cancelText: '取消',
+      success: (res) => {
+        if (res.confirm) {
+          // 检查输入内容是否为空
+          if (!res.content || !res.content.trim()) {
+            wx.showToast({
+              title: '请输入留言内容',
+              icon: 'none'
+            })
+            return
+          }
+          // 发送消息
+          this.sendContactMessage(res.content)
+        }
+      }
     })
-    console.log('📱 弹窗状态已设置:', this.data.showContactModal)
   },
 
   /**
    * 发送联系消息
    */
-  sendContactMessage: function() {
-    if (!this.data.contactMessage.trim()) {
+  sendContactMessage: function(messageContent) {
+    const that = this
+    
+    // 获取当前用户信息（同步获取）
+    const app = getApp()
+    const currentUserProfile = app.getUserProfile()
+    
+    if (!currentUserProfile || !currentUserProfile.id) {
       wx.showToast({
-        title: '请输入留言内容',
+        title: '请先登录',
         icon: 'none'
       })
       return
     }
 
-    const that = this
+    const product = that.data.product
+    const sellerId = product.profile_id
+    const senderId = currentUserProfile.id
     
-    // 获取当前用户信息
-    const app = getApp()
-    app.getUserProfile().then(function(currentUserProfile) {
-      if (!currentUserProfile || !currentUserProfile.id) {
-        wx.showToast({
-          title: '请先登录',
-          icon: 'none'
-        })
-        return
-      }
-
-      const product = that.data.product
-      const sellerId = product.profile_id
-      const senderId = currentUserProfile.id
-      
-      // 检查是否是联系自己的商品
-      if (sellerId === senderId) {
-        wx.showToast({
-          title: '不能联系自己的商品',
-          icon: 'none'
-        })
-        return
-      }
-
-      wx.showLoading({
-        title: '发送中...',
-        mask: true
+    // 检查是否是联系自己的商品
+    if (sellerId === senderId) {
+      wx.showToast({
+        title: '不能联系自己的商品',
+        icon: 'none'
       })
+      return
+    }
 
-      // 发送消息到数据库 - 正确处理异步方法
-      SupabaseAPI.sendMessage(
-        product.id,
-        senderId,
-        sellerId,
-        that.data.contactMessage,
-        'inquiry'
-      ).then(function(result) {
-        console.log('消息发送结果:', result)
-        // 更新商品咨询次数
-        return SupabaseAPI.incrementItemInquiryCount(product.id)
-      }).then(function() {
-        wx.hideLoading()
-        wx.showToast({
-          title: '消息已发送',
-          icon: 'success'
-        })
-        
-        that.setData({
-          showContactModal: false,
-          contactMessage: ''
-        })
-      }).catch(function(error) {
-        wx.hideLoading()
-        console.error('发送消息失败:', error)
-        wx.showToast({
-          title: '发送失败，请重试',
-          icon: 'none'
-        })
+    wx.showLoading({
+      title: '发送中...',
+      mask: true
+    })
+
+    // 发送消息到数据库
+    SupabaseAPI.sendMessage(
+      product.id,
+      senderId,
+      sellerId,
+      messageContent,
+      'inquiry'
+    ).then(function(result) {
+      console.log('消息发送结果:', result)
+      // 更新商品咨询次数
+      return SupabaseAPI.incrementItemInquiryCount(product.id)
+    }).then(function() {
+      wx.hideLoading()
+      wx.showToast({
+        title: '消息已发送',
+        icon: 'success'
+      })
+      
+      that.setData({
+        showContactModal: false,
+        contactMessage: ''
       })
     }).catch(function(error) {
-      console.error('获取用户信息失败:', error)
+      wx.hideLoading()
+      console.error('发送消息失败:', error)
       wx.showToast({
-        title: '获取用户信息失败',
+        title: '发送失败，请重试',
         icon: 'none'
       })
     })

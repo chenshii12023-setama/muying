@@ -51,8 +51,21 @@ Page({
       
       const products = await SupabaseAPI.getSecondhandItems(filters)
       
+      // 处理数据，确保TDesign组件接收正确的值类型
+      const processedProducts = products.map(item => ({
+        ...item,
+        // 确保头像URL不为null
+        seller: {
+          ...item.seller,
+          avatar: item.seller?.avatar || '/images/default-avatar.png',
+          rating: Number(item.seller?.rating) || 0 // 确保评分是数字
+        },
+        // 确保图片数组不为空
+        images: item.images && item.images.length > 0 ? item.images : ['/images/default-product.jpg']
+      }))
+      
       this.setData({
-        productList: products
+        productList: processedProducts
       })
       
     } catch (error) {
@@ -90,8 +103,23 @@ Page({
       const filters = { profile_id: profileId }
       const myProducts = await SupabaseAPI.getSecondhandItems(filters)
       
+      // 处理数据，确保TDesign组件接收正确的值类型
+      const processedMyProducts = myProducts.map(item => ({
+        ...item,
+        // 确保头像URL不为null
+        seller: {
+          ...item.seller,
+          avatar: item.seller?.avatar || '/images/default-avatar.png',
+          rating: Number(item.seller?.rating) || 0
+        },
+        // 确保图片数组不为空
+        images: item.images && item.images.length > 0 ? item.images : ['/images/default-product.jpg'],
+        // 添加状态文本
+        statusText: item.status === 'available' ? '在售' : item.status === 'sold' ? '已售' : '下架'
+      }))
+      
       this.setData({
-        myProducts: myProducts
+        myProducts: processedMyProducts
       })
       
     } catch (error) {
@@ -128,8 +156,19 @@ Page({
       // 使用 SupabaseAPI 加载收藏列表
       const favorites = await SupabaseAPI.getItemFavorites(profileId)
       
+      // 处理数据，确保TDesign组件接收正确的值类型
+      const processedWishlist = favorites.map(item => ({
+        ...item,
+        // 确保产品数据完整
+        product: {
+          ...item,
+          images: item.images && item.images.length > 0 ? item.images : ['/images/default-product.jpg']
+        },
+        addedTime: item.created_at ? new Date(item.created_at).toLocaleDateString() : '未知时间'
+      }))
+      
       this.setData({
-        wishlist: favorites
+        wishlist: processedWishlist
       })
       
     } catch (error) {

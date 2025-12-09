@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "编辑商品",
+  "navigationBarBackgroundColor": "#FF6B9D",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#f5f5f5",
+  "usingComponents": {
+    "t-button": "tdesign-miniprogram/miniprogram_dist/button/button",
+    "t-input": "tdesign-miniprogram/miniprogram_dist/input/input",
+    "t-radio": "tdesign-miniprogram/miniprogram_dist/radio/radio",
+    "t-radio-group": "tdesign-miniprogram/miniprogram_dist/radio-group/radio-group"
+  }
+}

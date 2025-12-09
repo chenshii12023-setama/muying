@@ -168,11 +168,14 @@ class SupabaseAPI {
 
   static async createSecondhandItem(profileId, itemData) {
     try {
+      console.log('开始创建商品，用户ID:', profileId)
+      
       // 先检查profile是否存在，如果不存在则创建
       let profile = null
       try {
         const profiles = await this.request(`/rest/v1/profiles?id=eq.${profileId}&select=*`)
         profile = profiles && profiles.length > 0 ? profiles[0] : null
+        console.log('Profile检查结果:', profile)
       } catch (error) {
         console.warn('检查profile失败:', error.message)
       }
@@ -183,7 +186,7 @@ class SupabaseAPI {
         try {
           const newProfiles = await this.request('/rest/v1/profiles', 'POST', {
             id: profileId,
-            user_id: profileId,
+            // user_id 字段留空，因为我们没有使用 Supabase 认证系统
             nickname: '用户' + Date.now().toString().slice(-4),
             avatar_url: '/images/default-avatar.png'
           })
@@ -191,7 +194,8 @@ class SupabaseAPI {
           console.log('✅ 新profile创建成功:', profile)
         } catch (createError) {
           console.error('❌ 创建profile失败:', createError.message)
-          throw createError
+          // 如果创建profile失败，继续尝试创建商品（有些数据库允许profile_id为null）
+          console.warn('继续创建商品，profile_id可能为null')
         }
       } else {
         console.log('✅ 使用已存在的profile:', profile.id)
@@ -199,12 +203,16 @@ class SupabaseAPI {
       
       // 现在安全地创建商品
       const data = { ...itemData, profile_id: profileId }
+      console.log('准备创建的商品数据:', data)
+      
       const result = await this.request('/rest/v1/secondhand_items', 'POST', data)
+      
+      console.log('商品创建API响应:', result)
       
       // Supabase POST 返回数组，取第一个元素
       return result && result.length > 0 ? result[0] : result
     } catch (error) {
-      console.error('创建商品失败:', error.message)
+      console.error('创建商品失败:', error)
       throw error
     }
   }
@@ -478,9 +486,14 @@ class SupabaseAPI {
   // 文件上传到Supabase存储
   static async uploadFile(filePath, bucketName = 'market-images') {
     try {
+      // 检查存储桶是否存在
+      await this.checkBucketExists(bucketName)
+      
       // 生成唯一文件名
       const fileExt = filePath.split('.').pop()
       const fileName = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}.${fileExt}`
+      
+      // Supabase存储上传API的正确格式 - 使用正确的端点
       const uploadUrl = `${supabaseUrl}/storage/v1/object/${bucketName}/${fileName}`
       
       console.log('开始上传文件:', filePath, '->', uploadUrl)
@@ -490,20 +503,42 @@ class SupabaseAPI {
         showError: true,
         header: {
           'apikey': supabaseAnonKey,
-          'Authorization': `Bearer ${supabaseAnonKey}`
+          'Authorization': `Bearer ${supabaseAnonKey}`,
+          'Content-Type': 'image/' + fileExt // 添加正确的Content-Type
         }
       })
       
       console.log('上传成功:', result)
       
-      // 返回公开访问URL
+      // 返回公开访问URL - 使用正确的公开访问格式
       const publicUrl = `${supabaseUrl}/storage/v1/object/public/${bucketName}/${fileName}`
       console.log('文件访问URL:', publicUrl)
       
       return publicUrl
     } catch (error) {
       console.error('文件上传失败:', error)
-      throw error
+      
+      // 如果上传失败，提供更详细的错误信息
+      if (error.message.includes('bucket')) {
+        console.error('存储桶配置问题，请先执行存储配置SQL')
+        throw new Error('图片上传服务未配置，请联系管理员')
+      }
+      
+      // 如果上传失败，尝试降级方案：返回本地文件路径
+      console.warn('使用降级方案：返回本地文件路径')
+      return filePath
+    }
+  }
+
+  // 检查存储桶是否存在
+  static async checkBucketExists(bucketName) {
+    try {
+      const result = await this.request(`/storage/v1/bucket/${bucketName}`)
+      return result !== null
+    } catch (error) {
+      console.warn(`存储桶 ${bucketName} 检查失败:`, error.message)
+      // 如果检查失败，假设存储桶不存在
+      throw new Error(`存储桶 ${bucketName} 不存在或配置错误，请先在Supabase后台创建`)
     }
   }
 }

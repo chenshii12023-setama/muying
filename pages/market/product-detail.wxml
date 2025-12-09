@@ -106,36 +106,11 @@
       </view>
       
       <view class="action-right">
-        <t-button size="large" bind:tap="contactSeller">联系卖家</t-button>
-        <t-button size="large" theme="primary" bind:tap="makePhoneCall">拨打电话</t-button>
+        <button class="contact-btn" bind:tap="contactSeller">联系卖家</button>
+        <button class="phone-btn" bind:tap="makePhoneCall">拨打电话</button>
       </view>
     </view>
   </view>
 
-  <!-- 联系卖家弹窗 - 使用原生弹窗 -->
-  <view class="contact-modal-overlay" wx:if="{{showContactModal}}" bind:tap="closeContactModal">
-    <view class="contact-modal" catch:tap="">
-      <view class="modal-header">
-        <text class="modal-title">联系卖家</text>
-        <text class="modal-close" bind:tap="closeContactModal">✕</text>
-      </view>
-      <view class="modal-content">
-        <textarea 
-          class="message-input"
-          placeholder="请输入您想对卖家说的话..."
-          value="{{contactMessage}}"
-          bindinput="onMessageInput"
-          maxlength="200"
-          auto-height
-        />
-        <view class="contact-tips">
-          <text class="tips-text">💡 请文明交流，说明您的需求和联系方式</text>
-        </view>
-      </view>
-      <view class="modal-actions">
-        <button class="cancel-btn" bind:tap="closeContactModal">取消</button>
-        <button class="confirm-btn" bind:tap="sendContactMessage">发送</button>
-      </view>
-    </view>
-  </view>
+
 </view>

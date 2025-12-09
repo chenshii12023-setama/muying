@@ -1,0 +1,145 @@
+<view class="edit-product-page">
+  <view class="page-header">
+    <text class="page-title">编辑商品</text>
+  </view>
+
+  <scroll-view class="form-container" scroll-y="true">
+    <!-- 基本信息 -->
+    <view class="form-section">
+      <view class="section-title">基本信息</view>
+      
+      <view class="form-item">
+        <text class="label">商品标题</text>
+        <t-input 
+          value="{{product.title}}" 
+          placeholder="请输入商品标题"
+          bind:change="onTitleInput"
+          maxlength="50"
+        />
+      </view>
+
+      <view class="form-item">
+        <text class="label">商品分类</text>
+        <t-radio-group value="{{product.category}}" bind:change="onCategoryChange">
+          <view class="radio-grid">
+            <view wx:for="{{categories}}" wx:key="value" class="radio-item">
+              <t-radio value="{{item.value}}" label="{{item.label}}" />
+            </view>
+          </view>
+        </t-radio-group>
+      </view>
+
+      <view class="form-item">
+        <text class="label">成色</text>
+        <t-radio-group value="{{product.condition}}" bind:change="onConditionChange">
+          <view class="radio-row">
+            <t-radio wx:for="{{conditions}}" wx:key="value" value="{{item.value}}" label="{{item.label}}" />
+          </view>
+        </t-radio-group>
+      </view>
+    </view>
+
+    <!-- 价格信息 -->
+    <view class="form-section">
+      <view class="section-title">价格信息</view>
+      
+      <view class="form-item">
+        <text class="label">转让价格 (¥)</text>
+        <t-input 
+          type="number" 
+          value="{{product.price}}" 
+          placeholder="请输入转让价格"
+          bind:change="onPriceInput"
+        />
+      </view>
+
+      <view class="form-item">
+        <text class="label">原价 (¥)</text>
+        <t-input 
+          type="number" 
+          value="{{product.originalPrice}}" 
+          placeholder="请输入原价（可选）"
+          bind:change="onOriginalPriceInput"
+        />
+      </view>
+
+      <view class="form-item">
+        <text class="label">使用时间</text>
+        <t-input 
+          value="{{product.usageDuration}}" 
+          placeholder="例如：6个月、1年等"
+          bind:change="onUsageDurationInput"
+        />
+      </view>
+    </view>
+
+    <!-- 商品图片 -->
+    <view class="form-section">
+      <view class="section-title">商品图片</view>
+      <text class="section-desc">最多可上传9张图片</text>
+      
+      <view class="image-uploader">
+        <view wx:for="{{product.images}}" wx:key="*this" class="image-item">
+          <image class="uploaded-image" src="{{item}}" mode="aspectFill" />
+          <view class="remove-btn" bind:tap="removeImage" data-index="{{index}}">
+            <text class="remove-icon">✕</text>
+          </view>
+        </view>
+        
+        <view wx:if="{{product.images.length < 9}}" class="upload-btn" bind:tap="chooseImage">
+          <text class="upload-icon">+</text>
+          <text class="upload-text">添加图片</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 商品描述 -->
+    <view class="form-section">
+      <view class="section-title">商品描述</view>
+      
+      <view class="form-item">
+        <t-input 
+          value="{{product.description}}" 
+          placeholder="请详细描述商品状况、使用情况、注意事项等（最多500字）"
+          bind:change="onDescriptionInput"
+          type="textarea"
+          maxlength="500"
+          autosize="true"
+        />
+        <text class="char-count">{{product.description.length}}/500</text>
+      </view>
+    </view>
+
+    <!-- 交易地点 -->
+    <view class="form-section">
+      <view class="section-title">交易地点</view>
+      
+      <view class="form-item">
+        <t-input 
+          value="{{product.location}}" 
+          placeholder="请输入交易地点"
+          bind:change="onLocationInput"
+        />
+      </view>
+      
+      <view class="location-btn">
+        <t-button theme="primary" variant="outline" bind:tap="chooseLocation">
+          选择位置
+        </t-button>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 底部操作栏 -->
+  <view class="action-bar">
+    <t-button theme="danger" variant="outline" bind:tap="deleteProduct">删除商品</t-button>
+    <t-button 
+      theme="primary" 
+      bind:tap="submitForm" 
+      loading="{{isSubmitting}}"
+      disabled="{{isSubmitting}}"
+    >
+      {{isSubmitting ? '保存中...' : '保存修改'}}
+    </t-button>
+  </view>
+</view>
