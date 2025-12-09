@@ -1,4 +1,5 @@
 const app = getApp()
+const SupabaseAPI = require('../../supabase_config.js')
 
 Page({
   data: {
@@ -35,41 +36,27 @@ Page({
   /**
    * 加载商品详情
    */
-  loadProductDetail: function(productId) {
+  async loadProductDetail(productId) {
     this.setData({ isLoading: true })
 
     try {
-      // 首先尝试从"我的发布"中查找商品
-      let myProducts = wx.getStorageSync('myProducts') || []
-      let product = myProducts.find(p => p.id == productId)
-      
-      // 如果我的发布中找不到，从市场商品中查找
-      if (!product) {
-        let marketProducts = wx.getStorageSync('marketProducts') || []
-        product = marketProducts.find(p => p.id == productId)
-      }
+      // 使用新的getSecondhandItemById方法直接根据ID查询
+      const product = await SupabaseAPI.getSecondhandItemById(productId)
       
       if (product) {
-        // 为商品添加默认的卖家信息（当前用户）
-        const userProfile = wx.getStorageSync('userProfile') || {
-          id: 1,
-          name: '我',
-          avatar: '/images/default-avatar.png',
-          rating: 5.0,
-          reviewCount: 0,
-          isVerified: true,
-          responseRate: 100,
-          location: '当前位置',
-          joinTime: '2024-01'
+        // 获取卖家信息（这里需要根据实际的表结构调整）
+        const sellerInfo = product.profiles || {
+          nickname: '用户',
+          avatar_url: '/images/default-avatar.png'
         }
 
         const fullProduct = {
           ...product,
-          seller: userProfile,
-          publishTime: product.publishTime || new Date().toISOString().split('T')[0],
-          viewCount: product.viewCount || 0,
-          inquiryCount: product.inquiryCount || 0,
-          favoriteCount: product.favoriteCount || 0,
+          seller: sellerInfo,
+          publishTime: product.created_at ? product.created_at.split('T')[0] : new Date().toISOString().split('T')[0],
+          viewCount: product.view_count || 0,
+          inquiryCount: product.inquiry_count || 0,
+          favoriteCount: product.favorite_count || 0,
           deliveryOptions: ['自提', '同程配送'],
           paymentMethods: ['微信支付', '支付宝', '现金']
         }
@@ -80,7 +67,7 @@ Page({
         })
         
         // 记录浏览量
-        this.incrementViewCount(productId)
+        SupabaseAPI.incrementItemViewCount(productId)
       } else {
         // 商品不存在
         this.setData({ isLoading: false })
@@ -125,18 +112,48 @@ Page({
   /**
    * 切换收藏状态
    */
-  toggleLike: function() {
-    const isLiked = !this.data.isLiked
-    this.setData({ isLiked })
-    
-    const product = this.data.product
-    product.favoriteCount += isLiked ? 1 : -1
-    this.setData({ product })
-    
-    wx.showToast({
-      title: isLiked ? '已收藏' : '已取消收藏',
-      icon: 'success'
-    })
+  async toggleLike() {
+    try {
+      const userProfile = wx.getStorageSync('userProfile')
+      
+      // 检查用户是否已登录
+      if (!userProfile || !userProfile.id) {
+        wx.showToast({
+          title: '请先登录后再收藏商品',
+          icon: 'none'
+        })
+        return
+      }
+      
+      // 检查用户ID格式
+      let profileId = userProfile.id
+      if (!profileId || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(profileId)) {
+        wx.showToast({
+          title: '用户信息错误，请重新登录',
+          icon: 'none'
+        })
+        return
+      }
+      
+      const isLiked = await SupabaseAPI.toggleItemFavorite(this.data.product.id, profileId)
+      
+      this.setData({ isLiked })
+      
+      const product = this.data.product
+      product.favoriteCount += isLiked ? 1 : -1
+      this.setData({ product })
+      
+      wx.showToast({
+        title: isLiked ? '已收藏' : '已取消收藏',
+        icon: 'success'
+      })
+    } catch (error) {
+      console.error('收藏操作失败:', error)
+      wx.showToast({
+        title: '操作失败',
+        icon: 'error'
+      })
+    }
   },
 
   /**

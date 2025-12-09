@@ -1,4 +1,5 @@
 const app = getApp()
+const SupabaseAPI = require('../../supabase_config.js')
 
 Page({
   data: {
@@ -20,54 +21,38 @@ Page({
     wishlist: []
   },
 
-  onLoad: function(options) {
-    // 首先清理所有模拟数据
-    this.cleanMockData()
+  async onLoad(options) {
+    // 初始化 Supabase 连接测试
+    await SupabaseAPI.testConnection()
     
     this.loadProducts()
     this.loadMyProducts()
     this.loadWishlist()
   },
 
-  /**
-   * 清理所有模拟数据
-   */
-  cleanMockData: function() {
-    try {
-      // 清理市场商品中的模拟数据（保留时间戳ID的商品）
-      let marketProducts = wx.getStorageSync('marketProducts') || []
-      marketProducts = marketProducts.filter(product => product.id > 1000000)
-      wx.setStorageSync('marketProducts', marketProducts)
-      
-      // 清理我的发布中的模拟数据
-      let myProducts = wx.getStorageSync('myProducts') || []
-      myProducts = myProducts.filter(product => product.id > 1000000)
-      wx.setStorageSync('myProducts', myProducts)
-      
-      console.log('已清理所有模拟数据')
-    } catch (error) {
-      console.error('清理模拟数据失败:', error)
-    }
-  },
 
-  onShow: function() {
+
+  onShow() {
+    this.loadProducts()
     this.loadMyProducts()
     this.loadWishlist()
   },
 
-  loadProducts: function() {
+  async loadProducts() {
     try {
-      // 只从本地存储获取用户上传的商品数据
-      let marketProducts = wx.getStorageSync('marketProducts') || []
+      // 使用 SupabaseAPI 从数据库加载商品
+      const filters = {}
+      if (this.data.activeCategory !== 'all') {
+        filters.category = this.data.activeCategory
+      }
+      if (this.data.searchKeyword) {
+        filters.search = this.data.searchKeyword
+      }
       
-      // 清理所有模拟数据，只保留用户上传的商品
-      marketProducts = marketProducts.filter(product => product.id > 1000000) // 只保留时间戳ID的商品
-      
-      // 保存清理后的数据
-      wx.setStorageSync('marketProducts', marketProducts)
+      const products = await SupabaseAPI.getSecondhandItems(filters)
       
       this.setData({
-        productList: marketProducts
+        productList: products
       })
       
     } catch (error) {
@@ -78,16 +63,32 @@ Page({
     }
   },
 
-  loadMyProducts: function() {
+  async loadMyProducts() {
     try {
-      // 从本地存储获取我的发布商品
-      let myProducts = wx.getStorageSync('myProducts') || []
+      // 获取用户信息
+      const userProfile = wx.getStorageSync('userProfile')
       
-      // 清理所有模拟数据，只保留用户上传的商品
-      myProducts = myProducts.filter(product => product.id > 1000000) // 只保留时间戳ID的商品
+      // 如果没有用户信息，显示空列表
+      if (!userProfile || !userProfile.id) {
+        this.setData({
+          myProducts: []
+        })
+        return
+      }
       
-      // 保存清理后的数据
-      wx.setStorageSync('myProducts', myProducts)
+      // 检查用户ID格式
+      let profileId = userProfile.id
+      if (!profileId || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(profileId)) {
+        console.warn('用户ID格式不正确，无法加载商品')
+        this.setData({
+          myProducts: []
+        })
+        return
+      }
+      
+      // 使用 SupabaseAPI 加载用户的商品
+      const filters = { profile_id: profileId }
+      const myProducts = await SupabaseAPI.getSecondhandItems(filters)
       
       this.setData({
         myProducts: myProducts
@@ -101,24 +102,42 @@ Page({
     }
   },
 
-  loadWishlist: function() {
-    // 模拟愿望清单数据
-    const wishlist = [
-      {
-        id: 201,
-        product: {
-          id: 3,
-          title: '实木婴儿床带床垫',
-          price: 500,
-          images: ['/images/products/crib-1.jpg']
-        },
-        addedTime: '2024-01-15 14:30'
+  async loadWishlist() {
+    try {
+      // 获取用户信息
+      const userProfile = wx.getStorageSync('userProfile')
+      
+      // 如果没有用户信息，显示空列表
+      if (!userProfile || !userProfile.id) {
+        this.setData({
+          wishlist: []
+        })
+        return
       }
-    ]
-    
-    this.setData({
-      wishlist: wishlist
-    })
+      
+      // 检查用户ID格式
+      let profileId = userProfile.id
+      if (!profileId || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(profileId)) {
+        console.warn('用户ID格式不正确，无法加载收藏')
+        this.setData({
+          wishlist: []
+        })
+        return
+      }
+      
+      // 使用 SupabaseAPI 加载收藏列表
+      const favorites = await SupabaseAPI.getItemFavorites(profileId)
+      
+      this.setData({
+        wishlist: favorites
+      })
+      
+    } catch (error) {
+      console.error('加载收藏列表失败:', error)
+      this.setData({
+        wishlist: []
+      })
+    }
   },
 
   onTabChange: function(e) {
@@ -132,23 +151,8 @@ Page({
       searchKeyword: e.detail.value
     })
     
-    this.searchProducts(e.detail.value)
-  },
-
-  searchProducts: function(keyword) {
-    if (!keyword) {
-      this.loadProducts()
-      return
-    }
-    
-    const filtered = this.data.productList.filter(product => 
-      product.title.includes(keyword) || 
-      product.description.includes(keyword)
-    )
-    
-    this.setData({
-      productList: filtered
-    })
+    // 重新加载商品，会自动应用搜索过滤
+    this.loadProducts()
   },
 
   onCategoryTap: function(e) {
@@ -157,17 +161,8 @@ Page({
       activeCategory: category
     })
     
-    if (category === 'all') {
-      this.loadProducts()
-    } else {
-      const filtered = this.data.productList.filter(product => 
-        product.category === category
-      )
-      
-      this.setData({
-        productList: filtered
-      })
-    }
+    // 重新加载商品，会自动应用分类过滤
+    this.loadProducts()
   },
 
   showSortMenu: function() {
@@ -239,24 +234,33 @@ Page({
     })
   },
 
-  deleteProduct: function(e) {
+  async deleteProduct(e) {
     const id = e.currentTarget.dataset.id
-    const that = this
     
     wx.showModal({
       title: '确认删除',
       content: '确定要删除这个商品吗？',
-      success: function(res) {
+      success: async (res) => {
         if (res.confirm) {
-          const products = that.data.myProducts.filter(item => item.id !== id)
-          that.setData({
-            myProducts: products
-          })
-          
-          wx.showToast({
-            title: '删除成功',
-            icon: 'success'
-          })
+          try {
+            // 使用 SupabaseAPI 删除商品
+            await SupabaseAPI.deleteSecondhandItem(id)
+            
+            // 重新加载商品列表
+            this.loadProducts()
+            this.loadMyProducts()
+            
+            wx.showToast({
+              title: '删除成功',
+              icon: 'success'
+            })
+          } catch (error) {
+            console.error('删除商品失败:', error)
+            wx.showToast({
+              title: '删除失败',
+              icon: 'error'
+            })
+          }
         }
       }
     })

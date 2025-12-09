@@ -13,6 +13,7 @@
     "pages/market/add-product",
     "pages/ai/ai",
     "pages/login/login",
+    "pages/user/login",
     "pages/settings/terms",
     "pages/settings/privacy"
   ],

@@ -7,7 +7,10 @@ class LocalStorageAPI {
   
   // 生成唯一ID
   static generateId() {
-    return Date.now().toString(36) + Math.random().toString(36).substr(2)
+    // 生成类似 UUID 的格式，但用时间戳确保唯一性
+    const timestamp = Date.now().toString(16)
+    const randomPart = Math.random().toString(16).substr(2, 8)
+    return `${timestamp}-${randomPart}-${randomPart}-${randomPart}-${randomPart}`
   }
 
   // 通用存储方法
@@ -205,9 +208,76 @@ class LocalStorageAPI {
       ...itemData
     }
     
-    items.push(newItem)
+    items.unshift(newItem) // 添加到开头
     await this.set('secondhandItems', items)
     return newItem
+  }
+
+  static async updateSecondhandItem(itemId, updates) {
+    const items = await this.get('secondhandItems', [])
+    const index = items.findIndex(item => item.id === itemId)
+    
+    if (index >= 0) {
+      items[index] = { 
+        ...items[index], 
+        ...updates, 
+        updated_at: new Date().toISOString() 
+      }
+      await this.set('secondhandItems', items)
+      return items[index]
+    } else {
+      throw new Error('商品不存在')
+    }
+  }
+
+  static async deleteSecondhandItem(itemId) {
+    const items = await this.get('secondhandItems', [])
+    const index = items.findIndex(item => item.id === itemId)
+    
+    if (index >= 0) {
+      const deletedItem = items.splice(index, 1)[0]
+      await this.set('secondhandItems', items)
+      return deletedItem
+    } else {
+      throw new Error('商品不存在')
+    }
+  }
+
+  static async getItemFavorites(profileId) {
+    const favorites = await this.get('itemFavorites', [])
+    const items = await this.get('secondhandItems', [])
+    
+    return favorites
+      .filter(fav => fav.profile_id === profileId)
+      .map(fav => {
+        const item = items.find(i => i.id === fav.item_id)
+        return item ? { secondhand_items: item } : null
+      })
+      .filter(Boolean)
+  }
+
+  static async toggleItemFavorite(itemId, profileId) {
+    let favorites = await this.get('itemFavorites', [])
+    const index = favorites.findIndex(fav => 
+      fav.item_id === itemId && fav.profile_id === profileId
+    )
+    
+    if (index >= 0) {
+      // 取消收藏
+      favorites.splice(index, 1)
+      await this.set('itemFavorites', favorites)
+      return false
+    } else {
+      // 添加收藏
+      favorites.push({
+        id: this.generateId(),
+        item_id: itemId,
+        profile_id: profileId,
+        created_at: new Date().toISOString()
+      })
+      await this.set('itemFavorites', favorites)
+      return true
+    }
   }
 
   // 辅食食谱

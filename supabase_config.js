@@ -4,7 +4,6 @@
  */
 
 const APIUtils = require('./utils/api.js')
-const LocalStorageAPI = require('./utils/local-storage.js')
 
 // Supabase 配置
 let supabaseUrl = 'https://zbhlrnecjmdpuaxvhneu.supabase.co'
@@ -22,73 +21,29 @@ class SupabaseAPI {
   static useLocalStorage = false
   static connectionTested = false
   
-  // 测试后端连接
+  // 测试后端连接 - 强制使用数据库
   static async testConnection() {
-    if (this.connectionTested) return this.useLocalStorage
-    
     console.log('🔍 开始测试 Supabase 连接...')
     
     try {
-      // 使用 Anon Key 进行连接测试
-      const result = await new Promise((resolve, reject) => {
-        // 请求 recipes 表，请确保 RLS 允许 public 角色读取
-        const requestUrl = supabaseUrl + '/rest/v1/baby_food_recipes?limit=1'
-        
-        wx.request({
-          url: requestUrl,
-          method: 'GET',
-          timeout: 10000,
-          header: {
-            'apikey': supabaseAnonKey,
-            'Authorization': `Bearer ${supabaseAnonKey}`, // 使用 Anon Key
-            'Content-Type': 'application/json'
-          },
-          success: (res) => {
-            if (res.statusCode >= 200 && res.statusCode < 300) {
-              console.log('✅ HTTP 请求成功')
-              resolve(res.data)
-            } else {
-              console.log('❌ HTTP 请求失败，状态码:', res.statusCode)
-              reject(new Error(`HTTP ${res.statusCode}`))
-            }
-          },
-          fail: (error) => {
-            reject(new Error(`网络请求失败`))
-          }
-        })
-      })
+      // 测试商品表连接
+      const result = await this.request('/rest/v1/secondhand_items?limit=1')
       
       this.useLocalStorage = false
       this.connectionTested = true
-      console.log('✅ Supabase连接正常 (使用 Anon Key)')
-      return false
+      console.log('✅ Supabase连接正常，强制使用数据库')
+      return false // false 表示不使用本地存储
     } catch (error) {
-      console.log('⚠️ Supabase连接失败，切换到本地存储模式:', error.message)
-      this.useLocalStorage = true
-      this.connectionTested = true
-      try {
-        if (LocalStorageAPI && LocalStorageAPI.initDemoData) {
-           await LocalStorageAPI.initDemoData()
-        }
-      } catch (initError) {
-        console.log('⚠️ 本地存储初始化失败:', initError.message)
-      }
-      return true
+      console.error('❌ Supabase连接失败:', error.message)
+      throw new Error(`数据库连接失败，请检查网络配置: ${error.message}`)
     }
   }
   
-  // 通用请求方法
+  // 通用请求方法 - 强制使用数据库
   static async request(endpoint, method = 'GET', data = null) {
-    // 如果是本地存储模式，直接返回降级结果
-    if (this.useLocalStorage) {
-      throw new Error('LOCAL_STORAGE_MODE')
-    }
-    
-    // console.log('🌐 发起 Supabase 请求:', method, endpoint)
+    console.log('🌐 发起 Supabase 请求:', method, endpoint)
     
     try {
-      // [核心]：这里明确传入了 Header，APIUtils 现在会优先使用这些 Header
-      // 而不会被本地的 login_token 覆盖
       const result = await APIUtils.request({
         url: supabaseUrl + endpoint,
         method: method,
@@ -102,144 +57,71 @@ class SupabaseAPI {
         showLoading: false,
         showError: false
       })
+      console.log('✅ Supabase 请求成功')
       return result
     } catch (error) {
-      console.log('❌ Supabase 请求失败:', error.message)
+      console.error('❌ Supabase 请求失败:', error.message)
+      console.error('📍 详细错误:', error)
       
-      // 如果网络请求失败，标记为本地存储模式
-      if (error.message.includes('网络') || error.message.includes('超时') || error.message.includes('request:fail')) {
-        this.useLocalStorage = true
-        console.log('🔄 网络请求失败，切换到本地存储模式')
-        throw new Error('LOCAL_STORAGE_MODE')
-      }
-      throw error
+      // 不再降级到本地存储，直接抛出错误
+      throw new Error(`数据库操作失败: ${error.message}`)
     }
   }
 
   // --- 下面的业务方法保持不变，它们现在会正确调用上面的 request ---
 
   static async getUserProfile(userId) {
-    try {
-      const result = await this.request(`/rest/v1/profiles?user_id=eq.${userId}&select=*`)
-      return result
-    } catch (error) {
-      if (error.message === 'LOCAL_STORAGE_MODE') {
-        return await LocalStorageAPI.getUserProfile(userId)
-      }
-      throw error
-    }
+    const result = await this.request(`/rest/v1/profiles?user_id=eq.${userId}&select=*`)
+    return result
   }
 
   static async updateUserProfile(userId, updates) {
-    try {
-      const result = await this.request(`/rest/v1/profiles?user_id=eq.${userId}`, 'PATCH', updates)
-      return result
-    } catch (error) {
-      if (error.message === 'LOCAL_STORAGE_MODE') {
-        return await LocalStorageAPI.updateUserProfile(userId, updates)
-      }
-      throw error
-    }
+    const result = await this.request(`/rest/v1/profiles?user_id=eq.${userId}`, 'PATCH', updates)
+    return result
   }
 
   static async getUserBabies(profileId) {
-    try {
-      const result = await this.request(`/rest/v1/babies?profile_id=eq.${profileId}&select=*&order=created_at.desc`)
-      return result
-    } catch (error) {
-      if (error.message === 'LOCAL_STORAGE_MODE') {
-        return await LocalStorageAPI.getUserBabies(profileId)
-      }
-      throw error
-    }
+    const result = await this.request(`/rest/v1/babies?profile_id=eq.${profileId}&select=*&order=created_at.desc`)
+    return result
   }
 
   static async createBaby(profileId, babyData) {
-    try {
-      const data = { ...babyData, profile_id: profileId }
-      const result = await this.request('/rest/v1/babies', 'POST', data)
-      // POST with Prefer: return=representation returns array
-      return result && result.length ? result[0] : result;
-    } catch (error) {
-      if (error.message === 'LOCAL_STORAGE_MODE') {
-        return await LocalStorageAPI.createBaby(profileId, babyData)
-      }
-      throw error
-    }
+    const data = { ...babyData, profile_id: profileId }
+    const result = await this.request('/rest/v1/babies', 'POST', data)
+    // POST with Prefer: return=representation returns array
+    return result && result.length ? result[0] : result;
   }
 
   static async updateBaby(babyId, updates) {
-    try {
-      const result = await this.request(`/rest/v1/babies?id=eq.${babyId}`, 'PATCH', updates)
-      return result && result.length ? result[0] : result;
-    } catch (error) {
-      if (error.message === 'LOCAL_STORAGE_MODE') {
-        return await LocalStorageAPI.updateBaby(babyId, updates)
-      }
-      throw error
-    }
+    const result = await this.request(`/rest/v1/babies?id=eq.${babyId}`, 'PATCH', updates)
+    return result && result.length ? result[0] : result;
   }
 
   static async deleteBaby(babyId) {
-    try {
-      const result = await this.request(`/rest/v1/babies?id=eq.${babyId}`, 'DELETE')
-      return result
-    } catch (error) {
-      if (error.message === 'LOCAL_STORAGE_MODE') {
-        return await LocalStorageAPI.deleteBaby(babyId)
-      }
-      throw error
-    }
+    const result = await this.request(`/rest/v1/babies?id=eq.${babyId}`, 'DELETE')
+    return result
   }
 
   static async getBabyGrowthRecords(babyId) {
-    try {
-      const result = await this.request(`/rest/v1/baby_growth_records?baby_id=eq.${babyId}&select=*&order=record_date.desc`)
-      return result
-    } catch (error) {
-      if (error.message === 'LOCAL_STORAGE_MODE') {
-        return await LocalStorageAPI.getBabyGrowthRecords(babyId)
-      }
-      throw error
-    }
+    const result = await this.request(`/rest/v1/baby_growth_records?baby_id=eq.${babyId}&select=*&order=record_date.desc`)
+    return result
   }
 
   static async addGrowthRecord(babyId, recordData) {
-    try {
-      const data = { ...recordData, baby_id: babyId }
-      const result = await this.request('/rest/v1/baby_growth_records', 'POST', data)
-      return result && result.length ? result[0] : result;
-    } catch (error) {
-      if (error.message === 'LOCAL_STORAGE_MODE') {
-        return await LocalStorageAPI.addGrowthRecord(babyId, recordData)
-      }
-      throw error
-    }
+    const data = { ...recordData, baby_id: babyId }
+    const result = await this.request('/rest/v1/baby_growth_records', 'POST', data)
+    return result && result.length ? result[0] : result;
   }
 
   static async getBabyMilestones(babyId) {
-    try {
-      const result = await this.request(`/rest/v1/milestones?baby_id=eq.${babyId}&select=*&order=milestone_date.desc`)
-      return result
-    } catch (error) {
-      if (error.message === 'LOCAL_STORAGE_MODE') {
-        return await LocalStorageAPI.getBabyMilestones(babyId)
-      }
-      throw error
-    }
+    const result = await this.request(`/rest/v1/milestones?baby_id=eq.${babyId}&select=*&order=milestone_date.desc`)
+    return result
   }
 
   static async addMilestone(babyId, milestoneData) {
-    try {
-      const data = { ...milestoneData, baby_id: babyId }
-      const result = await this.request('/rest/v1/milestones', 'POST', data)
-      return result && result.length ? result[0] : result;
-    } catch (error) {
-      if (error.message === 'LOCAL_STORAGE_MODE') {
-        return await LocalStorageAPI.addMilestone(babyId, milestoneData)
-      }
-      throw error
-    }
+    const data = { ...milestoneData, baby_id: babyId }
+    const result = await this.request('/rest/v1/milestones', 'POST', data)
+    return result && result.length ? result[0] : result;
   }
 
   static async getNearbyFacilities(lat, lng, radius = 5, facilityType = null) {
@@ -262,77 +144,158 @@ class SupabaseAPI {
   }
 
   static async getSecondhandItems(filters = {}) {
-    try {
-      let url = `/rest/v1/secondhand_items?status=eq.available&select=*,profiles(nickname,avatar_url)&order=created_at.desc`
-      if (filters.category) {
-        url += `&category=eq.${filters.category}`
-      }
-      if (filters.search) {
-        url += `&title=ilike.*${filters.search}*`
-      }
-      return await this.request(url)
-    } catch (error) {
-      if (error.message === 'LOCAL_STORAGE_MODE') {
-        return await LocalStorageAPI.getSecondhandItems(filters)
-      }
-      throw error
+    let url = `/rest/v1/secondhand_items?status=eq.available&select=*,profiles(nickname,avatar_url)&order=created_at.desc`
+    if (filters.category) {
+      url += `&category=eq.${filters.category}`
     }
+    if (filters.search) {
+      url += `&title=ilike.*${filters.search}*`
+    }
+    if (filters.id) {
+      url += `&id=eq.${filters.id}`
+    }
+    if (filters.profile_id) {
+      url += `&profile_id=eq.${filters.profile_id}`
+    }
+    return await this.request(url)
+  }
+
+  // 新增方法：根据ID获取单个商品
+  static async getSecondhandItemById(itemId) {
+    const result = await this.request(`/rest/v1/secondhand_items?id=eq.${itemId}&select=*,profiles(nickname,avatar_url)`)
+    return result && result.length > 0 ? result[0] : null
   }
 
   static async createSecondhandItem(profileId, itemData) {
     try {
+      // 先检查profile是否存在，如果不存在则创建
+      let profile = null
+      try {
+        const profiles = await this.request(`/rest/v1/profiles?id=eq.${profileId}&select=*`)
+        profile = profiles && profiles.length > 0 ? profiles[0] : null
+      } catch (error) {
+        console.warn('检查profile失败:', error.message)
+      }
+      
+      // 如果profile不存在，创建一个
+      if (!profile) {
+        console.log('Profile不存在，创建新的profile...')
+        try {
+          const newProfiles = await this.request('/rest/v1/profiles', 'POST', {
+            id: profileId,
+            user_id: profileId,
+            nickname: '用户' + Date.now().toString().slice(-4),
+            avatar_url: '/images/default-avatar.png'
+          })
+          profile = newProfiles && newProfiles.length > 0 ? newProfiles[0] : null
+          console.log('✅ 新profile创建成功:', profile)
+        } catch (createError) {
+          console.error('❌ 创建profile失败:', createError.message)
+          throw createError
+        }
+      } else {
+        console.log('✅ 使用已存在的profile:', profile.id)
+      }
+      
+      // 现在安全地创建商品
       const data = { ...itemData, profile_id: profileId }
       const result = await this.request('/rest/v1/secondhand_items', 'POST', data)
-      return result
+      
+      // Supabase POST 返回数组，取第一个元素
+      return result && result.length > 0 ? result[0] : result
     } catch (error) {
-      if (error.message === 'LOCAL_STORAGE_MODE') {
-        return await LocalStorageAPI.createSecondhandItem(profileId, itemData)
-      }
+      console.error('创建商品失败:', error.message)
       throw error
+    }
+  }
+
+  static async updateSecondhandItem(itemId, updates) {
+    const result = await this.request(`/rest/v1/secondhand_items?id=eq.${itemId}`, 'PATCH', updates)
+    return result && result.length ? result[0] : result
+  }
+
+  static async deleteSecondhandItem(itemId) {
+    const result = await this.request(`/rest/v1/secondhand_items?id=eq.${itemId}`, 'DELETE')
+    return result
+  }
+
+  static async incrementItemViewCount(itemId) {
+    try {
+      await this.request(`/rest/v1/secondhand_items?id=eq.${itemId}`, 'PATCH', {
+        view_count: 'view_count + 1'
+      })
+    } catch (error) {
+      console.warn('更新浏览量失败:', error.message)
+    }
+  }
+
+  static async getItemFavorites(profileId) {
+    try {
+      // 先获取收藏记录
+      const favorites = await this.request(`/rest/v1/item_favorites?profile_id=eq.${profileId}&select=item_id`)
+      
+      if (!favorites || favorites.length === 0) {
+        return []
+      }
+      
+      // 获取商品ID列表
+      const itemIds = favorites.map(fav => fav.item_id)
+      
+      // 分批查询商品详情（避免URL过长）
+      const items = []
+      for (let i = 0; i < itemIds.length; i += 50) {
+        const batch = itemIds.slice(i, i + 50)
+        const idParams = batch.map(id => `id=eq.${id}`).join('&')
+        const batchItems = await this.request(`/rest/v1/secondhand_items?${idParams}&select=*,profiles(nickname,avatar_url)`)
+        items.push(...(batchItems || []))
+      }
+      
+      return items
+    } catch (error) {
+      console.error('获取收藏列表失败:', error.message)
+      return []
+    }
+  }
+
+  static async toggleItemFavorite(itemId, profileId) {
+    // 先检查是否已收藏
+    let url = `/rest/v1/item_favorites?item_id=eq.${itemId}&profile_id=eq.${profileId}`
+    const existing = await this.request(url)
+    
+    if (existing && existing.length > 0) {
+      // 取消收藏
+      await this.request(`/rest/v1/item_favorites?item_id=eq.${itemId}&profile_id=eq.${profileId}`, 'DELETE')
+      return false
+    } else {
+      // 添加收藏
+      await this.request('/rest/v1/item_favorites', 'POST', {
+        item_id: itemId,
+        profile_id: profileId
+      })
+      return true
     }
   }
 
   static async getBabyFoodRecipes(filters = {}) {
-    try {
-      let url = `/rest/v1/baby_food_recipes?select=*&order=view_count.desc`
-      if (filters.suitableAge) {
-        url += `&suitable_age=eq.${filters.suitableAge}`
-      }
-      if (filters.difficulty) {
-        url += `&difficulty=eq.${filters.difficulty}`
-      }
-      return await this.request(url)
-    } catch (error) {
-      if (error.message === 'LOCAL_STORAGE_MODE') {
-        return await LocalStorageAPI.getBabyFoodRecipes(filters)
-      }
-      throw error
+    let url = `/rest/v1/baby_food_recipes?select=*&order=view_count.desc`
+    if (filters.suitableAge) {
+      url += `&suitable_age=eq.${filters.suitableAge}`
     }
+    if (filters.difficulty) {
+      url += `&difficulty=eq.${filters.difficulty}`
+    }
+    return await this.request(url)
   }
 
   static async getFacilityReviews(facilityId) {
-    try {
-      const result = await this.request(`/rest/v1/facility_reviews?facility_id=eq.${facilityId}&select=*,profiles(nickname,avatar_url)&order=created_at.desc`)
-      return result
-    } catch (error) {
-      if (error.message === 'LOCAL_STORAGE_MODE') {
-        return await LocalStorageAPI.getFacilityReviews(facilityId)
-      }
-      throw error
-    }
+    const result = await this.request(`/rest/v1/facility_reviews?facility_id=eq.${facilityId}&select=*,profiles(nickname,avatar_url)&order=created_at.desc`)
+    return result
   }
 
   static async addFacilityReview(profileId, facilityId, reviewData) {
-    try {
-      const data = { ...reviewData, profile_id: profileId, facility_id: facilityId }
-      const result = await this.request('/rest/v1/facility_reviews', 'POST', data)
-      return result
-    } catch (error) {
-      if (error.message === 'LOCAL_STORAGE_MODE') {
-        return await LocalStorageAPI.addFacilityReview(profileId, facilityId, reviewData)
-      }
-      throw error
-    }
+    const data = { ...reviewData, profile_id: profileId, facility_id: facilityId }
+    const result = await this.request('/rest/v1/facility_reviews', 'POST', data)
+    return result
   }
 
   static calculateDistance(lat1, lon1, lat2, lon2) {
@@ -350,31 +313,19 @@ class SupabaseAPI {
 
   // 文件上传
   static async uploadFile(filePath, bucketName = 'images') {
-    try {
-      if (this.useLocalStorage) {
-        const fileName = `${Date.now()}-${filePath.split('/').pop()}`
-        return `/local-images/${fileName}`
+    const fileName = `${Date.now()}-${filePath.split('/').pop()}`
+    const uploadUrl = supabaseUrl + `/storage/v1/object/${bucketName}/${fileName}`
+    
+    const result = await APIUtils.uploadFile(filePath, uploadUrl, {}, {
+      showError: true,
+      header: {
+        'apikey': supabaseAnonKey,
+        'Authorization': `Bearer ${supabaseAnonKey}`
       }
-      
-      const fileName = `${Date.now()}-${filePath.split('/').pop()}`
-      const uploadUrl = supabaseUrl + `/storage/v1/object/${bucketName}/${fileName}`
-      
-      // 确保 APIUtils.uploadFile 也能接收 header
-      const result = await APIUtils.uploadFile(filePath, uploadUrl, {}, {
-        showError: true,
-        header: {
-          'apikey': supabaseAnonKey,
-          'Authorization': `Bearer ${supabaseAnonKey}`
-        }
-      })
-      
-      // 修正返回的路径
-      return `/storage/v1/object/public/${bucketName}/${fileName}`
-    } catch (error) {
-      console.warn('文件上传失败，使用本地路径:', error.message)
-      const fileName = `${Date.now()}-${filePath.split('/').pop()}`
-      return `/local-images/${fileName}`
-    }
+    })
+    
+    // 修正返回的路径
+    return `/storage/v1/object/public/${bucketName}/${fileName}`
   }
 }
 

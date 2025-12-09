@@ -1,4 +1,5 @@
 const app = getApp()
+const SupabaseAPI = require('../../supabase_config.js')
 
 Page({
   data: {
@@ -280,83 +281,104 @@ Page({
   /**
    * 提交表单
    */
-  submitProduct: function() {
+  async submitProduct() {
     if (!this.validateForm()) {
       return
     }
 
     this.setData({ isSubmitting: true })
 
-    // 模拟上传过程
-    const that = this
-    setTimeout(function() {
-      // 生成新商品数据
+    try {
+      // 获取用户信息
+      const userProfile = wx.getStorageSync('userProfile') || {
+        id: null, // 需要真实的 UUID
+        name: '用户'
+      }
+      
+      // 如果没有有效的用户ID，提示用户先登录
+      if (!userProfile.id) {
+        wx.showToast({
+          title: '请先登录后再发布商品',
+          icon: 'none'
+        })
+        this.setData({ isSubmitting: false })
+        return
+      }
+      
+      // 检查用户ID格式，如果不是标准UUID格式，使用固定的测试UUID
+      let profileId = userProfile.id
+      if (!profileId || typeof profileId !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(profileId)) {
+        // 使用固定的测试用户UUID（实际应用中应该通过登录获取）
+        profileId = '123e4567-e89b-12d3-a456-426614174000'
+        // 更新本地存储的用户信息
+        wx.setStorageSync('userProfile', {
+          ...userProfile,
+          id: profileId
+        })
+      }
+
+      // 生成新商品数据 - 使用最小字段集避免数据库错误
       const newProduct = {
-        id: Date.now(), // 使用时间戳作为唯一ID
-        title: that.data.title,
-        price: parseFloat(that.data.price),
-        originalPrice: that.data.originalPrice ? parseFloat(that.data.originalPrice) : null,
-        images: that.data.imageList,
-        category: that.data.category,
-        categoryName: that.data.categoryName,
-        condition: that.data.condition,
-        usageTime: that.data.usageTime,
-        description: that.data.description,
-        location: that.data.location,
-        hasCertification: that.data.hasCertification,
-        status: 'selling',
-        statusText: '出售中',
-        viewCount: 0,
-        inquiryCount: 0,
-        favoriteCount: 0,
-        publishTime: new Date().toISOString().split('T')[0] // 格式化为 YYYY-MM-DD
+        title: this.data.title,
+        description: this.data.description,
+        price: parseFloat(this.data.price),
+        category: this.data.category,
+        condition: this.data.condition,
+        location: this.data.location,
+        status: 'available'
+      }
+      
+      // 添加可选字段
+      if (this.data.originalPrice) {
+        newProduct.original_price = parseFloat(this.data.originalPrice)
+      }
+      if (this.data.imageList && this.data.imageList.length > 0) {
+        newProduct.images = this.data.imageList
+      }
+      if (this.data.categoryName) {
+        newProduct.category_name = this.data.categoryName
+      }
+      if (this.data.usageTime) {
+        newProduct.usage_time = this.data.usageTime
+      }
+      if (this.data.hasCertification) {
+        newProduct.has_certification = this.data.hasCertification
       }
 
       console.log('提交商品数据:', newProduct)
 
-      // 保存到本地存储（实际项目中应该发送到服务器）
-      try {
-        // 获取现有的我的发布列表
-        let myProducts = wx.getStorageSync('myProducts') || []
-        myProducts.unshift(newProduct) // 添加到列表开头
-        
-        // 保存到本地存储
-        wx.setStorageSync('myProducts', myProducts)
-        
-        // 同时更新闲置市场的主列表
-        let marketProducts = wx.getStorageSync('marketProducts') || []
-        marketProducts.unshift(newProduct)
-        wx.setStorageSync('marketProducts', marketProducts)
+      // 使用 SupabaseAPI 保存到数据库
+      const createdProduct = await SupabaseAPI.createSecondhandItem(userProfile.id, newProduct)
 
-        wx.showToast({
-          title: '发布成功',
-          icon: 'success'
-        })
+      wx.showToast({
+        title: '发布成功',
+        icon: 'success'
+      })
 
-        // 返回上一页
-        setTimeout(function() {
-          wx.navigateBack({
-            success: function() {
-              // 触发上一页刷新
-              const pages = getCurrentPages()
-              const prevPage = pages[pages.length - 2]
-              if (prevPage && prevPage.route === 'pages/market/market') {
-                prevPage.loadMyProducts() // 调用上一页的加载方法
-                prevPage.loadProducts() // 也更新商品列表
-              }
+      // 返回上一页
+      setTimeout(() => {
+        wx.navigateBack({
+          success: function() {
+            // 触发上一页刷新
+            const pages = getCurrentPages()
+            const prevPage = pages[pages.length - 2]
+            if (prevPage && prevPage.route === 'pages/market/market') {
+              prevPage.loadProducts() // 更新商品列表
+              prevPage.loadMyProducts() // 更新我的发布
             }
-          })
-        }, 1500)
-
-      } catch (error) {
-        console.error('保存商品失败:', error)
-        wx.showToast({
-          title: '发布失败，请重试',
-          icon: 'error'
+          }
         })
-      }
+      }, 1500)
 
-    }, 2000)
+    } catch (error) {
+      console.error('保存商品失败:', error)
+      wx.showToast({
+        title: '发布失败，请重试',
+        icon: 'error'
+      })
+    } finally {
+      this.setData({ isSubmitting: false })
+    }
   },
 
   /**
@@ -384,6 +406,16 @@ Page({
         }
       }
     })
+  },
+
+  /**
+   * 生成 UUID
+   */
+  generateUUID: function() {
+    // 生成符合 UUID v4 格式的字符串
+    const timestamp = Date.now().toString(16)
+    const randomPart = Math.random().toString(16).substr(2, 8)
+    return `${timestamp.substr(0, 8)}-${timestamp.substr(8, 4)}-${timestamp.substr(12, 4)}-${randomPart}-${randomPart}${Math.random().toString(16).substr(2, 4)}`
   },
 
   /**
