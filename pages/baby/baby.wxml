@@ -202,41 +202,24 @@
       </view>
     </view>
 
-    <t-tabs value="{{activeTab}}" bind:change="onTabChange" sticky>
-      <t-tab-panel label="基本信息" value="info">
-        <view class="tab-content">
-          <t-cell-group title="宝宝信息" theme="card">
-            <t-cell title="姓名" note="{{currentBaby.name || '-'}}" />
-            <t-cell title="性别" note="{{currentBaby.genderStr || '-'}}" />
-            <t-cell title="出生日期" note="{{currentBaby.birthDate || '-'}}" />
-            <t-cell title="年龄" note="{{currentBaby.ageStr || '-'}}" />
-            <t-cell title="血型" note="{{currentBaby.bloodType || '-'}}型" />
-          </t-cell-group>
-          
-          <t-cell-group title="出生时身体指标" theme="card" style="margin-top: 24rpx;">
-            <t-cell title="出生体重" note="{{currentBaby.displayWeight}}" />
-            <t-cell title="出生身高" note="{{currentBaby.displayHeight}}" />
-          </t-cell-group>
-          
-          <t-cell-group title="最新记录" theme="card" style="margin-top: 24rpx;">
-            <t-cell title="体重" note="{{currentWeight}}" arrow bind:tap="addRecord" />
-            <t-cell title="身高" note="{{currentHeight}}" arrow bind:tap="addRecord" />
-          </t-cell-group>
-        </view>
-      </t-tab-panel>
+    <view class="baby-info-card">
+      <t-cell-group title="宝宝信息" theme="card">
+        <t-cell title="姓名" note="{{currentBaby.name || '-'}}" />
+        <t-cell title="性别" note="{{currentBaby.genderStr || '-'}}" />
+        <t-cell title="出生日期" note="{{currentBaby.birthDate || '-'}}" />
+        <t-cell title="年龄" note="{{currentBaby.ageStr || '-'}}" />
+        <t-cell title="血型" note="{{currentBaby.bloodType || '-'}}型" />
+      </t-cell-group>
       
-      <t-tab-panel label="成长记录" value="records">
-        <view class="tab-content" style="padding: 40rpx; text-align: center;">
-            <text style="color: #999; display: block; margin-bottom: 20rpx;">暂无成长记录</text>
-            <t-button theme="primary" size="small" bind:tap="addRecord">去记录</t-button>
-        </view>
-      </t-tab-panel>
+      <t-cell-group title="出生时身体指标" theme="card" style="margin-top: 24rpx;">
+        <t-cell title="出生体重" note="{{currentBaby.displayWeight}}" />
+        <t-cell title="出生身高" note="{{currentBaby.displayHeight}}" />
+      </t-cell-group>
       
-      <t-tab-panel label="里程碑" value="milestones">
-        <view class="tab-content" style="padding: 40rpx; text-align: center;">
-            <text style="color: #999;">暂无里程碑记录</text>
-        </view>
-      </t-tab-panel>
-    </t-tabs>
+      <t-cell-group title="当前身体指标" theme="card" style="margin-top: 24rpx;">
+        <t-cell title="当前体重" note="{{currentBaby.currentWeight || '-'}}" />
+        <t-cell title="当前身高" note="{{currentBaby.currentHeight || '-'}}" />
+      </t-cell-group>
+    </view>
   </view>
 </view>
